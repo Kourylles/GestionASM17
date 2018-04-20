@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Gestion ASM17{% endblock %}</title>
+        {% block stylesheets %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        {#<style type="text/css">
+          body { background-color:#DDD; }
+          [class*="col"] { margin-bottom: 20px; }
+        </style>}#}
+
+  </head>
+        {% endblock %} 
+       
+    </head>
+    <body>
+        {% block body %}
+        {% block javascripts %}{% endblock %}
+
+        <div class="container-fluid">
+
+        {# En tête de la page #}
+            <header class="row">
+              <div class="col-sm-12">
+                <img src="LogoBallonsASM17.jpg" alt="Logo ASM17">
+                <h1 align="center">Gestion de l'ASM17</h1>
+              </div>
+            </header>
+
+        {# Barre de Menu #}        
+            {#<div class="col-sm-12">#}
+              <div class="navbar navbar-inverse navbar-fixed-top">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Accueil</a></li>
+                    <li><a href="#">Membres</a></li>
+                    <li><a href="#">Donateurs</a></li>
+                    <li><a href="#">Professionnels</a></li>
+                    <li><a href="#">Bureau</a></li>
+                  </ul>
+              </div>
+            
+            {#</div>}
+        {# Partie contanant les 4 tableaux d'informations Membres, Donateurs, Recettes et Dépenses #}
+              <div class="row">
+                <h2> Physionomie de l'association :</h2>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-sm-3">
+                    <table class="table table-bordered table-striped ">
+                      <tbody>
+                        <thead>
+                          <tr >
+                            <th colspan="2" style="text-align:center;">MEMBRES</th>
+                          </tr>
+                        </thead>
+                          <tr>
+                            <td colspan="2" style="text-align:center;">{{NbreMembre}}</td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:center;">A jour de cotisation </td>
+                            <td style="text-align:center;">Non à jour de cotisation</td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:center;">{{NbreMembreOkCoti}}</td>
+                            <td style="text-align:center;">{{NbreMembreNokCoti}}</td>
+                          </tr>
+                      </tbody>        
+                    </table>
+              </div>
+                <div class="col-sm-3">
+                    <table class="table table-bordered table-striped ">
+                      <tbody>
+                        <thead>
+                          <tr >
+                            <th colspan="2" style="text-align:center;">DONATEURS</th>
+                          </tr>
+                        </thead>
+                          <tr>
+                            <td colspan="2" style="text-align:center;">{{NbreDonateur}}</td>
+                          </tr>
+                      </tbody>        
+                    </table>
+                </div>
+                <div class="col-sm-3">
+                    <table class="table table-bordered table-striped ">
+                      <tbody>
+                        <thead>
+                          <tr >
+                            <th colspan="4" style="text-align:center;">RECETTES</th>
+                          </tr>
+                        </thead>
+                          <tr>
+                            <td colspan="4" style="text-align:center;">{{TotalRecette}}</td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:center;">Cotisations</td>
+                            <td style="text-align:center;">Dons</td>
+                            <td style="text-align:center;">Recettes</td>
+                            <td style="text-align:center;">Subventions</td>
+                            
+                          </tr>
+                          <tr>
+                            <td style="text-align:center;">{{TotalCoti}}</td>
+                            <td style="text-align:center;">{{TotalDon}}</td>
+                            <td style="text-align:center;">{{TotalRecette}}</td>
+                            <td style="text-align:center;">{{TotalSubvention}}</td>
+                          </tr>
+                      </tbody>        
+                    </table>
+                </div>
+                  <div class="col-sm-3">
+                      <table class="table table-bordered table-striped ">
+                        <tbody>
+                          <thead>
+                            <tr >
+                              <th colspan="2" style="text-align:center;">DEPENSES</th>
+                            </tr>
+                          </thead>
+                            <tr>
+                              <td colspan="2" style="text-align:center;">{{TotalDepense}}</td>
+                            </tr>
+                        </tbody>        
+                      </table>
+                </div>
+              </div>
+            {# ¨Partie contenant les anniverssaires à venir #}
+            <br>
+            <br>
+            <div class="row">
+                <h2> Anniversaires à venir :</h2>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-12">
+                <table class="table table-bordered table-striped ">
+                      <tbody>
+                        <thead>
+                          <tr>
+                            <th style="text-align:center;">DATE DE NAISSANCE</th>
+                            <th style="text-align:center;">AGE</th>
+                            <th style="text-align:center;">PRENOM ET NOM</th>
+                            <th style="text-align:center;">ADRESSE</th>
+                            <th style="text-align:center;">CP</th>
+                            <th style="text-align:center;">VILLE</th>
+                            
+                          </tr>
+                        </thead>
+                          
+                          <tr>
+                            <td style="text-align:center;">31/12/2004</td>
+                            <td style="text-align:center;">13 ANS</td>
+                            <td style="text-align:center;">Antoine GOUTOULLI</td>
+                            <td style="text-align:center;">34 RUE BOIZARD</td>
+                            <td style="text-align:center;">37700</td>
+                            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:center;">31/12/2004</td>
+                            <td style="text-align:center;">13 ANS</td>
+                            <td style="text-align:center;">Antoine GOUTOULLI</td>
+                            <td style="text-align:center;">34 RUE BOIZARD</td>
+                            <td style="text-align:center;">37700</td>
+                            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
+                          </tr>
+                      </tbody>        
+                    </table>
+              </div>
+              </div>
+              </div>
+            </div>
+          {# Ligne de séparation #}  
+          <hr>
+          {# Pied de page #}
+          <footer>
+            <p align="center">Dévelloppé par Lionel Goutoulli : lionel.goutoulli@gmail.com</p>
+          </footer>
+        </div>
+        {% endblock %} 
+    </body>
+</html>
