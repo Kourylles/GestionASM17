@@ -1,8 +1,8 @@
 # GestionASM17/config/routes.yaml
 
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+membres:
+    path: /membres
+    controller: App\Controller\DefaultController::membres
 
 accueil:
     path : /accueil
