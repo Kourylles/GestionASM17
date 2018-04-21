@@ -15,22 +15,22 @@
         {% endblock %} 
   <body>
         <div class="container-fluid">
-
         {# En tête de la page #}
           {# Barre de Menu #} 
             <header class="row">
               <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <a class="navbar-brand" href="#">Gestion ASM17</a>
+                <img src="{{ asset('images/logoballon.png') }}" alt="Logo ASM17!"/>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="/accueil">ACCUEIL<span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{{ path('accueil') }}">ACCUEIL<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/membres">MEMBRES</a>
+                      <a class="nav-link" href="{{ path('membres') }}">MEMBRES</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">DONATEURS</a>
@@ -48,7 +48,9 @@
                   </form>
                 </div>
               </nav>
+              
             </header>
+            
             {% block body %}
             {% endblock %} 
             {# Ligne de séparation #}  
