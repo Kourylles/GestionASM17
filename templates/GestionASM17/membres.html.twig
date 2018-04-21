@@ -9,25 +9,33 @@
               </div>
               <br>
               <div class="row">
-              <div class="col-sm-3">
+              <div class="col-sm-12">
                 <table class="table table-bordered table-striped ">
                   <tbody>
                     <thead>
                       <tr >
-                        <th colspan="2" style="text-align:center;">MEMBRES</th>
-                          </tr>
+                        <th style="text-align:center;">NOM</th>
+                        <th style="text-align:center;">PRENOM</th>
+                        <th style="text-align:center;">ADRESSE</th>
+                        <th style="text-align:center;">CP</th>
+                        <th style="text-align:center;">VILLE</th>
+                        <th style="text-align:center;">MAIL</th>
+                        <th style="text-align:center;">ETAT COTISATION</th>
+                        <th style="text-align:center;">DERNIERE COTISATION</th>
+                      </tr>
                     </thead>
+                    {% for nb_user in 1..NbreMembre %}
                       <tr>
-                        <td colspan="2" style="text-align:center;">blab</td>
+                        <td style="text-align:center;">{{NomMembre}}</td>
+                        <td style="text-align:center;">{{PrenomMembre}}</td>
+                        <td style="text-align:center;">{{AdresseMembre}}</td>
+                        <td style="text-align:center;">{{CpAdresseMembre}}</td>
+                        <td style="text-align:center;">{{VilleAdresseMembre}}</td>
+                        <td style="text-align:center;">{{MailMembre}}</td>
+                        <td style="text-align:center;">{{EtatCotiMembre}}</td>
+                        <td style="text-align:center;">{{DatePaiementCotiMembre}}</td>
                       </tr>
-                      <tr>
-                        <td style="text-align:center;">A jour de cotisation </td>
-                        <td style="text-align:center;">Non à jour de cotisation</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align:center;">blab</td>
-                        <td style="text-align:center;">blab</td>
-                      </tr>
+                    {% endfor %}
                   </tbody>        
                 </table>
 {% endblock %}
