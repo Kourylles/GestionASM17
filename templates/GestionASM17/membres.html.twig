@@ -4,39 +4,45 @@
 {% block body %}
 
         {# Partie contanant les 4 tableaux d'informations Membres, Donateurs, Recettes et Dépenses #}
-              <div class="row">
-                <h2> Les membres de l'associations :</h2>
-              </div>
-              <br>
-              <div class="row">
-              <div class="col-sm-12">
-                <table class="table table-bordered table-striped ">
-                  <tbody>
-                    <thead>
-                      <tr >
-                        <th style="text-align:center;">NOM</th>
-                        <th style="text-align:center;">PRENOM</th>
-                        <th style="text-align:center;">ADRESSE</th>
-                        <th style="text-align:center;">CP</th>
-                        <th style="text-align:center;">VILLE</th>
-                        <th style="text-align:center;">MAIL</th>
-                        <th style="text-align:center;">ETAT COTISATION</th>
-                        <th style="text-align:center;">DERNIERE COTISATION</th>
-                      </tr>
-                    </thead>
-                    {% for nb_user in 1..NbreMembre %}
-                      <tr>
-                        <td style="text-align:center;">{{NomMembre}}</td>
-                        <td style="text-align:center;">{{PrenomMembre}}</td>
-                        <td style="text-align:center;">{{AdresseMembre}}</td>
-                        <td style="text-align:center;">{{CpAdresseMembre}}</td>
-                        <td style="text-align:center;">{{VilleAdresseMembre}}</td>
-                        <td style="text-align:center;">{{MailMembre}}</td>
-                        <td style="text-align:center;">{{EtatCotiMembre}}</td>
-                        <td style="text-align:center;">{{DatePaiementCotiMembre}}</td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>        
-                </table>
+              <div class="row" style="margin-top:80px;">
+                <div class="col-sm-1">
+                  <ul> 
+                    <li>Ajouter</li>
+                    <li>Modifier</li>
+                  </ul>
+                </div>
+                  <div class="col-sm-11">
+                    <table class="table table-bordered table-striped ">
+                      <tbody>
+                        <thead>
+                          <tr >
+                            <th style="text-align:center;">NOM</th>
+                            <th style="text-align:center;">PRENOM</th>
+                            <th style="text-align:center;">ADRESSE</th>
+                            <th style="text-align:center;">CP</th>
+                            <th style="text-align:center;">VILLE</th>
+                            <th style="text-align:center;">MAIL</th>
+                            <th style="text-align:center;">ETAT COTISATION</th>
+                            <th style="text-align:center;">DERNIERE COTISATION</th>
+                          </tr>
+                        </thead>
+                        {% for nb_user in 1..NbreMembre %}
+                          <tr>
+                            <td style="text-align:center;">{{NomMembre}}</td>
+                            <td style="text-align:center;">{{PrenomMembre}}</td>
+                            <td style="text-align:center;">{{AdresseMembre}}</td>
+                            <td style="text-align:center;">{{CpAdresseMembre}}</td>
+                            <td style="text-align:center;">{{VilleAdresseMembre}}</td>
+                            <td style="text-align:center;">{{MailMembre}}</td>
+                            <td style="text-align:center;">{{EtatCotiMembre}}</td>
+                            <td style="text-align:center;">{{DatePaiementCotiMembre}}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>      
+                    </table>
+                  </div>
+                </div>
+             
+              
 {% endblock %}
 
