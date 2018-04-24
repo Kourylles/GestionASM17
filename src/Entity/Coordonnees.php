@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +57,16 @@ class Coordonnees
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $mail;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Personne", mappedBy="coordonnees")
+     */
+    private $personnes;
+
+    public function __construct()
+    {
+        $this->personnes = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -153,6 +165,37 @@ class Coordonnees
     public function setMail(?string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Personne[]
+     */
+    public function getPersonnes(): Collection
+    {
+        return $this->personnes;
+    }
+
+    public function addPersonne(Personne $personne): self
+    {
+        if (!$this->personnes->contains($personne)) {
+            $this->personnes[] = $personne;
+            $personne->setCoordonnees($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonne(Personne $personne): self
+    {
+        if ($this->personnes->contains($personne)) {
+            $this->personnes->removeElement($personne);
+            // set the owning side to null (unless already changed)
+            if ($personne->getCoordonnees() === $this) {
+                $personne->setCoordonnees(null);
+            }
+        }
 
         return $this;
     }

@@ -37,6 +37,12 @@ class Personne
      */
     private $typePersonne;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees", inversedBy="personnes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $coordonnees;
+
     // Getters et Setters
 
     public function getId()
@@ -88,6 +94,18 @@ class Personne
     public function setTypePersonne(?TypePersonne $typePersonne): self
     {
         $this->typePersonne = $typePersonne;
+
+        return $this;
+    }
+
+    public function getCoordonnees(): ?Coordonnees
+    {
+        return $this->coordonnees;
+    }
+
+    public function setCoordonnees(?Coordonnees $coordonnees): self
+    {
+        $this->coordonnees = $coordonnees;
 
         return $this;
     }
