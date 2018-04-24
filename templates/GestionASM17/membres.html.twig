@@ -1,17 +1,18 @@
 {# GestionASM17/templates/GestionASM17/membres.html/twig#}
 
 {% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Membres{% endblock %}
 {% block body %}
 
         {# Partie contanant les 4 tableaux d'informations Membres, Donateurs, Recettes et Dépenses #}
               <div class="row" style="margin-top:80px;">
-                <div class="col-sm-1">
-                  <ul> 
-                    <li>Ajouter</li>
-                    <li>Modifier</li>
-                  </ul>
+                <div class="col-sm-1 col-lg-1">
+                  <div class="btn-group-vertical">
+                    <button class="btn btn-primary btn-lg">Ajouter</button>
+                    <button class="btn btn-primary btn-lg">Modifier</button>
+                  </div>
                 </div>
-                  <div class="col-sm-11">
+                  <div class="col-sm-11 col-lg-11">
                     <table class="table table-bordered table-striped ">
                       <tbody>
                         <thead>
@@ -28,7 +29,7 @@
                         </thead>
                         {% for nb_user in 1..NbreMembre %}
                           <tr>
-                            <td style="text-align:center;">{{NomMembre}}</td>
+                            <td style="text-align:center;"><a href=#>{{NomMembre}}</a></td>
                             <td style="text-align:center;">{{PrenomMembre}}</td>
                             <td style="text-align:center;">{{AdresseMembre}}</td>
                             <td style="text-align:center;">{{CpAdresseMembre}}</td>

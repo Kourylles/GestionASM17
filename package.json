@@ -1,13 +1,21 @@
 {
-    "devDependencies": {
-        "@symfony/webpack-encore": "^0.17.0"
-    },
-    "license": "UNLICENSED",
-    "private": true,
-    "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production"
+  "name": "yarn",
+  "installationMethod": "msi",
+  "version": "1.6.0",
+  "license": "BSD-2-Clause",
+  "preferGlobal": true,
+  "description": "📦🐈 Fast, reliable, and secure dependency management.",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "repository": "yarnpkg/yarn",
+  "bin": {
+    "yarn": "./bin/yarn.js",
+    "yarnpkg": "./bin/yarn.js"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
+  }
 }
