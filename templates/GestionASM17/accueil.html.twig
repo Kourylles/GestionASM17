@@ -1,163 +1,181 @@
 {#GestionASM17/templates/GestionASM17/accueil.html.twig #}
 {% extends 'base.html.twig' %}
 {% block body%}
-        {# Partie contanant les 4 tableaux d'informations Membres, Donateurs, Recettes et Dépenses #}
-              <div class=" panel panel-info" style="margin-top:80px">
-                <div class="panel-heading">
-                <h3 class="panel-title">Physionomie de l'association :</h3>
-              </div>
-              <div class="panel-body" style="padding:10px">
-                <div class="row">
-              <div class=" col-lg-3 col-sm-3">
-                <table class="table table-bordered table-striped ">
-                  <tbody>
-                    <thead>
-                      <tr >
-                        <th colspan="2" style="text-align:center;">MEMBRES</th>
-                          </tr>
-                    </thead>
-                      <tr>
-                        <td colspan="2" style="text-align:center;">{{NbreMembre}}</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align:center;">A jour</td>
-                        <td style="text-align:center;">Non à jour</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align:center;">{{NbreMembreOkCoti}}</td>
-                        <td style="text-align:center;">{{NbreMembreNokCoti}}</td>
-                      </tr>
-                  </tbody>        
-                </table>
-              </div>
-                <div class=" col-lg-2 col-sm-2">
-                    <table class="table table-bordered table-striped ">
-                      <tbody>
-                        <thead>
-                          <tr >
-                            <th colspan="2" style="text-align:center;">DONATEURS</th>
-                          </tr>
-                        </thead>
-                          <tr>
-                            <td colspan="2" style="text-align:center;">{{NbreDonateur}}</td>
-                          </tr>
-                      </tbody>        
-                    </table>
-                </div>
-                <div class="col-lg-4 col-sm-4">
-                    <table class="table table-bordered table-striped ">
-                      <tbody>
-                        <thead>
-                          <tr >
-                            <th colspan="4" style="text-align:center;">RECETTES</th>
-                          </tr>
-                        </thead>
-                          <tr>
-                            <td colspan="4" style="text-align:center;">{{TotalRecette}}</td>
-                          </tr>
-                          <tr>
-                            <td style="text-align:center;">Cotisations</td>
-                            <td style="text-align:center;">Dons</td>
-                            <td style="text-align:center;">Recettes</td>
-                            <td style="text-align:center;">Subventions</td>
-                          </tr>
-                          <tr>
-                            <td style="text-align:center;">{{TotalCoti}}</td>
-                            <td style="text-align:center;">{{TotalDon}}</td>
-                            <td style="text-align:center;">{{TotalRecette}}</td>
-                            <td style="text-align:center;">{{TotalSubvention}}</td>
-                          </tr>
-                      </tbody>        
-                    </table>
-                </div>
-                  <div class="col-lg-3 col-sm-3">
-                      <table class="table table-bordered table-striped ">
-                        <tbody>
-                          <thead>
-                            <tr >
-                              <th colspan="2" style="text-align:center;">DEPENSES</th>
-                            </tr>
-                          </thead>
-                            <tr>
-                              <td colspan="2" style="text-align:center;">{{TotalDepense}}</td>
-                            </tr>
-                        </tbody>        
-                      </table>
-                  </div>
-              </div>
-            </div>
-          
-              
-            {# ¨Partie contenant les anniverssaires à venir #}
-            <br>
-            <br>
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <h3 class="panel-title">Anniversaires à venir :</h3>
-              </div>
-                <div class="panel-body" style="padding:10px">
-                  <table class="table table-bordered table-striped ">
-                        <tbody>
-                          <thead>
-                            <tr>
-                              <th style="text-align:center;">DATE DE NAISSANCE</th>
-                              <th style="text-align:center;">AGE</th>
-                              <th style="text-align:center;">PRENOM ET NOM</th>
-                              <th style="text-align:center;">ADRESSE</th>
-                              <th style="text-align:center;">CP</th>
-                              <th style="text-align:center;">VILLE</th>
-                              
-                            </tr>
-                          </thead>
-                            
-                            <tr>
-                              <td style="text-align:center;">31/12/2004</td>
-                              <td style="text-align:center;">13 ANS</td>
-                              <td style="text-align:center;">Antoine GOUTOULLI</td>
-                              <td style="text-align:center;">34 RUE BOIZARD</td>
-                              <td style="text-align:center;">37700</td>
-                              <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-                            </tr>
-                            <tr>
-                              <td style="text-align:center;">31/12/2004</td>
-                              <td style="text-align:center;">13 ANS</td>
-                              <td style="text-align:center;">Antoine GOUTOULLI</td>
-                              <td style="text-align:center;">34 RUE BOIZARD</td>
-                              <td style="text-align:center;">37700</td>
-                              <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-                            </tr>
-                            <tr>
-                              <td style="text-align:center;">31/12/2004</td>
-                              <td style="text-align:center;">13 ANS</td>
-                              <td style="text-align:center;">Antoine GOUTOULLI</td>
-                              <td style="text-align:center;">34 RUE BOIZARD</td>
-                              <td style="text-align:center;">37700</td>
-                              <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-                            </tr>
-                            <tr>
-                              <td style="text-align:center;">31/12/2004</td>
-                              <td style="text-align:center;">13 ANS</td>
-                              <td style="text-align:center;">Antoine GOUTOULLI</td>
-                              <td style="text-align:center;">34 RUE BOIZARD</td>
-                              <td style="text-align:center;">37700</td>
-                              <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-                            </tr>
-                            <tr>
-                              <td style="text-align:center;">31/12/2004</td>
-                              <td style="text-align:center;">13 ANS</td>
-                              <td style="text-align:center;">Antoine GOUTOULLI</td>
-                              <td style="text-align:center;">34 RUE BOIZARD</td>
-                              <td style="text-align:center;">37700</td>
-                              <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-                            </tr>
-                        </tbody>        
-                      </table>
-              {#</div>
-              </div>
-              </div>
-            </div> #}
+{# Div1 qui contient l'ensemble de la page #}
+<div>
+<h3 class="panel-title">Physionomie de l'association :</h3>
+{# Div2 qui contient les deux tableaux : membres/donateurs et recettes/depenses #}
+  <div class="row">
+{# Div3 qui contient les deux tableaux : membres/donateurs et recettes/depenses pour le respponsive design  #}
+    <div class=" col-lg-5 col-sm-5">
+{# Div4 qui contient le tableau membres/donateurs #}
+      <table class="table table-bordered table-striped ">
+        <tbody>
+          <thead>
+            <tr >
+              <th  style="text-align:center;">MEMBRES</th>
+              <th  style="text-align:center;">DONATEURS</th>
+            </tr>
+          </thead>
+          <tr>
+            <td style="text-align:center;">
+              <button type="button" class="btn-sm btn-secondary btn-block">
+                Nombre de Membres :
+                <span class="badge badge-light">{{NbreMembre}}</span>
+              </button>
+            </td>
+            <td colspan="2" style="text-align:center;">
+              <button type="button" class="btn-sm btn-secondary btn-block">
+                Nombre de Donateurs :
+                <span class="badge badge-light">{{NbreDonateur}}</span>
+              </button>
+            </td>
+              </tr>
+          <tr>
+            <td style="text-align:center;">
+              <button type="button" class="btn-sm btn-success btn-block">
+              A jour de Cotisation :
+              <span class="badge badge-light">{{NbreMembreOkCoti}}</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">
+              <button type="button" class="btn-sm btn-danger btn-block">
+                Non à Jour de Cotisation :
+                <span class="badge badge-light">{{NbreMembreNokCoti}}</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>        
+      </table>
+    </div>{# Fin DIV4 #}
+{# Tableau récupérant les Recettes et les Dépenses depuis la base de données #}
+{# DIV5 qui contient le tableau recettes/depenses #}
+  <div class="col-lg-6 col-sm-6 offset-lg-1 offset-sm-1">
+    <table class="table table-bordered table-striped ">
+      <tbody>
+        <thead>
+          <tr >
+            <th colspan="4" style="text-align:center;">RECETTES</th>
+            <th style="text-align:center;">DEPENSES</th>
+          </tr>
+        </thead>
+          <tr>
+            <td colspan="4">
+              <button type="button" class="btn-sm btn-secondary btn-block">
+                Total des Recettes :
+                <span class="badge badge-light">{{TotalRecette}}</span>
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn-sm btn-secondary btn-block">
+                Total des Dépenses :
+                <span class="badge badge-light">{{TotalDepense}}</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">Cotisations</td>
+            <td style="text-align:center;">Dons</td>
+            <td style="text-align:center;">Recettes</td>
+            <td style="text-align:center;">Subventions</td>
+          </tr>
+            <tr>
+              <td>
+                <button type="button" class="btn-sm btn-secondary btn-block">
+                  Total :
+                  <span class="badge badge-light">{{TotalCoti}}</span>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn-sm btn-secondary btn-block">
+                  Total :
+                  <span class="badge badge-light">{{TotalDon}}</span>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn-sm btn-secondary btn-block">
+                  Total :
+                  <span class="badge badge-light">{{TotalRecette}}</span>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn-sm btn-secondary btn-block">
+                  Total :
+                  <span class="badge badge-light">{{TotalSubvention}}</span>
+                </button>
+              </td>
+            </tr>
+        </tbody>        
+      </table>
+  </div> {# Fin DIV5 #}
+  </div> {# Fin DIV3 #}
+</div> {# Fin DIV2 #}
 
-            </div>
-            </div>
+<br>
+<br>
+{# Partie contenant les anniverssaires à venir #}
+{# DIV6 qui contient le tableau des anniverssaires à venir #}
+<div>
+  <h3 class="panel-title">Anniversaires à venir :</h3>
+    <table class="table table-bordered table-striped ">
+      <tbody>
+        <thead>
+          <tr>
+            <th style="text-align:center;">DATE DE NAISSANCE</th>
+            <th style="text-align:center;">AGE</th>
+            <th style="text-align:center;">PRENOM ET NOM</th>
+            <th style="text-align:center;">ADRESSE</th>
+            <th style="text-align:center;">CP</th>
+            <th style="text-align:center;">VILLE</th>
+          </tr>
+        </thead>
+          <tr>
+            <td style="text-align:center;">31/12/2004</td>
+            <td style="text-align:center;">13 ANS</td>
+            <td style="text-align:center;">Antoine GOUTOULLI</td>
+            <td style="text-align:center;">34 RUE BOIZARD</td>
+            <td style="text-align:center;">37700</td>
+            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">31/12/2004</td>
+            <td style="text-align:center;">13 ANS</td>
+            <td style="text-align:center;">Antoine GOUTOULLI</td>
+            <td style="text-align:center;">34 RUE BOIZARD</td>
+            <td style="text-align:center;">37700</td>
+            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">31/12/2004</td>
+            <td style="text-align:center;">13 ANS</td>
+            <td style="text-align:center;">Antoine GOUTOULLI</td>
+            <td style="text-align:center;">34 RUE BOIZARD</td>
+            <td style="text-align:center;">37700</td>
+            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">31/12/2004</td>
+            <td style="text-align:center;">13 ANS</td>
+            <td style="text-align:center;">Antoine GOUTOULLI</td>
+            <td style="text-align:center;">34 RUE BOIZARD</td>
+            <td style="text-align:center;">37700</td>
+            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">31/12/2004</td>
+            <td style="text-align:center;">13 ANS</td>
+            <td style="text-align:center;">Antoine GOUTOULLI</td>
+            <td style="text-align:center;">34 RUE BOIZARD</td>
+            <td style="text-align:center;">37700</td>
+            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
+          </tr>
+      </tbody>        
+    </table>
+  <br>
+</div> {# Fin DIV6 #}
+</div> {# Fin DIV1 #}
+             
 {% endblock %}
           
