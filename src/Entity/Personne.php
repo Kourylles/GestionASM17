@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonneRepository")
  */
-class Personne
+abstract class Personne
 {
     /**
      * @ORM\Id()
@@ -42,6 +42,18 @@ class Personne
      * @ORM\JoinColumn(nullable=false)
      */
     private $coordonnees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parente")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typeParente;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\FonctionCA", inversedBy="personnes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $fonctionCa;
 
     // Getters et Setters
 
@@ -106,6 +118,30 @@ class Personne
     public function setCoordonnees(?Coordonnees $coordonnees): self
     {
         $this->coordonnees = $coordonnees;
+
+        return $this;
+    }
+
+    public function getTypeParente(): ?Parente
+    {
+        return $this->typeParente;
+    }
+
+    public function setTypeParente(?Parente $typeParente): self
+    {
+        $this->typeParente = $typeParente;
+
+        return $this;
+    }
+
+    public function getFonctionCa(): ?FonctionCA
+    {
+        return $this->fonctionCa;
+    }
+
+    public function setFonctionCa(?FonctionCA $fonctionCa): self
+    {
+        $this->fonctionCa = $fonctionCa;
 
         return $this;
     }
