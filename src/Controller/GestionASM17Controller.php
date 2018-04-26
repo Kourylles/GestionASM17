@@ -4,12 +4,17 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Personne;
 
 class GestionASM17Controller extends Controller
 {
     public function accueil()
     {
-        $NbreMembre = "BDD";
+        $NbreMembre= $this->getDoctrine()
+        ->getRepository(Personne::class)
+        ->CountTypePersonne(1);
+    
+        //$NbreMembre = "BDD";
         $NbreMembreOkCoti = "BDD";
         $NbreMembreNokCoti ="Calcul";
         $NbreDonateur ="BDD";
