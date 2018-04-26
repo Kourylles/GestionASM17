@@ -28,6 +28,12 @@ class Membre
      */
     private $smithLie;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Personne", inversedBy="membre", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $personne;
+
     public function __construct()
     {
         $this->cotisation = new ArrayCollection();
@@ -77,6 +83,18 @@ class Membre
     public function setSmithLie(?Smith $smithLie): self
     {
         $this->smithLie = $smithLie;
+
+        return $this;
+    }
+
+    public function getPersonne(): ?Personne
+    {
+        return $this->personne;
+    }
+
+    public function setPersonne(Personne $personne): self
+    {
+        $this->personne = $personne;
 
         return $this;
     }

@@ -55,6 +55,11 @@ abstract class Personne
      */
     private $fonctionCa;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Membre", mappedBy="personne", cascade={"persist", "remove"})
+     */
+    private $membre;
+
     // Getters et Setters
 
     public function getId()
@@ -142,6 +147,23 @@ abstract class Personne
     public function setFonctionCa(?FonctionCA $fonctionCa): self
     {
         $this->fonctionCa = $fonctionCa;
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(Membre $membre): self
+    {
+        $this->membre = $membre;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $membre->getPersonne()) {
+            $membre->setPersonne($this);
+        }
 
         return $this;
     }

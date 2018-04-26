@@ -19,6 +19,26 @@ class MembreRepository extends ServiceEntityRepository
         parent::__construct($registry, Membre::class);
     }
 
+
+
+
+
+
+    
+     /**
+     * @param 
+     * @return NombreDeMembre(int)
+     */
+    public function CountByMembre()
+    {
+    
+        $qb = $this->createQueryBuilder('e');
+ 
+    $qb ->select($qb->expr()->count('e'));
+ 
+    return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Membre[] Returns an array of Membre objects
 //     */

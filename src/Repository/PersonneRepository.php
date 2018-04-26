@@ -29,9 +29,9 @@ class PersonneRepository extends ServiceEntityRepository
         // "p" est l'alias de l'entitée Personne à utiliser dans le reste de la requête
         $qb = $this->createQueryBuilder('p')
             ->where('p.typePersonne = :typePersonne')
+            ->setParameter('typePersonne', $typePersonne)
             ->getQuery();
-
-        return $qb->execute();
+        return(int) $qb->execute();
 
         // to get just one result:
         // $product = $qb->setMaxResults(1)->getOneOrNullResult();
