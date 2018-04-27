@@ -19,38 +19,6 @@ class PersonneRepository extends ServiceEntityRepository
         parent::__construct($registry, Personne::class);
     }
 
-    /**
-     * @param $price
-     * @return Product[]
-     */
-    public function CountTypePersonne($typePersonne)
-    {
-    
-        // "p" est l'alias de l'entitée Personne à utiliser dans le reste de la requête
-        $qb = $this->createQueryBuilder('p')
-            ->where('p.typePersonne = :typePersonne')
-            ->setParameter('typePersonne', $typePersonne)
-            ->getQuery();
-        return(int) $qb->execute();
-
-        // to get just one result:
-        // $product = $qb->setMaxResults(1)->getOneOrNullResult();
-    }
-
-
-
-
-    public function countByAccount(Account $account)
-    {
-        $qb = $this->createQueryBuilder('e');
- 
-        $qb ->select($qb->expr()->count('e'))
-            ->where('e.account = :account')
-                ->setParameter('account', $account);
- 
-        return (int) $qb->getQuery()->getSingleScalarResult();
-    }
-
 //    /**
 //     * @return Personne[] Returns an array of Personne objects
 //     */

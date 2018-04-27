@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonneRepository")
  */
-abstract class Personne
+class Personne
 {
     /**
      * @ORM\Id()
@@ -59,6 +61,16 @@ abstract class Personne
      * @ORM\OneToOne(targetEntity="App\Entity\Membre", mappedBy="personne", cascade={"persist", "remove"})
      */
     private $membre;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="personne")
+     */
+    private $recette;
+
+    public function __construct()
+    {
+        $this->recette = new ArrayCollection();
+    }
 
     // Getters et Setters
 
@@ -163,6 +175,37 @@ abstract class Personne
         // set the owning side of the relation if necessary
         if ($this !== $membre->getPersonne()) {
             $membre->setPersonne($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Recette[]
+     */
+    public function getRecette(): Collection
+    {
+        return $this->recette;
+    }
+
+    public function addRecette(Recette $recette): self
+    {
+        if (!$this->recette->contains($recette)) {
+            $this->recette[] = $recette;
+            $recette->setPersonne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): self
+    {
+        if ($this->recette->contains($recette)) {
+            $this->recette->removeElement($recette);
+            // set the owning side to null (unless already changed)
+            if ($recette->getPersonne() === $this) {
+                $recette->setPersonne(null);
+            }
         }
 
         return $this;

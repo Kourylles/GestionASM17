@@ -97,4 +97,11 @@ class Smith
 
         return $this;
     }
+
+    public function getAgeSmith()
+    {
+        $dateInterval = $this->dateNaissance->diff(new \DateTime());
+ 
+        return $dateInterval->y;
+    }
 }

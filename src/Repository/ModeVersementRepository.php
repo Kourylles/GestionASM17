@@ -2,38 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Membre;
+use App\Entity\ModeVersement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Membre|null find($id, $lockMode = null, $lockVersion = null)
- * @method Membre|null findOneBy(array $criteria, array $orderBy = null)
- * @method Membre[]    findAll()
- * @method Membre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ModeVersement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ModeVersement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ModeVersement[]    findAll()
+ * @method ModeVersement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MembreRepository extends ServiceEntityRepository
+class ModeVersementRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Membre::class);
+        parent::__construct($registry, ModeVersement::class);
     }
-    
-     /**
-     * @param 
-     * @return NombreDeMembre(int)
-     */
-    public function CountByMembre()
-    {
-        $qb = $this->createQueryBuilder('m');
-        $qb ->select($qb->expr()->count('m'));
- 
-    return (int) $qb->getQuery()->getSingleScalarResult();
-    }
-
 
 //    /**
-//     * @return Membre[] Returns an array of Membre objects
+//     * @return ModeVersement[] Returns an array of ModeVersement objects
 //     */
     /*
     public function findByExampleField($value)
@@ -50,7 +37,7 @@ class MembreRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Membre
+    public function findOneBySomeField($value): ?ModeVersement
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')
