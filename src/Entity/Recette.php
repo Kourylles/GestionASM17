@@ -16,178 +16,145 @@ class Recette
      */
     private $id;
 
+    
+    /**
+     * @ORM\Column(type="string", length=4)
+     */
+    private $exerciceComptableRecette;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $descriptionRecette;
+
     /**
      * @ORM\Column(type="date")
      */
-    private $DatePaiement;
+    private $datePaiementRecette;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $montant;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $anneeExercice;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $observation;
+    private $montantRecette;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numTitrePaiement;
+    private $numTitrePaiementRecette;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $numRemise;
+    private $numRemiseDeChequeRecette;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $etatRapprochement;
+    private $etatRapprochementRecette;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $numReleveCompte;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeDeRecette", inversedBy="recettes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $typeDeRecette;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Personne", inversedBy="recette")
-     */
-    private $personne;
+    private $numReleveCompteRecette;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getDatePaiement(): ?\DateTimeInterface
+
+    public function getExerciceComptableRecette(): ?string
     {
-        return $this->DatePaiement;
+        return $this->exerciceComptableRecette;
     }
 
-    public function setDatePaiement(\DateTimeInterface $DatePaiement): self
+    public function setExerciceComptableRecette(string $ExerciceComptableRecette): self
     {
-        $this->DatePaiement = $DatePaiement;
+        $this->exerciceComptableRecette = $ExerciceComptableRecette;
 
         return $this;
     }
 
-    public function getMontant(): ?float
+    public function getDescriptionRecette(): ?string
     {
-        return $this->montant;
+        return $this->descriptionRecette;
     }
 
-    public function setMontant(float $montant): self
+    public function setDescriptionRecette(?string $DescriptionRecette): self
     {
-        $this->montant = $montant;
+        $this->descriptionRecette = $DescriptionRecette;
 
         return $this;
     }
 
-    public function getAnneeExercice(): ?int
+    public function getDatePaiementRecette(): ?\DateTimeInterface
     {
-        return $this->anneeExercice;
+        return $this->datePaiementRecette;
     }
 
-    public function setAnneeExercice(int $anneeExercice): self
+    public function setDatePaiementRecette(\DateTimeInterface $DatePaiementRecette): self
     {
-        $this->anneeExercice = $anneeExercice;
+        $this->datePaiementRecette = $DatePaiementRecette;
 
         return $this;
     }
 
-    public function getObservation(): ?string
+    public function getMontantRecette(): ?float
     {
-        return $this->observation;
+        return $this->montantRecette;
     }
 
-    public function setObservation(?string $observation): self
+    public function setMontantRecette(float $MontantRecette): self
     {
-        $this->observation = $observation;
+        $this->montantRecette = $MontantRecette;
 
         return $this;
     }
 
-    public function getNumTitrePaiement(): ?string
+    public function getNumTitrePaiementRecette(): ?string
     {
-        return $this->numTitrePaiement;
+        return $this->numTitrePaiementRecette;
     }
 
-    public function setNumTitrePaiement(string $numTitrePaiement): self
+    public function setNumTitrePaiementRecette(string $NumTitrePaiementRecette): self
     {
-        $this->numTitrePaiement = $numTitrePaiement;
+        $this->numTitrePaiementRecette = $NumTitrePaiementRecette;
 
         return $this;
     }
 
-    public function getNumRemise(): ?string
+    public function getNumRemiseDeChequeRecette(): ?string
     {
-        return $this->numRemise;
+        return $this->numRemiseDeChequeRecette;
     }
 
-    public function setNumRemise(?string $numRemise): self
+    public function setNumRemiseDeChequeRecette(?string $NumRemiseDeChequeRecette): self
     {
-        $this->numRemise = $numRemise;
+        $this->numRemiseDeChequeRecette = $NumRemiseDeChequeRecette;
 
         return $this;
     }
 
-    public function getEtatRapprochement(): ?bool
+    public function getEtatRapprochementRecette(): ?bool
     {
-        return $this->etatRapprochement;
+        return $this->etatRapprochementRecette;
     }
 
-    public function setEtatRapprochement(bool $etatRapprochement): self
+    public function setEtatRapprochementRecette(bool $EtatRapprochementRecette): self
     {
-        $this->etatRapprochement = $etatRapprochement;
+        $this->etatRapprochementRecette = $EtatRapprochementRecette;
 
         return $this;
     }
 
-    public function getNumReleveCompte(): ?string
+    public function getNumReleveCompteRecette(): ?string
     {
-        return $this->numReleveCompte;
+        return $this->numReleveCompteRecette;
     }
 
-    public function setNumReleveCompte(?string $numReleveCompte): self
+    public function setNumReleveCompteRecette(?string $NumReleveCompteRecette): self
     {
-        $this->numReleveCompte = $numReleveCompte;
-
-        return $this;
-    }
-
-    public function getTypeDeRecette(): ?TypeDeRecette
-    {
-        return $this->typeDeRecette;
-    }
-
-    public function setTypeDeRecette(?TypeDeRecette $typeDeRecette): self
-    {
-        $this->typeDeRecette = $typeDeRecette;
-
-        return $this;
-    }
-
-    public function getPersonne(): ?Personne
-    {
-        return $this->personne;
-    }
-
-    public function setPersonne(?Personne $personne): self
-    {
-        $this->personne = $personne;
+        $this->numReleveCompteRecette = $NumReleveCompteRecette;
 
         return $this;
     }

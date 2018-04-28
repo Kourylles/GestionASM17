@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Parente;
+use App\Entity\Professionnel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Parente|null find($id, $lockMode = null, $lockVersion = null)
- * @method Parente|null findOneBy(array $criteria, array $orderBy = null)
- * @method Parente[]    findAll()
- * @method Parente[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Professionnel|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Professionnel|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Professionnel[]    findAll()
+ * @method Professionnel[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ParenteRepository extends ServiceEntityRepository
+class ProfessionnelRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Parente::class);
+        parent::__construct($registry, Professionnel::class);
     }
 
 //    /**
-//     * @return Parente[] Returns an array of Parente objects
+//     * @return Professionnel[] Returns an array of Professionnel objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ParenteRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Parente
+    public function findOneBySomeField($value): ?Professionnel
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

@@ -119,9 +119,9 @@
 {# DIV6 qui contient le tableau des anniverssaires à venir #}
 <div>
   <h3>Anniversaires à venir :</h3>
-  {% for smith in ListeSmith %}
+  {# {% for smith in ListeSmith %}
   {% for membre in ListeMembre %}
-    
+     #}
  
          
     <table class="table table-bordered table-striped ">
@@ -142,16 +142,16 @@
               <td>
                 <button type="button" class="btn-lg btn-success btn-block"></button>
               </td>
-              <td style="text-align:center;">{{smith.dateNaissanceSmith|date('d/m/Y')}} </td>
-              <td style="text-align:center;">	{{ ('now'|date('Y') - smith.dateNaissanceSmith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.dateNaissanceSmith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
-              <td style="text-align:center;">{{smith.prenomSmith}} {{membre.nom}}</td>
+              <td style="text-align:center;">{#{{smith.dateNaissanceSmith|date('d/m/Y')}} #} Date</td>
+              <td style="text-align:center;">	{#{{ ('now'|date('Y') - smith.dateNaissanceSmith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.dateNaissanceSmith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }}#} ANS</td>
+              <td style="text-align:center;">{#{{smith.prenomSmith}}#} Nom associé</td>
               <td style="text-align:center;">34 RUE BOIZARD</td>
               <td style="text-align:center;">37700</td>
               <td style="text-align:center;">SAINT PIERRE DES CORPS</td>  
             </tr>
          
-        {% endfor %}
-        {% endfor %}
+        {# {% endfor %}
+        {% endfor %} #}
 
 
           {# <tr>

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\TypeDeRecette;
+use App\Entity\TypeRecette;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method TypeDeRecette|null find($id, $lockMode = null, $lockVersion = null)
- * @method TypeDeRecette|null findOneBy(array $criteria, array $orderBy = null)
- * @method TypeDeRecette[]    findAll()
- * @method TypeDeRecette[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TypeRecette|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TypeRecette|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TypeRecette[]    findAll()
+ * @method TypeRecette[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypeDeRecetteRepository extends ServiceEntityRepository
+class TypeRecetteRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, TypeDeRecette::class);
+        parent::__construct($registry, TypeRecette::class);
     }
 
 //    /**
-//     * @return TypeDeRecette[] Returns an array of TypeDeRecette objects
+//     * @return TypeRecette[] Returns an array of TypeRecette objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TypeDeRecetteRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?TypeDeRecette
+    public function findOneBySomeField($value): ?TypeRecette
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

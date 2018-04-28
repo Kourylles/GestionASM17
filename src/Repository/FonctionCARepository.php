@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\FonctionCA;
+use App\Entity\FonctionCa;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method FonctionCA|null find($id, $lockMode = null, $lockVersion = null)
- * @method FonctionCA|null findOneBy(array $criteria, array $orderBy = null)
- * @method FonctionCA[]    findAll()
- * @method FonctionCA[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method FonctionCa|null find($id, $lockMode = null, $lockVersion = null)
+ * @method FonctionCa|null findOneBy(array $criteria, array $orderBy = null)
+ * @method FonctionCa[]    findAll()
+ * @method FonctionCa[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FonctionCARepository extends ServiceEntityRepository
+class FonctionCaRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, FonctionCA::class);
+        parent::__construct($registry, FonctionCa::class);
     }
 
 //    /**
-//     * @return FonctionCA[] Returns an array of FonctionCA objects
+//     * @return FonctionCa[] Returns an array of FonctionCa objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class FonctionCARepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?FonctionCA
+    public function findOneBySomeField($value): ?FonctionCa
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.exampleField = :val')

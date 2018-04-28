@@ -4,26 +4,24 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use App\Entity\Personne;
 use App\Entity\Membre;
-use App\Entity\ExerciceComptableDeReference;
-use App\Entity\Smith;
+
 
 class GestionASM17Controller extends Controller
 {
     public function accueil()
     {
-        $ExerciceComptabe = $this->getDoctrine()
-        ->getRepository(ExerciceComptableDeReference::class)
-        ->find(1);
+        // $ExerciceComptabe = $this->getDoctrine()
+        // ->getRepository(ExerciceComptableDeReference::class)
+        // ->find(1);
     /*Récupération des données dans la BDD*/
         //Type de Personne : 1-Membre, 2-Donateur, 3-professionnel
-        $NbreMembre= $this->getDoctrine()
+        $NbreMembre=$this->getDoctrine()
         ->getRepository(Membre::class)
-        ->CountByMembre();
-        $ListeMembre = $this->getDoctrine()
-        ->getRepository(Membre::class)
-        ->findAll();
+        ->countByMembre();
+        // $ListeMembre = $this->getDoctrine()
+        // ->getRepository(Membre::class)
+        // ->findAll();
         $NbreMembreOkCoti = "9999";
         $NbreMembreNokCoti ="Calcul";
         $NbreDonateur ="9999";
@@ -33,15 +31,15 @@ class GestionASM17Controller extends Controller
         $SommeDesRecette="99999";
         $SommeDesSubvention="99999";
         $TotalDepense="99999";
-        $ListeSmith = $this->getDoctrine()
-        ->getRepository(Smith::class)
-        ->findAll();
-        $DatePlusUnMois = date('Y-m-d', strtotime('+1 week'));
+        // $ListeSmith = $this->getDoctrine()
+        // ->getRepository(Smith::class)
+        // ->findAll();
+        // $DatePlusUnMois = date('Y-m-d', strtotime('+1 week'));
 
         return $this->render('GestionASM17/accueil.html.twig', array(
-            'ExerciceComptable'=>$ExerciceComptabe,
+            // 'ExerciceComptable'=>$ExerciceComptabe,
             'NbreMembre'=>$NbreMembre,
-            'ListeMembre'=>$ListeMembre,
+            //'ListeMembre'=>$ListeMembre,
             'NbreMembreOkCoti'=>$NbreMembreOkCoti,
             'NbreMembreNokCoti'=>$NbreMembreOkCoti,
             'NbreDonateur'=>$NbreDonateur,
@@ -50,9 +48,9 @@ class GestionASM17Controller extends Controller
             'SommeDesDon'=>$SommeDesDon,
             'SommeDesRecette'=>$SommeDesRecette,
             'SommeDesSubvention'=>$SommeDesSubvention,
-            'TotalDepense'=>$TotalDepense,
-            'ListeSmith'=>$ListeSmith,
-            'DatePlusUnMois'=>$DatePlusUnMois
+            'TotalDepense'=>$TotalDepense
+            // 'ListeSmith'=>$ListeSmith,
+            // 'DatePlusUnMois'=>$DatePlusUnMois
 
         ));
     }

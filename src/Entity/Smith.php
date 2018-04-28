@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,14 +27,9 @@ class Smith
     private $dateNaissanceSmith;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Membre", mappedBy="smithLie")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $membreLie;
-
-    public function __construct()
-    {
-        $this->membreLie = new ArrayCollection();
-    }
+    private $observationsSmith;
 
     public function getId()
     {
@@ -48,9 +41,9 @@ class Smith
         return $this->prenomSmith;
     }
 
-    public function setPrenomSmith(string $prenomSmith): self
+    public function setPrenomSmith(string $PrenomSmith): self
     {
-        $this->prenomSmith = $prenomSmith;
+        $this->prenomSmith = $PrenomSmith;
 
         return $this;
     }
@@ -60,48 +53,22 @@ class Smith
         return $this->dateNaissanceSmith;
     }
 
-    public function setDateNaissanceSmith(?\DateTimeInterface $dateNaissanceSmith): self
+    public function setDateNaissanceSmith(?\DateTimeInterface $DateNaissanceSmith): self
     {
-        $this->dateNaissanceSmith = $dateNaissanceSmith;
+        $this->dateNaissanceSmith = $DateNaissanceSmith;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Membre[]
-     */
-    public function getMembreLie(): Collection
+    public function getObservationsSmith(): ?string
     {
-        return $this->membreLie;
+        return $this->observationsSmith;
     }
 
-    public function addMembreLie(Membre $membreLie): self
+    public function setObservationsSmith(?string $ObservationsSmith): self
     {
-        if (!$this->membreLie->contains($membreLie)) {
-            $this->membreLie[] = $membreLie;
-            $membreLie->setSmithLie($this);
-        }
+        $this->observationsSmith = $ObservationsSmith;
 
         return $this;
-    }
-
-    public function removeMembreLie(Membre $membreLie): self
-    {
-        if ($this->membreLie->contains($membreLie)) {
-            $this->membreLie->removeElement($membreLie);
-            // set the owning side to null (unless already changed)
-            if ($membreLie->getSmithLie() === $this) {
-                $membreLie->setSmithLie(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getAgeSmith()
-    {
-        $dateInterval = $this->dateNaissance->diff(new \DateTime());
- 
-        return $dateInterval->y;
     }
 }

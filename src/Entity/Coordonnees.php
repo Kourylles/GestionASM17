@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,17 +19,22 @@ class Coordonnees
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adresseLigne1;
+    private $ligneAdr1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adresseLigne2;
+    private $ligneAdr2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ligneAdr3;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private $cp;
+    private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -44,67 +47,74 @@ class Coordonnees
     private $pays;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $telephoneFixe;
+    private $telephone1;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $telephonePortable;
+    private $telephone2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $mail;
+    private $email1;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Personne", mappedBy="coordonnees")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $personnes;
-
-    public function __construct()
-    {
-        $this->personnes = new ArrayCollection();
-    }
+    private $email2;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getAdresseLigne1(): ?string
+    public function getLigneAdr1(): ?string
     {
-        return $this->adresseLigne1;
+        return $this->ligneAdr1;
     }
 
-    public function setAdresseLigne1(?string $adresseLigne1): self
+    public function setLigneAdr1(?string $LigneAdr1): self
     {
-        $this->adresseLigne1 = $adresseLigne1;
+        $this->ligneAdr1 = $LigneAdr1;
 
         return $this;
     }
 
-    public function getAdresseLigne2(): ?string
+    public function getLigneAdr2(): ?string
     {
-        return $this->adresseLigne2;
+        return $this->ligneAdr2;
     }
 
-    public function setAdresseLigne2(?string $adresseLigne2): self
+    public function setLigneAdr2(?string $LigneAdr2): self
     {
-        $this->adresseLigne2 = $adresseLigne2;
+        $this->ligneAdr2 = $LigneAdr2;
 
         return $this;
     }
 
-    public function getCp(): ?string
+    public function getLigneAdr3(): ?string
     {
-        return $this->cp;
+        return $this->ligneAdr3;
     }
 
-    public function setCp(string $cp): self
+    public function setLigneAdr3(?string $LigneAdr3): self
     {
-        $this->cp = $cp;
+        $this->ligneAdr3 = $LigneAdr3;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(string $CodePostal): self
+    {
+        $this->CodePostal = $CodePostal;
 
         return $this;
     }
@@ -114,9 +124,9 @@ class Coordonnees
         return $this->ville;
     }
 
-    public function setVille(string $ville): self
+    public function setVille(string $Ville): self
     {
-        $this->ville = $ville;
+        $this->ville = $Ville;
 
         return $this;
     }
@@ -126,76 +136,57 @@ class Coordonnees
         return $this->pays;
     }
 
-    public function setPays(?string $pays): self
+    public function setPays(?string $Pays): self
     {
-        $this->pays = $pays;
+        $this->pays = $Pays;
 
         return $this;
     }
 
-    public function getTelephoneFixe(): ?string
+    public function getTelephone1(): ?string
     {
-        return $this->telephoneFixe;
+        return $this->telephone1;
     }
 
-    public function setTelephoneFixe(?string $telephoneFixe): self
+    public function setTelephone1(?string $Telephone1): self
     {
-        $this->telephoneFixe = $telephoneFixe;
+        $this->telephone1 = $Telephone1;
 
         return $this;
     }
 
-    public function getTelephonePortable(): ?string
+    public function getTelephone2(): ?string
     {
-        return $this->telephonePortable;
+        return $this->telephone2;
     }
 
-    public function setTelephonePortable(?string $telephonePortable): self
+    public function setTelephone2(?string $Telephone2): self
     {
-        $this->telephonePortable = $telephonePortable;
+        $this->telephone2 = $Telephone2;
 
         return $this;
     }
 
-    public function getMail(): ?string
+    public function getEmail1(): ?string
     {
-        return $this->mail;
+        return $this->email1;
     }
 
-    public function setMail(?string $mail): self
+    public function setEmail1(?string $Email1): self
     {
-        $this->mail = $mail;
+        $this->email1 = $Email1;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Personne[]
-     */
-    public function getPersonnes(): Collection
+    public function getEmail2(): ?string
     {
-        return $this->personnes;
+        return $this->email2;
     }
 
-    public function addPersonne(Personne $personne): self
+    public function setEmail2(?string $Email2): self
     {
-        if (!$this->personnes->contains($personne)) {
-            $this->personnes[] = $personne;
-            $personne->setCoordonnees($this);
-        }
-
-        return $this;
-    }
-
-    public function removePersonne(Personne $personne): self
-    {
-        if ($this->personnes->contains($personne)) {
-            $this->personnes->removeElement($personne);
-            // set the owning side to null (unless already changed)
-            if ($personne->getCoordonnees() === $this) {
-                $personne->setCoordonnees(null);
-            }
-        }
+        $this->email2 = $Email2;
 
         return $this;
     }

@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ModeVersementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LienParenteRepository")
  */
-class ModeVersement
+class LienParente
 {
     /**
      * @ORM\Id()
@@ -19,21 +19,21 @@ class ModeVersement
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $modeVersement;
+    private $lienDeParente;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getModeVersement(): ?string
+    public function getLienDeParente(): ?string
     {
-        return $this->modeVersement;
+        return $this->lienDeParente;
     }
 
-    public function setModeVersement(string $modeVersement): self
+    public function setLienDeParente(string $LienDeParente): self
     {
-        $this->modeVersement = $modeVersement;
+        $this->lienDeParente = $LienDeParente;
 
         return $this;
     }

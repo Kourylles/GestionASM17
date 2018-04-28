@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ParenteRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TypeRecetteRepository")
  */
-class Parente
+class TypeRecette
 {
     /**
      * @ORM\Id()
@@ -19,21 +19,21 @@ class Parente
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $typeParente;
+    private $typeDeRecette;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getTypeParente(): ?string
+    public function getTypeDeRecette(): ?string
     {
-        return $this->typeParente;
+        return $this->typeDeRecette;
     }
 
-    public function setTypeParente(string $typeParente): self
+    public function setTypeDeRecette(string $TypeDeRecette): self
     {
-        $this->typeParente = $typeParente;
+        $this->typeDeRecette = $TypeDeRecette;
 
         return $this;
     }

@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MembreRepository")
  */
-class Membre 
+class Membre
 {
     /**
      * @ORM\Id()
@@ -19,82 +17,57 @@ class Membre
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cotisation", mappedBy="cotisation")
+     * @ORM\Column(type="string", length=255)
      */
-    private $cotisation;
+    private $nomMembre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", inversedBy="membreLie")
+     * @ORM\Column(type="string", length=255)
      */
-    private $smithLie;
+    private $prenomMembre;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Personne", inversedBy="membre", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $personne;
-
-    public function __construct()
-    {
-        $this->cotisation = new ArrayCollection();
-    }
+    private $observationsMembre;
 
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return Collection|Cotisation[]
-     */
-    public function getCotisation(): Collection
+    public function getNomMembre(): ?string
     {
-        return $this->cotisation;
+        return $this->nomMembre;
     }
 
-    public function addCotisation(Cotisation $cotisation): self
+    public function setNomMembre(string $NomMembre): self
     {
-        if (!$this->cotisation->contains($cotisation)) {
-            $this->cotisation[] = $cotisation;
-            $cotisation->setCotisation($this);
-        }
+        $this->nomMembre = $NomMembre;
 
         return $this;
     }
 
-    public function removeCotisation(Cotisation $cotisation): self
+    public function getPrenomMembre(): ?string
     {
-        if ($this->cotisation->contains($cotisation)) {
-            $this->cotisation->removeElement($cotisation);
-            // set the owning side to null (unless already changed)
-            if ($cotisation->getCotisation() === $this) {
-                $cotisation->setCotisation(null);
-            }
-        }
+        return $this->prenomMembre;
+    }
+
+    public function setPrenomMembre(string $PrenomMembre): self
+    {
+        $this->prenomMembre = $prenomMembre;
 
         return $this;
     }
 
-    public function getSmithLie(): ?Smith
+    public function getObservationsMembre(): ?string
     {
-        return $this->smithLie;
+        return $this->observationsMembre;
     }
 
-    public function setSmithLie(?Smith $smithLie): self
+    public function setObservationsMembre(?string $ObservationsMembre): self
     {
-        $this->smithLie = $smithLie;
-
-        return $this;
-    }
-
-    public function getPersonne(): ?Personne
-    {
-        return $this->personne;
-    }
-
-    public function setPersonne(Personne $personne): self
-    {
-        $this->personne = $personne;
+        $this->observationsMembre = $ObservationsMembre;
 
         return $this;
     }

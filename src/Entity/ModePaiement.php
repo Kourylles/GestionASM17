@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\FonctionCaRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ModePaiementRepository")
  */
-class FonctionCa
+class ModePaiement
 {
     /**
      * @ORM\Id()
@@ -19,21 +19,21 @@ class FonctionCa
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $fonctionDansLeCa;
+    private $modeDePaiement;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getFonctionDansLeCa(): ?string
+    public function getModeDePaiement(): ?string
     {
-        return $this->fonctionDansLeCa;
+        return $this->modeDePaiement;
     }
 
-    public function setFonctionDansLeCa(string $FonctionDansLeCa): self
+    public function setModeDePaiement(string $ModeDePaiement): self
     {
-        $this->fonctionDansLeCa = $FonctionDansLeCa;
+        $this->modeDePaiement = $ModeDePaiement;
 
         return $this;
     }

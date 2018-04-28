@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\ExerciceComptableDeReference;
+use App\Entity\ExerciceComptableEnCours;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method ExerciceComptableDeReference|null find($id, $lockMode = null, $lockVersion = null)
- * @method ExerciceComptableDeReference|null findOneBy(array $criteria, array $orderBy = null)
- * @method ExerciceComptableDeReference[]    findAll()
- * @method ExerciceComptableDeReference[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ExerciceComptableEnCours|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ExerciceComptableEnCours|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ExerciceComptableEnCours[]    findAll()
+ * @method ExerciceComptableEnCours[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ExerciceComptableDeReferenceRepository extends ServiceEntityRepository
+class ExerciceComptableEnCoursRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, ExerciceComptableDeReference::class);
+        parent::__construct($registry, ExerciceComptableEnCours::class);
     }
 
 //    /**
-//     * @return ExerciceComptableDeReference[] Returns an array of ExerciceComptableDeReference objects
+//     * @return ExerciceComptableEnCours[] Returns an array of ExerciceComptableEnCours objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ExerciceComptableDeReferenceRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ExerciceComptableDeReference
+    public function findOneBySomeField($value): ?ExerciceComptableEnCours
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')
