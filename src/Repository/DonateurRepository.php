@@ -19,6 +19,17 @@ class DonateurRepository extends ServiceEntityRepository
         parent::__construct($registry, Donateur::class);
     }
 
+        /**
+     * @param 
+     * @return NombreDeDonateur(int)
+     */
+    public function CountByDonateur()
+    {
+        $qb = $this->createQueryBuilder('d');
+        $qb ->select($qb->expr()->count('d'));
+ 
+    return (int) $qb->getQuery()->getSingleScalarResult();
+    }
 //    /**
 //     * @return Donateur[] Returns an array of Donateur objects
 //     */

@@ -18,7 +18,48 @@ class RecetteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recette::class);
     }
+//Récupération des cotisation de l'année d'exercice en cours
 
+public function findNbreRecetteParType($annee, $TypeRecette)
+    {
+        // automatically knows to select Products
+        // the "p" is an alias you'll use in the rest of the query
+        $qb = $this->createQueryBuilder('r')
+            ->addSelect('count(r)')
+            ->getQuery();
+
+        return (int) $qb->getResult();
+    }
+
+//Récupérer la somme total des recettes par type de recette
+
+    public function getSommeTypeRecetteByExComptable($ExerciceComptable)
+        {
+            $qb = $this->createQueryBuilder('r')
+                ->addSelect('r.typeRecette')
+                ->where('r.exerciceComptableRecette = :exCompt')
+                ->setParameter('exCompt',$ExerciceComptable)
+                ->Select('SUM(r.montantRecette) as resultat')
+                ->groupBy('r.typeRecette')
+                ->getQuery()   
+            ;
+
+            return  $qb->getArrayResult();
+        }
+
+    public function getTotalRecetteByExComptable($ExerciceComptable)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->addSelect('r.montantRecette')
+            ->where('r.exerciceComptableRecette = :exCompt')
+            ->setParameter('exCompt',$ExerciceComptable)
+            ->Select('SUM(r.montantRecette) as resultat')
+            ->getQuery()   
+        ;
+
+        return  $qb->getArrayResult();
+    }
+       
 //    /**
 //     * @return Recette[] Returns an array of Recette objects
 //     */

@@ -2,15 +2,15 @@
 {% extends 'base.html.twig' %}
 {% block body%}
 {# Div1 qui contient l'ensemble de la page #}
-<div>
+<div class="table-responsive">
 <h3>Physionomie de l'association :</h3>
 {# Div2 qui contient les deux tableaux : membres/donateurs et recettes/depenses #}
   <div class="row">
 {# Div3 qui contient les deux tableaux : membres/donateurs et recettes/depenses pour le respponsive design  #}
     <div class=" col-lg-5 col-sm-5">
 {# Div4 qui contient le tableau membres/donateurs #}
-      <table class="table table-bordered table-striped ">
-        <tbody>
+      <table class="table table-bordered table-striped">
+        <tbody> 
           <thead class="thead-dark">
             <tr >
               <th  style="text-align:center;">MEMBRES</th>
@@ -20,13 +20,13 @@
           <tr>
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-basic btn-block">
-                Nombre de Membres :
+                Total :
                 <span class="badge badge-light">{{NbreMembre}}</span>
               </button>
             </td>
             <td colspan="2" style="text-align:center;">
               <button type="button" class="btn-lg btn-basic btn-block">
-                Nombre de Donateurs :
+                Total :
                 <span class="badge badge-light">{{NbreDonateur}}</span>
               </button>
             </td>
@@ -34,7 +34,7 @@
           <tr>
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-success btn-block">
-              A jour de Cotisation :
+              A jour  :
               <span class="badge badge-light">{{NbreMembreOkCoti}}</span>
               </button>
             </td>
@@ -42,7 +42,7 @@
           <tr>
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-danger btn-block">
-                Non à Jour de Cotisation :
+                Non à Jour :
                 <span class="badge badge-light">{{NbreMembreNokCoti}}</span>
               </button>
             </td>
@@ -53,7 +53,7 @@
 {# Tableau récupérant les Recettes et les Dépenses depuis la base de données #}
 {# DIV5 qui contient le tableau recettes/depenses #}
   <div class="col-lg-6 col-sm-6 offset-lg-1 offset-sm-1">
-    <table class="table table-bordered table-striped ">
+    <table class="table table-bordered table-striped">
       <tbody>
         <thead class="thead-dark">
           <tr >
@@ -63,15 +63,17 @@
         </thead>
           <tr>
             <td colspan="4">
+            {% for somme in TotalRecette %}       
               <button type="button" class="btn-lg btn-basic btn-block">
-                Total des Recettes :
-                <span class="badge badge-light">{{TotalRecette}}</span>
+                Total :
+                <span class="badge badge-light">{{somme.resultat}} €</span>
               </button>
+            {% endfor %}
             </td>
             <td>
               <button type="button" class="btn-lg btn-basic btn-block">
-                Total des Dépenses :
-                <span class="badge badge-light">{{TotalDepense}}</span>
+                Total :
+                <span class="badge badge-light">{{TotalDepense}} €</span>
               </button>
             </td>
           </tr>
@@ -82,30 +84,13 @@
             <td style="text-align:center;">Subventions</td>
           </tr>
             <tr>
-              <td>
+            {% for typeRecette in SommeParTypeDeRecette %}
+              <td>             
                 <button type="button" class="btn-lg btn-basic btn-block">
-                  {# Total : #}
-                  <span class="badge badge-light">{{SommeDesCoti}}</span>
+                  <span class="badge badge-light">{{typeRecette.resultat}} €</span>
                 </button>
               </td>
-              <td>
-                <button type="button" class="btn-lg btn-basic btn-block">
-                  {# Total : #}
-                  <span class="badge badge-light">{{SommeDesDon}}</span>
-                </button>
-              </td>
-              <td>
-                <button type="button" class="btn-lg btn-basic btn-block">
-                  {# Total : #}
-                  <span class="badge badge-light">{{SommeDesRecette}}</span>
-                </button>
-              </td>
-              <td>
-                <button type="button" class="btn-lg btn-basic btn-block">
-                  {# Total : #}
-                  <span class="badge badge-light">{{SommeDesSubvention}}</span>
-                </button>
-              </td>
+              {% endfor %}
             </tr>
         </tbody>        
       </table>
@@ -117,14 +102,9 @@
 <br>
 {# Partie contenant les anniverssaires à venir #}
 {# DIV6 qui contient le tableau des anniverssaires à venir #}
-<div>
+<div clas="table-responsive">
   <h3>Anniversaires à venir :</h3>
-  {# {% for smith in ListeSmith %}
-  {% for membre in ListeMembre %}
-     #}
- 
-         
-    <table class="table table-bordered table-striped ">
+     <table class="table table-bordered table-striped table-hover">
       <tbody>
         <thead class="thead-dark">
           <tr>
@@ -137,78 +117,25 @@
             <th style="text-align:center;">VILLE</th>
           </tr>
         </thead>
-                   
+         {% for smith in ListeMembreTableauAnnivSmith %}                
             <tr>
-              <td>
-                <button type="button" class="btn-lg btn-success btn-block"></button>
+          {% if smith.coti_ok %}
+              <td align="center">
+                <button type="button" class="btn-lg btn-success"></button>
               </td>
-              <td style="text-align:center;">{#{{smith.dateNaissanceSmith|date('d/m/Y')}} #} Date</td>
-              <td style="text-align:center;">	{#{{ ('now'|date('Y') - smith.dateNaissanceSmith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.dateNaissanceSmith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }}#} ANS</td>
-              <td style="text-align:center;">{#{{smith.prenomSmith}}#} Nom associé</td>
-              <td style="text-align:center;">34 RUE BOIZARD</td>
-              <td style="text-align:center;">37700</td>
-              <td style="text-align:center;">SAINT PIERRE DES CORPS</td>  
-            </tr>
-         
-        {# {% endfor %}
-        {% endfor %} #}
-
-
-          {# <tr>
-            <td>
-              <button type="button" class="btn-lg btn-success btn-block"></button>
-            </td>
-            <td style="text-align:center;">31/12/2004</td>
-            <td style="text-align:center;">13 ANS</td>
-            <td style="text-align:center;">Antoine GOUTOULLI</td>
-            <td style="text-align:center;">34 RUE BOIZARD</td>
-            <td style="text-align:center;">37700</td>
-            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-          </tr>
-          <tr>
-            <td>
-              <button type="button" class="btn-lg btn-success btn-block"></button>
-            </td>
-            <td style="text-align:center;">31/12/2004</td>
-            <td style="text-align:center;">13 ANS</td>
-            <td style="text-align:center;">Antoine GOUTOULLI</td>
-            <td style="text-align:center;">34 RUE BOIZARD</td>
-            <td style="text-align:center;">37700</td>
-            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-          </tr>
-          <tr>
-            <td>
-              <button type="button" class="btn-lg btn-danger btn-block"></button>
-            </td>
-            <td style="text-align:center;">31/12/2004</td>
-            <td style="text-align:center;">13 ANS</td>
-            <td style="text-align:center;">Antoine GOUTOULLI</td>
-            <td style="text-align:center;">34 RUE BOIZARD</td>
-            <td style="text-align:center;">37700</td>
-            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-          </tr>
-          <tr>
-            <td>
-              <button type="button" class="btn-lg btn-danger btn-block"></button>
-            </td>
-            <td style="text-align:center;">31/12/2004</td>
-            <td style="text-align:center;">13 ANS</td>
-            <td style="text-align:center;">Antoine GOUTOULLI</td>
-            <td style="text-align:center;">34 RUE BOIZARD</td>
-            <td style="text-align:center;">37700</td>
-            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-          </tr>
-          <tr>
-            <td>
-              <button type="button" class="btn-lg btn-danger btn-block"></button>
-            </td>
-            <td style="text-align:center;">31/12/2004</td>
-            <td style="text-align:center;">13 ANS</td>
-            <td style="text-align:center;">Antoine GOUTOULLI</td>
-            <td style="text-align:center;">34 RUE BOIZARD</td>
-            <td style="text-align:center;">37700</td>
-            <td style="text-align:center;">SAINT PIERRE DES CORPS</td>
-          </tr> #}
+              {% else %}
+              <td align="center">
+                <button type="button" class="btn-lg btn-danger"></button>
+              </td>
+          {% endif %}
+              <td style="text-align:center;">{{smith.date_naissance_smith|date('d/m/Y')}}</td>
+              <td style="text-align:center;">	{{ ('now'|date('Y') - smith.date_naissance_smith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.date_naissance_smith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
+              <td style="text-align:center;">{{smith.prenom_smith}} {{smith.nom_membre|upper}}</td>
+              <td style="text-align:center;">{{smith.ligne_adr2}} {{smith.ligne_adr3}}</td>
+              <td style="text-align:center;">{{smith.code_postal}}</td>
+              <td style="text-align:center;">{{smith.ville}}</td>  
+            </tr> 
+        {% endfor %}
       </tbody>        
     </table>
   <br>

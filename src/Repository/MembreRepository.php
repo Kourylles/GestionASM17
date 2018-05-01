@@ -25,11 +25,67 @@ class MembreRepository extends ServiceEntityRepository
      */
     public function CountByMembre()
     {
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this
+            ->createQueryBuilder('m');
         $qb ->select($qb->expr()->count('m'));
  
     return (int) $qb->getQuery()->getSingleScalarResult();
+        
     }
+
+    /**
+     * 
+     */
+    public function getMembreAvecSmith()
+    {
+        $qb = $this
+            ->createQueryBuilder('m')
+            ->innerJoin('m.smithLie','s')
+            ->addSelect('s.')
+        ;
+        return $qb
+            ->getQuery()
+            ->getArrayResult()
+        ;
+    }
+
+    public function getTableauAnnivSmith(): array
+{
+    $conn = $this->getEntityManager()->getConnection();
+
+    $sql = '
+        SELECT * 
+        FROM membre 
+        INNER JOIN `smith`
+        ON `membre`.`smith_lie_id` = `smith`.`id`
+        INNER JOIN `coordonnees`
+        ON `membre`.`coordonnees_id` = `coordonnees`.`id`
+        WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) <30
+        OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) <30
+        ';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    // returns an array of arrays (i.e. a raw data set)
+    return $stmt->fetchAll();
+}
+
+public function getMembresEtAdresses(): array
+{
+    $conn = $this->getEntityManager()->getConnection();
+
+    $sql = '
+        SELECT * 
+        FROM membre 
+        INNER JOIN `coordonnees`
+        ON `membre`.`coordonnees_id` = `coordonnees`.`id`
+        ';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    // returns an array of arrays (i.e. a raw data set)
+    return $stmt->fetchAll();
+}
 
 
 //    /**

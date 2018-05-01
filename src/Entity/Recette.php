@@ -57,6 +57,24 @@ class Recette
      */
     private $numReleveCompteRecette;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="recette")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idMembre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypeRecette")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typeRecette;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ModePaiement")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $modePaiement;
+
     public function getId()
     {
         return $this->id;
@@ -155,6 +173,42 @@ class Recette
     public function setNumReleveCompteRecette(?string $NumReleveCompteRecette): self
     {
         $this->numReleveCompteRecette = $NumReleveCompteRecette;
+
+        return $this;
+    }
+
+    public function getIdMembre(): ?Membre
+    {
+        return $this->idMembre;
+    }
+
+    public function setIdMembre(?Membre $idMembre): self
+    {
+        $this->idMembre = $idMembre;
+
+        return $this;
+    }
+
+    public function getTypeRecette(): ?TypeRecette
+    {
+        return $this->typeRecette;
+    }
+
+    public function setTypeRecette(?TypeRecette $typeRecette): self
+    {
+        $this->typeRecette = $typeRecette;
+
+        return $this;
+    }
+
+    public function getModePaiement(): ?ModePaiement
+    {
+        return $this->modePaiement;
+    }
+
+    public function setModePaiement(?ModePaiement $modePaiement): self
+    {
+        $this->modePaiement = $modePaiement;
 
         return $this;
     }

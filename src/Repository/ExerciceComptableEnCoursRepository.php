@@ -19,6 +19,15 @@ class ExerciceComptableEnCoursRepository extends ServiceEntityRepository
         parent::__construct($registry, ExerciceComptableEnCours::class);
     }
 
+
+    public function findExComptableEnCours()
+    {
+        return $this->createQueryBuilder('e')
+            // ->addSelect('e.exerciceEnCours')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 //    /**
 //     * @return ExerciceComptableEnCours[] Returns an array of ExerciceComptableEnCours objects
 //     */
