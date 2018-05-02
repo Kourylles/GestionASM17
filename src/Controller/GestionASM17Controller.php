@@ -9,6 +9,7 @@ use App\Entity\Donateur;
 use App\Entity\Smith;
 use App\Entity\Recette;
 use App\Entity\ExerciceComptableEnCours;
+use App\Entity\Depense;
 
 class GestionASM17Controller extends Controller
 {
@@ -36,16 +37,19 @@ class GestionASM17Controller extends Controller
         $NbreDonateur =$this->getDoctrine()
         ->getRepository(Donateur::class)
         ->countByDonateur();
-// //Tableau des Recettes
+//Tableau des Recettes : Total par type de recettes
         $SommeParTypeDeRecette = $this->getDoctrine()
         ->getRepository(Recette::class)
         ->getSommeTypeRecetteByExComptable($ExComptableEnCours->getExerciceEnCours());
-
+//Tableau des Recettes : Total des recettes
         $TotalRecette = $this->getDOctrine()
         ->getRepository(Recette::class)
         ->getTotalRecetteByExComptable($ExComptableEnCours->getExerciceEnCours());
-//  var_dump($TotalRecette);die;    
-        $TotalDepense="99999";
+//Tableau des Dépenses : Total des dépenses
+        //  var_dump($TotalRecette);die;    
+        $TotalDepense= $this->getDoctrine()
+        ->getRepository(Depense::class)
+        ->getTotalDepenseByExComptable($ExComptableEnCours->getExerciceEnCours());;
         // $TotalRecette ="99999";
 
 //Jointure membre-smith pour récupérer les infos sur le Smith au regarde de la propriété smithLie

@@ -62,18 +62,33 @@
           </tr>
         </thead>
           <tr>
-            <td colspan="4">
-            {% for somme in TotalRecette %}       
+            <td colspan="4">      
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
-                <span class="badge badge-light">{{somme.resultat}} €</span>
-              </button>
-            {% endfor %}
+                <span class="badge badge-light">
+                {% for sommeDesRecettes in TotalRecette %} 
+                  {% if TotalRecette|length <1 %}
+                  0 €
+                  {% else %}
+                    {{sommeDesRecettes.resultat}} €
+                  {% endif %} 
+                     {% endfor %}
             </td>
+                </span>                         
+              </button>
+       
             <td>
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
-                <span class="badge badge-light">{{TotalDepense}} €</span>
+                <span class="badge badge-light">
+                {% for sommeDesDepenses in TotalDepense %} 
+                  {% if TotalRecette|length <1 %}
+                  0 €
+                  {% else %}
+                    {{sommeDesDepenses.resultat}} €
+                  {% endif %} 
+                     {% endfor %}
+                </span>
               </button>
             </td>
           </tr>
@@ -84,13 +99,13 @@
             <td style="text-align:center;">Subventions</td>
           </tr>
             <tr>
-            {% for typeRecette in SommeParTypeDeRecette %}
+            {% for typeRecette in SommeParTypeDeRecette %}            
               <td>             
                 <button type="button" class="btn-lg btn-basic btn-block">
                   <span class="badge badge-light">{{typeRecette.resultat}} €</span>
                 </button>
               </td>
-              {% endfor %}
+            {% endfor %}
             </tr>
         </tbody>        
       </table>
@@ -108,7 +123,7 @@
       <tbody>
         <thead class="thead-dark">
           <tr>
-            <th style="text-align:center;">COTI.</th>
+            <th style="text-align:center;">COTISATION</th>
             <th style="text-align:center;">DATE DE NAISSANCE</th>
             <th style="text-align:center;">AGE</th>
             <th style="text-align:center;">PRENOM ET NOM</th>
