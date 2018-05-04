@@ -15,35 +15,134 @@
   </div>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs">
-    <li class="nav-item bg-light">
-      <a class="nav-link" data-toggle="tab" href="#Coordonnées">Coordonnées</a>
+    <li class="nav-item ">
+      <a class="nav-link active" data-toggle="tab" href="#Coordonnées">Coordonnées</a>
     </li>
-    <li class="nav-item bg-light">
+    <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#Smith">Smith</a>
     </li>
-    <li class="nav-item bg-light">
+    <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#Cotisations">Cotisations</a>
     </li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div id="Coordonnées" class="container tab-pane active"><br>
-      <br> {{Coordonnees.ligneAdr2}}
-      <br> {{Coordonnees.ligneAdr3}}
-      <br>{{Coordonnees.codePostal}}
-      <br>{{Coordonnees.ville}}
-      <p>Ici prendons place le formulaire des Entity Membre et le formulmaire imbriqué de l'Entity Coordonnées</p>
+{# Onglet Coordonnées #}
+    <div id="Coordonnées" class="container tab-pane active"><br>      
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="nomDetailMembre">Nom : </label>
+            <input type="text" class="form-control" id="nomDetailMembre" placeholder="{{Membre.nomMembre}}" disabled>
+          </div>
+          <div class="form-group col-md-8 offset-md-1">
+            <label for="lgnAdr1DetalMembre">Première ligne d'adresse :</label>
+            <input type="text" class="form-control" id="lgnAdr1DetalMembre" placeholder="{{Coordonnees.ligneAdr1}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+                  <div class="form-group col-md-3">
+                      <label for="prenomDetailMembre">Prénom(s) :</label>
+                      <input type="text" class="form-control" id="prenomDetailMembre" placeholder="{{Membre.prenomMembre}}" disabled >
+                    </div>
+                  <div class="form-group col-md-8 offset-md-1">
+                    <label for="lgnAdr2DetalMembre">Deuxième ligne d'adresse :</label>
+                    <input type="text" class="form-control" id="lgnAdr2DetalMembre" placeholder="{{Coordonnees.ligneAdr2}}" disabled>
+                  </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="fonctionCaDetailMembre">Fonction au C.A. :</label>
+            <input type="text" class="form-control" id="fonctionCaDetailMembre" placeholder="{{Membre.fonctionCa}}" disabled >
+          </div>
+          <div class="form-group col-md-8 offset-md-1">
+            <label for="lgnAdr3DetalMembre">Troisième ligne d'adresse :</label>
+            <input type="text" class="form-control" id="lgnAdr3DetalMembre" placeholder="{{Coordonnees.ligneAdr3}}" disabled>
+          </div>
+        </div>
+
+        
+        <div class="form-row">              
+          <div class="form-group col-md-1 offset-md-4">
+            <label for="codePostalDetailMembre">CP :</label>
+            <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{Coordonnees.codePostal}}" disabled>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="villeDetailMembre">Ville :</label>
+            <input type="text" class="form-control" id="villeDetailMembre" placeholder="{{Coordonnees.ville}}" disabled>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="paysDetailMembre">Pays :</label>
+            <input type="text" class="form-control" id="paysDetailMembre" placeholder="{{Coordonnees.pays}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-4 offset-md-4">
+            <label for="email1DetailMembre">EMail :</label>
+            <input type="text" class="form-control" id="email1DetailMembre" placeholder="{{Coordonnees.email1}}" disabled>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="email2DetailMembre">EMail :</label>
+            <input type="text" class="form-control" id="email2DetailMembre" placeholder="{{Coordonnees.email2}}" disabled>
+          </div>
+          
+          <div class="form-group col-md-4 offset-md-4">
+            <label for="tel1DetailMembre">Tel. :</label>
+            <input type="text" class="form-control" id="tel1DetailMembre" placeholder="{{Coordonnees.telephone1}}" disabled>
+          </div>
+          <div class="form-group col-md-4 ">
+            <label for="tel2DetailMembre">Tel. :</label>
+            <input type="text" class="form-control" id="tel2DetailMembre" placeholder="{{Coordonnees.telephone2}}" disabled>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="observationDetailMembre">Observation(s) :</label>
+          <textarea rows="5" class="form-control" id="observationDetailMembre" placeholder="{{Membre.observationsMembre}}" disabled></textarea>
+          </div>
+        </div>
+      </form>
     </div>
+
+
+
+
+
+
+{# Onglet Smith Relié #}
     <div id="Smith" class="container tab-pane fade"><br>
-      <h3>Smith</h3>
-      <p>Ici prendra place le formulaire de l'Entity Smith</p>
+
+<form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="prenomSmithDetailMembre">Prénom : </label>
+            <input type="text" class="form-control" id="prenomSmithDetailMembre" placeholder="{{SmithLie.prenomSmith}}" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for="dteNaisSmithDetalMembre">Date de naissance :</label>
+            <input type="text" class="form-control" id="dteNaisSmithDetalMembre" placeholder="{{SmithLie.dateNaissanceSmith|date('d/m/Y')}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="observationSmithDetailMembre">Observation(s) :</label>
+          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" placeholder="{{SmithLie.observationsSmith}}" disabled></textarea>
+          </div>
+        </div>
+      </form>
     </div>
+
+{# Onglet Cotisation #}
     <div id="Cotisations" class="container tab-pane fade"><br>
       <h3>Cotisations</h3>
       <p>Ici prendra place le formulaire de l'Entity Cotisation</p>
     </div>
-  </div>
+  
 </div>
               
 {% endblock %}

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Membre;
 use App\Entity\Coordonnees;
+use App\Entity\Smith;
 
 class MembresController extends Controller
 {
@@ -29,21 +30,22 @@ class MembresController extends Controller
 //Récupère les données du membre passé en paramètre dans une instance de membre
         $Membre = $this->getDoctrine()
         ->getRepository(Membre::class)
-        ->find($id);
-
-       
+        ->find($id);  
 
 // Récupère les coordonnées du membres passé en paramètre
         $Coordonnees = $this->getDoctrine()
         ->getRepository(Coordonnees::class)
         ->find($Membre->getCoordonnees());
 
-
+// Récupère les données du Smlith lié par l'id du membre passé en paramètre
+        $SmithLie = $this->getDoctrine()
+        ->getRepository(Smith::class)
+        ->find($Membre->getSmithLie());
 
         return $this->render('GestionASM17/detailMembre.html.twig', array(
             'Membre'=>$Membre,
-            'Coordonnees'=>$Coordonnees
-            
+            'Coordonnees'=>$Coordonnees,
+            'SmithLie'=>$SmithLie
         ));
     }
 
