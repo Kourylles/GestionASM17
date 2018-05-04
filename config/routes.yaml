@@ -7,13 +7,4 @@ accueil:
 membres:
     path: /membres
     controller: App\Controller\MembresController::afficherMembres
-
-detail_membres:
-    path: /membres/{id}
-    controller : App\Controller\MembresController::detailMembres
-    # requirements:
-    #     id: 'd\+'
-
-donateurs:
-    path: /donateurs
-    controller: App\Controller\DonateursController::afficherDonateurs    
+    

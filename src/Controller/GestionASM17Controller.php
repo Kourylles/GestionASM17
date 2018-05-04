@@ -13,7 +13,6 @@ use App\Entity\Depense;
 
 class GestionASM17Controller extends Controller
 {
-
     public function accueil()
     {
 //Récupère le nombre de membres total à jour de cotisation ou non
@@ -46,10 +45,12 @@ class GestionASM17Controller extends Controller
         $TotalRecette = $this->getDOctrine()
         ->getRepository(Recette::class)
         ->getTotalRecetteByExComptable($ExComptableEnCours->getExerciceEnCours());
-//Tableau des Dépenses : Total des dépenses  
+//Tableau des Dépenses : Total des dépenses
+        //  var_dump($TotalRecette);die;    
         $TotalDepense= $this->getDoctrine()
         ->getRepository(Depense::class)
         ->getTotalDepenseByExComptable($ExComptableEnCours->getExerciceEnCours());;
+        // $TotalRecette ="99999";
 
 //Jointure membre-smith pour récupérer les infos sur le Smith au regarde de la propriété smithLie
        $ListeMembreTableauAnnivSmith = $this->getDoctrine()
