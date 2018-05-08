@@ -33,10 +33,7 @@ class Membre
      */
     private $observationsMembre;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Smith")
-     */
-    private $smithLie;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees")
@@ -64,6 +61,12 @@ class Membre
      */
     private $CotiOK;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", inversedBy="idMembre")
+     */
+    private $smithLie;
+
+    
     public function __construct()
     {
         $this->recette = new ArrayCollection();
@@ -110,18 +113,7 @@ class Membre
         return $this;
     }
 
-    public function getSmithLie(): ?Smith
-    {
-        return $this->smithLie;
-    }
-
-    public function setSmithLie(?Smith $smithLie): self
-    {
-        $this->smithLie = $smithLie;
-
-        return $this;
-    }
-
+    
     public function getCoordonnees(): ?Coordonnees
     {
         return $this->coordonnees;
@@ -200,4 +192,20 @@ class Membre
 
         return $this;
     }
+
+    public function getSmithLie(): ?Smith
+    {
+        return $this->smithLie;
+    }
+
+    public function setSmithLie(?Smith $smithLie): self
+    {
+        $this->smithLie = $smithLie;
+
+        return $this;
+    }
+
+    
+
+    
 }

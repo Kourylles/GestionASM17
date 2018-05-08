@@ -6,7 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Membre;
 use App\Entity\Coordonnees;
+use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Smith;
+use App\Entity\LienParente;
+use App\Entity\FonctionCa;
+use App\Entity\Recette;
 
 class MembresController extends Controller
 {
@@ -17,7 +21,7 @@ class MembresController extends Controller
         $ListeMembreEtAdresse = $this->getDoctrine()
         ->getRepository(Membre::class)
         ->getMembresEtAdresses();
-
+        
         return $this->render('GestionASM17/membres.html.twig', array(
             'ListeMembresEtAdresses'=>$ListeMembreEtAdresse,
             'DatePaiementCotiMembre'=>$DatePaiementCotiMembre 
@@ -26,6 +30,10 @@ class MembresController extends Controller
 
     public function detailMembres($id)
     {
+//Récupération de l'exercice comptable
+        $ExComptableEnCours = $this->getDoctrine()
+        ->getRepository(ExerciceComptableEnCours::class)
+        ->findExComptableEnCours(); //une seule ligne dans la base avec id=1
 
 //Récupère les données du membre passé en paramètre dans une instance de membre
         $Membre = $this->getDoctrine()
@@ -37,15 +45,27 @@ class MembresController extends Controller
         ->getRepository(Coordonnees::class)
         ->find($Membre->getCoordonnees());
 
-// Récupère les données du Smlith lié par l'id du membre passé en paramètre
-        $SmithLie = $this->getDoctrine()
-        ->getRepository(Smith::class)
-        ->find($Membre->getSmithLie());
+//Récupère le libellé du lien de parenté en fonction du code contenu dans l'entity Membre
+        $LienDeParente =$this->getDoctrine()
+        ->getRepository(LienParente::class)
+        ->find($Membre->getLienParente());
+
+//Récupère le libellé de la fonction CA en fonction du code contenu dans l'entity Membre
+        $FonctionCa =$this->getDoctrine()
+        ->getRepository(FonctionCa::class)
+        ->find($Membre->getFonctionCa());
+
+//Récupère toutes les recettes du membre dont l'Id est passé en paramètre dans la route
+        $Recettes = $this->getDoctrine()
+        ->getRepository(Recette::class)
+        ->findByIdMembre($Membre->getId(),$ExComptableEnCours->getExerciceEnCours());       
 
         return $this->render('GestionASM17/detailMembre.html.twig', array(
-            'Membre'=>$Membre,
-            'Coordonnees'=>$Coordonnees,
-            'SmithLie'=>$SmithLie
+            'Membre'=>$Membre ,
+            'Coordonnees'=>$Coordonnees ,
+            'Recettes'=>$Recettes ,
+            'LienDeParente'=>$LienDeParente ,
+            'FonctionCa'=>$FonctionCa
         ));
     }
 

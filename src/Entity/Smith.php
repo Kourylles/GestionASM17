@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,19 @@ class Smith
      */
     private $observationsSmith;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Membre", mappedBy="smithLie")
+     */
+    private $idMembre;
+
+    public function __construct()
+    {
+        $this->idMembre = new ArrayCollection();
+    }
+
+   
+
+//Ascesseurs et mutateurs
     public function getId()
     {
         return $this->id;
@@ -71,4 +86,46 @@ class Smith
 
         return $this;
     }
+
+//Calcul de l'age d'un smith en fonction de sa date de naissance
+
+    public function getAge()
+    {
+        $dateInterval = $this->dateNaissanceSmith->diff(new \DateTime());
+ 
+        return $dateInterval->y;
+    }
+
+    /**
+     * @return Collection|Membre[]
+     */
+    public function getIdMembre(): Collection
+    {
+        return $this->idMembre;
+    }
+
+    public function addIdMembre(Membre $idMembre): self
+    {
+        if (!$this->idMembre->contains($idMembre)) {
+            $this->idMembre[] = $idMembre;
+            $idMembre->setSmithLie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdMembre(Membre $idMembre): self
+    {
+        if ($this->idMembre->contains($idMembre)) {
+            $this->idMembre->removeElement($idMembre);
+            // set the owning side to null (unless already changed)
+            if ($idMembre->getSmithLie() === $this) {
+                $idMembre->setSmithLie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }

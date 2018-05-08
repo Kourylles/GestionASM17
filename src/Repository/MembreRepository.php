@@ -76,12 +76,18 @@ public function getMembresEtAdresses(): array
 
     $sql = '
         SELECT * 
-        FROM membre 
-        INNER JOIN `coordonnees`
-        ON `membre`.`coordonnees_id` = `coordonnees`.`id`
+        FROM coordonnees 
+        INNER JOIN `membre`
+        ON `membre`.`coordonnees_id`= `coordonnees`.`id`
         ';
     $stmt = $conn->prepare($sql);
     $stmt->execute();
+
+
+// SELECT * 
+// FROM membre 
+// INNER JOIN `coordonnees`
+// ON `membre`.`coordonnees_id`= `coordonnees`.`id`
 
     // returns an array of arrays (i.e. a raw data set)
     return $stmt->fetchAll();

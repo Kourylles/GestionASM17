@@ -61,7 +61,6 @@ class GestionASM17Controller extends Controller
             'NbreMembreOkCoti'=>$NbreMembreOkCoti,
             'NbreMembreNokCoti'=>$NbreMembreNokCoti,
             'NbreDonateur'=>$NbreDonateur,
-            // 'TableauSommeTypeRecettes'=> $TableauSommeTypeRecettes,
             'TotalRecette'=>$TotalRecette,
             'SommeParTypeDeRecette'=>$SommeParTypeDeRecette,
             'TotalDepense'=>$TotalDepense,

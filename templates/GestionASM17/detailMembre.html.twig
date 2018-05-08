@@ -8,21 +8,36 @@
     <button type="button" class="btn btn-dark">Modifier</button>
     <button type="button" class="btn btn-dark">Envoyer Mail</button>
   </div>
-  <div>
+  <div class="container-fluid">
     <br>
-    <h4>{{Membre.prenomMembre}} {{Membre.nomMembre}}</h4>
+    <div class="row">
+      <table class="table table-borderless col-md-12">
+        <tbody>
+          <tr>
+            <td width="5px">
+              {% if Membre.cotiOk %}
+                <button type="button" class="btn-lg btn-success"></button>
+              {% else %}
+                <button type="button" class="btn-lg btn-danger"></button>
+              {% endif %}
+            </td>
+            <td style="padding-top:16px;"><h4>{{Membre.prenomMembre}} {{Membre.nomMembre}}</h4></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <hr>
   </div>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs">
     <li class="nav-item ">
-      <a class="nav-link active" data-toggle="tab" href="#Coordonnées">Coordonnées</a>
+      <a class="nav-link active" data-toggle="tab" href="#Coordonnées"><h5>Coordonnées</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#Smith">Smith</a>
+      <a class="nav-link" data-toggle="tab" href="#Smith"><h5>Smith</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#Cotisations">Cotisations</a>
+      <a class="nav-link" data-toggle="tab" href="#Cotisations"><h5>Cotisations</h5></a>
     </li>
   </ul>
 
@@ -33,114 +48,148 @@
       <form>
         <div class="form-row">
           <div class="form-group col-md-3">
-            <label for="nomDetailMembre">Nom : </label>
+            <label for="nomDetailMembre"><h6>Nom :</h6></label>
             <input type="text" class="form-control" id="nomDetailMembre" placeholder="{{Membre.nomMembre}}" disabled>
           </div>
           <div class="form-group col-md-8 offset-md-1">
-            <label for="lgnAdr1DetalMembre">Première ligne d'adresse :</label>
+            <label for="lgnAdr1DetalMembre"><h6>Première ligne d'adresse :</h6></label>
             <input type="text" class="form-control" id="lgnAdr1DetalMembre" placeholder="{{Coordonnees.ligneAdr1}}" disabled>
           </div>
         </div>
 
         <div class="form-row">
                   <div class="form-group col-md-3">
-                      <label for="prenomDetailMembre">Prénom(s) :</label>
+                      <label for="prenomDetailMembre"><h6>Prénom(s) :</h6></label>
                       <input type="text" class="form-control" id="prenomDetailMembre" placeholder="{{Membre.prenomMembre}}" disabled >
                     </div>
                   <div class="form-group col-md-8 offset-md-1">
-                    <label for="lgnAdr2DetalMembre">Deuxième ligne d'adresse :</label>
+                    <label for="lgnAdr2DetalMembre"><h6>Deuxième ligne d'adresse :</h6></label>
                     <input type="text" class="form-control" id="lgnAdr2DetalMembre" placeholder="{{Coordonnees.ligneAdr2}}" disabled>
                   </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-3">
-            <label for="fonctionCaDetailMembre">Fonction au C.A. :</label>
-            <input type="text" class="form-control" id="fonctionCaDetailMembre" placeholder="{{Membre.fonctionCa}}" disabled >
+            <label for="fonctionCaDetailMembre"><h6>Fonction au C.A. :</h6></label>
+            <input type="text" class="form-control" id="fonctionCaDetailMembre" placeholder="{{FonctionCa.fonctionDansLeCa}}" disabled >
           </div>
           <div class="form-group col-md-8 offset-md-1">
-            <label for="lgnAdr3DetalMembre">Troisième ligne d'adresse :</label>
+            <label for="lgnAdr3DetalMembre"><h6>Troisième ligne d'adresse :</h6></label>
             <input type="text" class="form-control" id="lgnAdr3DetalMembre" placeholder="{{Coordonnees.ligneAdr3}}" disabled>
           </div>
         </div>
-
-        
-        <div class="form-row">              
-          <div class="form-group col-md-1 offset-md-4">
-            <label for="codePostalDetailMembre">CP :</label>
+     
+        <div class="form-row">  
+           <div class="form-group col-md-2">
+            <label for="codePostalDetailMembre"><h6>Lien de parenté :</h6></label>
+            <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{LienDeParente.LienDeParente}}" disabled>
+          </div>            
+          <div class="form-group col-md-1 offset-md-2">
+            <label for="codePostalDetailMembre"><h6>CP :</h6></label>
             <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{Coordonnees.codePostal}}" disabled>
           </div>
           <div class="form-group col-md-4">
-            <label for="villeDetailMembre">Ville :</label>
+            <label for="villeDetailMembre"><h6>Ville :</h6></label>
             <input type="text" class="form-control" id="villeDetailMembre" placeholder="{{Coordonnees.ville}}" disabled>
           </div>
           <div class="form-group col-md-3">
-            <label for="paysDetailMembre">Pays :</label>
+            <label for="paysDetailMembre"><h6>Pays :</h6></label>
             <input type="text" class="form-control" id="paysDetailMembre" placeholder="{{Coordonnees.pays}}" disabled>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-4 offset-md-4">
-            <label for="email1DetailMembre">EMail :</label>
+            <label for="email1DetailMembre"><h6>EMail :</h6></label>
             <input type="text" class="form-control" id="email1DetailMembre" placeholder="{{Coordonnees.email1}}" disabled>
           </div>
           <div class="form-group col-md-4">
-            <label for="email2DetailMembre">EMail :</label>
+            <label for="email2DetailMembre"><h6>EMail :</h6></label>
             <input type="text" class="form-control" id="email2DetailMembre" placeholder="{{Coordonnees.email2}}" disabled>
           </div>
           
           <div class="form-group col-md-4 offset-md-4">
-            <label for="tel1DetailMembre">Tel. :</label>
+            <label for="tel1DetailMembre"><h6>Tel. :</h6></label>
             <input type="text" class="form-control" id="tel1DetailMembre" placeholder="{{Coordonnees.telephone1}}" disabled>
           </div>
           <div class="form-group col-md-4 ">
-            <label for="tel2DetailMembre">Tel. :</label>
+            <label for="tel2DetailMembre"><h6>Tel. :</h6></label>
             <input type="text" class="form-control" id="tel2DetailMembre" placeholder="{{Coordonnees.telephone2}}" disabled>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-12">
-          <label for="observationDetailMembre">Observation(s) :</label>
+          <label for="observationDetailMembre"><h6>Observation(s) :</h6></label>
           <textarea rows="5" class="form-control" id="observationDetailMembre" placeholder="{{Membre.observationsMembre}}" disabled></textarea>
           </div>
         </div>
       </form>
     </div>
 
-
-
-
-
-
 {# Onglet Smith Relié #}
     <div id="Smith" class="container tab-pane fade"><br>
-
 <form>
         <div class="form-row">
           <div class="form-group col-md-3">
-            <label for="prenomSmithDetailMembre">Prénom : </label>
-            <input type="text" class="form-control" id="prenomSmithDetailMembre" placeholder="{{SmithLie.prenomSmith}}" disabled>
+            <label for="prenomSmithDetailMembre"><h6>Prénom :</h6> </label>
+            <input type="text" class="form-control" id="prenomSmithDetailMembre" 
+              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.prenomSmith}}
+                           {% else %}{% endif %}" disabled>
           </div>
-          <div class="form-group col-md-3 offset-md-1">
-            <label for="dteNaisSmithDetalMembre">Date de naissance :</label>
-            <input type="text" class="form-control" id="dteNaisSmithDetalMembre" placeholder="{{SmithLie.dateNaissanceSmith|date('d/m/Y')}}" disabled>
+          <div class="form-group col-md-2 offset-md-1">
+            <label for="dteNaisSmithDetalMembre"><h6>Date de naissance :</h6></label>
+            <input type="text" class="form-control" id="dteNaisSmithDetalMembre"
+              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.dateNaissanceSmith|date('d/m/Y')}}
+                           {% else %}{% endif %}" disabled>
+          </div>
+          <div class="form-group col-md-1 offset-md-1">
+            <label for="ageSmithDetalMembre"><h6>Age :</h6></label>
+            <input type="text" class="form-control" id="ageSmithDetalMembre"
+              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.getAge()}} ans
+                           {% else %}{% endif %}" disabled>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-12">
-          <label for="observationSmithDetailMembre">Observation(s) :</label>
-          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" placeholder="{{SmithLie.observationsSmith}}" disabled></textarea>
+          <label for="observationSmithDetailMembre"><h6>Observation(s) :</h6></label>
+          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" 
+              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.observationsSmith}}
+                           {% else %}Pas de SMITH lié{% endif %}" disabled>
+          </textarea>
           </div>
         </div>
       </form>
     </div>
 
 {# Onglet Cotisation #}
-    <div id="Cotisations" class="container tab-pane fade"><br>
-      <h3>Cotisations</h3>
-      <p>Ici prendra place le formulaire de l'Entity Cotisation</p>
+    <div id="Cotisations" class="container tab-pane fade"><br>      
+      {% for recette in Recettes %}  
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="typeRecetteDetailMembre"><h6>Type :</h6> </label>
+            <input type="text" class="form-control" id="typeRecetteDetailMembre" placeholder="{{recette.typeRecette.typeDeRecette}}" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for="dteRecetteDetailMembre"><h6>Date:</h6></label>
+            <input type="text" class="form-control" id="dteRecetteDetailMembre" placeholder="{{recette.datePaiementRecette|date('d/m/Y')}}" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for="montantRecetteDetailMembre"><h6>Montant :</h6></label>
+            <input type="text" class="form-control" id="montantRecetteDetailMembre" placeholder="{{recette.montantRecette}} €" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="observationSmithDetailMembre"><h6>Description : </h6></label>
+          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" placeholder="{{recette.descriptionRecette}}" disabled></textarea>
+          </div>
+        </div>
+      </form>
+      <hr>
+      {% endfor %}
     </div>
   
 </div>

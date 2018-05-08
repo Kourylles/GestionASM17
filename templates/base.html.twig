@@ -29,41 +29,14 @@
             <li class="nav-item active">
               <a class="nav-link" href="{{ path('accueil') }}">ACCUEIL</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                MEMBRES
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="{{path('membres')}}">Liste des Membres</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Ajouter un Membre</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Supprimer un Membre</a>
-              </div>
+            <li class="nav-item ">
+              <a class="nav-link" href="{{path('membres')}}">MEMBRES</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                DONATEURS
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Liste des Donateurs</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Ajouter un Donateur</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Supprimer un Donateur</a>
-              </div>
+            <li class="nav-item">
+              <a class="nav-link" href="#">DONATEURS</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                PROFESSIONNELS
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Liste des Professionnels</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Ajouter un Professionnels</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Supprimer un Professionnels</a>
-              </div>
+            <li class="nav-item">
+              <a class="nav-link">PROFESSIONNELS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">QUITTER <span class="sr-only">(current)</span></a>
@@ -83,7 +56,9 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
-              <p class="text-muted" style="text-align:center;">Réalisé par {{app_webmaster}} </p>
+              <h6>
+              <p class="text-muted" style="text-align:center;">Réalisé par {{app_webmaster}}</p>
+              </h6>
             </div>
           </div>
         </div>

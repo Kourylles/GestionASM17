@@ -59,6 +59,23 @@ public function findNbreRecetteParType($annee, $TypeRecette)
 
         return  $qb->getArrayResult();
     }
+
+    /**
+     * @return Recette[] Returns an array of Recette objects
+     */
+    
+    public function findByIdMembre($IdMembre,$ExoComptable)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->andWhere('r.idMembre = :val')
+            ->andwhere('r.exerciceComptableRecette = :ExoComptable')
+            ->setParameter('val', $IdMembre)
+            ->setParameter('ExoComptable',$ExoComptable)
+            ->getQuery()
+        ;
+        return  $qb->getResult();
+    }
+    
        
 //    /**
 //     * @return Recette[] Returns an array of Recette objects
