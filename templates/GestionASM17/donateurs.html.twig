@@ -1,31 +1,32 @@
-{# GestionASM17/templates/GestionASM17/membres.html/twig#}
+{# GestionASM17/templates/GestionASM17/donateurs.html/twig#}
 
 {% extends 'base.html.twig' %}
-{% block title %}{{parent()}}-Membres{% endblock %}
+{% block title %}{{parent()}}-Donateurs{% endblock %}
 {% block body %}
             <div>
-              <h3>Liste des Membres :</h3>
+              <h3>Liste des Donateurs :</h3>
               <br>
-        {# Affichage du tableau des Membres #}
+            </div>
+        {# Affichage du tableau des Donateurs #}
+            
               <div class="row">
                   <div class="col-sm-11 col-lg-11 offset-sm-1 offset-lg-1">
                     <table class="table table-bordered table-hover table-responsive">
                       <tbody>
                         <thead class="thead-dark">
                           <tr >
-                            <th style="text-align:center;">COTISATION</th>
+                            <th style="text-align:center;">DON</th>
                             <th style="text-align:center;">NOM</th>
                             <th style="text-align:center;">PRENOM</th>
                             <th style="text-align:center;">ADRESSE</th>
                             <th style="text-align:center;">CP</th>
                             <th style="text-align:center;">VILLE</th>
                             <th style="text-align:center;">MAIL</th>
-                            {# <th style="text-align:center;">DATE</th> #}
                           </tr>
                         </thead>
-                        {% for membre in ListeMembresEtAdresses %}
+                        {% for donateur in ListeDonateurEtAdresse %}
                           <tr>
-                            {% if membre.coti_ok %}
+                            {% if donateur.don_ok %}
                               <td align="center">
                                 <button type="button" class="btn-lg btn-success"></button>
                               </td>
@@ -34,21 +35,21 @@
                                 <button type="button" class="btn-lg btn-danger"></button>
                               </td>
                             {% endif %}
-                            <td style="vertical-align:middle;"><a href={{url('detail_membres',{'id':membre.id})}}>{{membre.nom_membre|upper}}</a></td>
-                            <td style="vertical-align:middle;">{{membre.prenom_membre}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr2}}<br>{{membre.ligne_adr3}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{membre.code_postal}}</td>
-                            <td style="vertical-align:middle;">{{membre.ville}}</td>
-                            <td style="vertical-align:middle;">{{membre.email1}}</td>
-                            
-                            {# <td style="text-align:center;">{{CotiEnCours}}</td> #}
+                            <td style="vertical-align:middle;"><a href="{{url('detail_donateurs',{'id':donateur.id})}}">{{donateur.nom_donateur|upper}}</a></td>
+                            <td style="vertical-align:middle;">{{donateur.prenom_donateur}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{donateur.ligne_adr2}}<br>{{donateur.ligne_adr3}}</td>
+                            <td style="vertical-align:middle;">{{donateur.code_postal}}</td>
+                            <td style="vertical-align:middle;">{{donateur.ville}}</td>
+                            <td style="vertical-align:middle;">{{donateur.email1}}</td>
                           </tr>
                         {% endfor %}
                       </tbody>      
                     </table>
                   </div>
                 </div>
-              </div>
+              
+              
+            
               
 {% endblock %}
 

@@ -18,18 +18,6 @@ class RecetteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recette::class);
     }
-//Récupération des cotisation de l'année d'exercice en cours
-
-public function findNbreRecetteParType($annee, $TypeRecette)
-    {
-        // automatically knows to select Products
-        // the "p" is an alias you'll use in the rest of the query
-        $qb = $this->createQueryBuilder('r')
-            ->addSelect('count(r)')
-            ->getQuery();
-
-        return (int) $qb->getResult();
-    }
 
 //Récupérer la somme total des recettes par type de recette
 
@@ -60,17 +48,53 @@ public function findNbreRecetteParType($annee, $TypeRecette)
         return  $qb->getArrayResult();
     }
 
-    /**
-     * @return Recette[] Returns an array of Recette objects
-     */
+    public function getXDernieresRecettes($ExComptable)
+    {
+        $qb = $this->CreateQueryBuilder('r')
+            ->where('r.exerciceComptableRecette = :exCompt')
+            ->andWhere(limit(10))
+            ->setParameter('exCompt',$ExComptable)
+        ;
+    }
+
+    // /**
+    //  * @return Recette[] Returns an array of Recette objects
+    //  */
     
-    public function findByIdMembre($IdMembre,$ExoComptable)
+    // public function getExoComptableDerniereCoti($IdMembre,$TypeCoti)
+    // {
+    //     $qb = $this->createQueryBuilder('r')
+    //         // ->addSelect(max('r.exerciceComptableRecette'))
+    //         ->andWhere('r.idMembre = :val')
+    //         ->andwhere('r.typeRecette = :typeCoti')
+    //         ->setParameter('val', $IdMembre)
+    //         ->setParameter('typeCoti',$TypeCoti)
+    //         ->orderBy('r.exerciceComptableRecette','DESC')
+    //         ->setMaxResults(1)
+    //         ->getQuery()
+    //     ;
+    //     return  $qb->getResult();
+    // }
+
+    public function findByIdMembre($IdMembre)
     {
         $qb = $this->createQueryBuilder('r')
             ->andWhere('r.idMembre = :val')
-            ->andwhere('r.exerciceComptableRecette = :ExoComptable')
             ->setParameter('val', $IdMembre)
-            ->setParameter('ExoComptable',$ExoComptable)
+            ->orderBy('r.typeRecette','ASC')
+            ->orderBy('r.exerciceComptableRecette', 'DESC')
+            ->getQuery()
+        ;
+        return  $qb->getResult();
+    }
+
+    public function findByIdDonateur($IdDonateur)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->andWhere('r.idDonateur = :val')
+            ->setParameter('val', $IdDonateur)
+            ->orderBy('r.typeRecette','ASC')
+            ->orderBy('r.exerciceComptableRecette', 'DESC')
             ->getQuery()
         ;
         return  $qb->getResult();

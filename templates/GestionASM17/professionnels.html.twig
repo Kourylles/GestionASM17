@@ -1,0 +1,46 @@
+{# GestionASM17/templates/GestionASM17/professionnel.html/twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Professionnels{% endblock %}
+{% block body %}
+            <div>
+              <h3>Liste des Professionnels :</h3>
+              <br>
+            </div>
+        {# Affichage du tableau des Proffessionels #}
+            
+              <div class="row">
+                  <div class="col-sm-11 col-lg-11 offset-sm-1 offset-lg-1">
+                    <table class="table table-bordered table-hover table-responsive">
+                      <tbody>
+                        <thead class="thead-dark">
+                          <tr >
+                            <th style="text-align:center;">TITRE</th>
+                            <th style="text-align:center;">NOM</th>
+                            <th style="text-align:center;">PRENOM</th>
+                            <th style="text-align:center;">ADRESSE</th>
+                            <th style="text-align:center;">CP</th>
+                            <th style="text-align:center;">VILLE</th>
+                            <th style="text-align:center;">MAIL</th>
+                          </tr>
+                        </thead>
+                        {% for professionnel in ListeProEtAdresse %}
+                          <tr>
+                            <td style="text-align:center;vertical-align:middle;">{{professionnel.titre_professionnel}}</td>
+                            <td style="text-align:center;vertical-align:middle;"><a href="{{url('detail_professionnels',{'id':professionnel.id})}}">{{professionnel.nom_professionnel|upper}}</a></td>
+                            <td style="text-align:center;vertical-align:middle;">{{professionnel.prenom_professionnel}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{professionnel.ligne_adr1}}<br>{{professionnel.ligne_adr2}}<br>{{professionnel.ligne_adr3}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{professionnel.code_postal}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{professionnel.ville}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{professionnel.email1}}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>      
+                    </table>
+                  </div>
+                </div>
+              
+            
+              
+{% endblock %}
+

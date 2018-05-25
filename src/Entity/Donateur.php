@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DonateurRepository")
@@ -30,6 +33,27 @@ class Donateur
      * @ORM\Column(type="text", nullable=true)
      */
     private $observationsDonateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $coordonnees;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="idDonateur")
+     */
+    private $idRecette;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $donOK;
+
+    public function __construct()
+    {
+        $this->idRecette = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -68,6 +92,61 @@ class Donateur
     public function setObservationsDonateur(?string $ObservationsDonateur): self
     {
         $this->observationsDonateur = $ObservationsDonateur;
+
+        return $this;
+    }
+
+    public function getCoordonnees(): ?Coordonnees
+    {
+        return $this->coordonnees;
+    }
+
+    public function setCoordonnees(?Coordonnees $coordonnees): self
+    {
+        $this->coordonnees = $coordonnees;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Recette[]
+     */
+    public function getIdRecette(): Collection
+    {
+        return $this->idRecette;
+    }
+
+    public function addIdRecette(Recette $idRecette): self
+    {
+        if (!$this->idRecette->contains($idRecette)) {
+            $this->idRecette[] = $idRecette;
+            $idRecette->setIdDonateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdRecette(Recette $idRecette): self
+    {
+        if ($this->idRecette->contains($idRecette)) {
+            $this->idRecette->removeElement($idRecette);
+            // set the owning side to null (unless already changed)
+            if ($idRecette->getIdDonateur() === $this) {
+                $idRecette->setIdDonateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDonOK(): ?bool
+    {
+        return $this->donOK;
+    }
+
+    public function setDonOK(bool $donOK): self
+    {
+        $this->donOK = $donOK;
 
         return $this;
     }

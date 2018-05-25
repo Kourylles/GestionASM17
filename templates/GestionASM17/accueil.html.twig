@@ -4,6 +4,7 @@
 {% block body%}
 {# Div1 qui contient l'ensemble de la page #}
 <div class="table-responsive">
+
 <h3>Physionomie de l'association :</h3>
 {# Div2 qui contient les deux tableaux : membres/donateurs et recettes/depenses #}
   <div class="row">
@@ -33,20 +34,24 @@
             </td>
               </tr>
           <tr>
+          {% for coti in NbreMembreOkCoti %}         
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-success btn-block">
               A jour  :
-              <span class="badge badge-light">{{NbreMembreOkCoti}}</span>
+              <span class="badge badge-light">{{coti.ajour}}</span>
               </button>
             </td>
+             {% endfor %}
           </tr>
           <tr>
+          {% for coti in NbreMembreNokCoti  %}
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-danger btn-block">
                 Non à Jour :
-                <span class="badge badge-light">{{NbreMembreNokCoti}}</span>
+                <span class="badge badge-light">{{coti.nonAjour}}</span>
               </button>
             </td>
+           {% endfor %}
           </tr>
         </tbody>        
       </table>
@@ -116,10 +121,121 @@
 
 <br>
 <br>
+
+  <!-- Création des 4 onglets -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item ">
+      <a class="nav-link active" data-toggle="tab" href="#AnnivAVenir"><h5>Anniverssaires futures</h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#LastRecord"><h5>Derniers Enregistrements</h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#LastEntries"><h5>Dernières Recettes {#{{ExComptableEnCours.exerciceEnCours}}#}</h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#ContributionsAnterieures"><h5>Dernières Dépenses</h5></a>
+    </li>
+  </ul>
+
+<!-- Création du contenu des onglets -->
+  <div class="tab-content">
+{# Onglet Coordonnées #}
+    <div id="AnnivAVenir" class="container tab-pane active"><br>
+      {# DIV6 qui contient le tableau des anniverssaires à venir #}
+      <div clas="table-responsive">
+        <h3>Anniversaires à venir :</h3>
+        {# {{form_start(AnnivEnvoyeForm)}}  #}
+          <table class="table table-bordered table-striped table-hover">
+            <tbody>
+              <thead class="thead-dark">
+                <tr>
+                  <th style="text-align:center;">COTISATION</th>
+                  <th style="text-align:center;">DATE DE NAISSANCE</th>
+                  <th style="text-align:center;">AGE</th>
+                  <th style="text-align:center;">PRENOM ET NOM</th>
+                  <th style="text-align:center;">ADRESSE</th>
+                  <th style="text-align:center;">CP</th>
+                  <th style="text-align:center;">VILLE</th>
+                  {# <th style="text-align:center;">ENVOYE</th> #}
+                </tr>
+              </thead>
+              {% for smith in ListeMembreTableauAnnivSmith %}                
+                  <tr>
+                {% if smith.coti_ok %}
+                    <td align="center">
+                      <button type="button" class="btn-lg btn-success"></button>
+                    </td>
+                    {% else %}
+                    <td align="center">
+                      <button type="button" class="btn-lg btn-danger"></button>
+                    </td>
+                {% endif %}
+                    <td style="text-align:center;vertical-align:middle;">{{smith.date_naissance_smith|date('d/m/Y')}}</td>
+                    <td style="text-align:center;vertical-align:middle;">	{{ ('now'|date('Y') - smith.date_naissance_smith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.date_naissance_smith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
+                    <td style="text-align:center;vertical-align:middle;">{{smith.prenom_smith}} {{smith.nom_membre|upper}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{smith.ligne_adr2}}<br>{{smith.ligne_adr3}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{smith.code_postal}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{smith.ville}}</td> 
+                    {# <td style="text-align:center;vertical-align:middle;">{{form_widget(AnnivEnvoyeForm)}}</td>  #}
+                  </tr> 
+              {% endfor %}
+            </tbody>        
+          </table>
+          {# {{form_end(AnnivEnvoyeForm)}} #}
+        <br>
+      </div> {# Fin DIV6 #}
+    </div>{#AnnivAVenir#}
+
+{# Onglet Dernières Recettes #}
+    <div id="DernieresRecettes" class="container tab-pane active"><br>
+      {# DIV8 qui contient le tableau des 20 dernières recettes #}
+      <div clas="table-responsive">
+        <h3>20 Dernières Recttes engagées :</h3>
+          <table class="table table-bordered table-striped table-hover">
+            <tbody>
+              <thead class="thead-dark">
+                <tr>
+                  <th style="text-align:center;">DATE</th>
+                  <th style="text-align:center;">TYPE</th>
+                  <th style="text-align:center;">DESCRIPTION</th>
+                  <th style="text-align:center;">MONTANT</th>
+                </tr>
+              </thead>
+              {% for recette in DixDernieresRecettes %}                
+                  <tr>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.datePaiementRecette|date('d/m/Y')}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.typeRecette }}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.descriptionRecette}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.montantRecette}}</td>
+                  </tr> 
+              {% endfor %}
+            </tbody>        
+          </table>
+        <br>
+      </div> {# Fin DIV8 #}
+
+    
+    
+    
+    
+    </div> {# Div DernieresRecettes #}
+
+
+
+  </div> {#div tb-content#}
+
+
+
+
+
+
+
 {# Partie contenant les anniverssaires à venir #}
 {# DIV6 qui contient le tableau des anniverssaires à venir #}
-<div clas="table-responsive">
+{# <div clas="table-responsive">
   <h3>Anniversaires à venir :</h3>
+  {{form_start(AnnivEnvoyeForm)}} 
      <table class="table table-bordered table-striped table-hover">
       <tbody>
         <thead class="thead-dark">
@@ -131,6 +247,7 @@
             <th style="text-align:center;">ADRESSE</th>
             <th style="text-align:center;">CP</th>
             <th style="text-align:center;">VILLE</th>
+            <th style="text-align:center;">ENVOYE</th>
           </tr>
         </thead>
          {% for smith in ListeMembreTableauAnnivSmith %}                
@@ -144,18 +261,20 @@
                 <button type="button" class="btn-lg btn-danger"></button>
               </td>
           {% endif %}
-              <td style="text-align:center;">{{smith.date_naissance_smith|date('d/m/Y')}}</td>
-              <td style="text-align:center;">	{{ ('now'|date('Y') - smith.date_naissance_smith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.date_naissance_smith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
-              <td style="text-align:center;">{{smith.prenom_smith}} {{smith.nom_membre|upper}}</td>
-              <td style="text-align:center;">{{smith.ligne_adr2}} {{smith.ligne_adr3}}</td>
-              <td style="text-align:center;">{{smith.code_postal}}</td>
-              <td style="text-align:center;">{{smith.ville}}</td>  
+              <td style="text-align:center;vertical-align:middle;">{{smith.date_naissance_smith|date('d/m/Y')}}</td>
+              <td style="text-align:center;vertical-align:middle;">	{{ ('now'|date('Y') - smith.date_naissance_smith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.date_naissance_smith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
+              <td style="text-align:center;vertical-align:middle;">{{smith.prenom_smith}} {{smith.nom_membre|upper}}</td>
+              <td style="text-align:center;vertical-align:middle;">{{smith.ligne_adr2}}<br>{{smith.ligne_adr3}}</td>
+              <td style="text-align:center;vertical-align:middle;">{{smith.code_postal}}</td>
+              <td style="text-align:center;vertical-align:middle;">{{smith.ville}}</td> 
+              <td style="text-align:center;vertical-align:middle;">{{form_widget(AnnivEnvoyeForm)}}</td> 
             </tr> 
         {% endfor %}
       </tbody>        
     </table>
+    {{form_end(AnnivEnvoyeForm)}}
   <br>
-</div> {# Fin DIV6 #}
+  </div> Fin DIV6 #}
 </div> {# Fin DIV1 #}
              
 {% endblock %}

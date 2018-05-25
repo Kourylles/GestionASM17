@@ -18,7 +18,29 @@ class ProfessionnelRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Professionnel::class);
     }
-
+    
+    public function getProEtAdresses(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+    
+        $sql = '
+            SELECT * 
+            FROM coordonnees 
+            INNER JOIN `professionnel`
+            ON `professionnel`.`coordonnees_id`= `coordonnees`.`id`
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+    
+    
+    // SELECT * 
+    // FROM membre 
+    // INNER JOIN `coordonnees`
+    // ON `membre`.`coordonnees_id`= `coordonnees`.`id`
+    
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
 //    /**
 //     * @return Professionnel[] Returns an array of Professionnel objects
 //     */

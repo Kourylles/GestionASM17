@@ -33,6 +33,38 @@ class MembreRepository extends ServiceEntityRepository
         
     }
 
+    public function getMembreAjourCoti()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT COUNT(*) as ajour
+            FROM membre 
+            WHERE membre.coti_ok = TRUE
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+    
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
+    public function getMembreNonAjourCoti()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT COUNT(*) as nonAjour
+            FROM membre 
+            WHERE membre.coti_ok = FALSE
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+    
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
     /**
      * 
      */
@@ -62,6 +94,7 @@ class MembreRepository extends ServiceEntityRepository
         ON `membre`.`coordonnees_id` = `coordonnees`.`id`
         WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) <30
         OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) <30
+        AND smith.anniv_envoye = false
         ';
     $stmt = $conn->prepare($sql);
     $stmt->execute();

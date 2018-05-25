@@ -1,0 +1,185 @@
+{# GestionASM17/templates/GestionASM17/detailDonateur.html/twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Détail Donateur{% endblock %}
+{% block body %}
+<div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-dark">Modifier</button>
+    <button type="button" class="btn btn-dark">Envoyer Mail</button>
+  </div>
+  <div class="container-fluid">
+    <br>
+    <div class="row">
+        <h4>{{Donateur.prenomDonateur}} {{Donateur.nomDonateur}}</h4></td>
+    </div>
+    <hr>
+    {# <pre>
+    recette
+        {{ dump(Recettes) }}
+    donateur
+        {{dump(Donateur)}}
+    </pre> #}
+
+  </div>
+  <!-- Onglet de Navigation -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item ">
+      <a class="nav-link active" data-toggle="tab" href="#Coordonnées"><h5>Coordonnées</h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#Don"><h5>Dons {{ExComptableEnCours.exerciceEnCours}}</h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#DonsAnterieurs"><h5>Don(s) Antérieur(s)</h5></a>
+    </li>
+  </ul>
+
+  <!-- Contenu des onglets de Navigation -->
+  <div class="tab-content">
+{# Onglet Coordonnées #}
+    <div id="Coordonnées" class="container tab-pane active"><br>      
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="nomDetailDonateur"><h6>Nom :</h6></label>
+            <input type="text" class="form-control" id="nomDetailDonateur" placeholder="{{Donateur.nomDonateur}}" disabled>
+          </div>
+          <div class="form-group col-md-8 offset-md-1">
+            <label for="lgnAdr1DetalDonateur"><h6>Première ligne d'adresse :</h6></label>
+            <input type="text" class="form-control" id="lgnAdr1DetailDonateur" placeholder="{{Coordonnees.ligneAdr1}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+                  <div class="form-group col-md-3">
+                      <label for="prenomDetailDonateur"><h6>Prénom(s) :</h6></label>
+                      <input type="text" class="form-control" id="prenomDetailDonateur" placeholder="{{Donateur.prenomDonateur}}" disabled >
+                    </div>
+                  <div class="form-group col-md-8 offset-md-1">
+                    <label for="lgnAdr2DetailDonateur"><h6>Deuxième ligne d'adresse :</h6></label>
+                    <input type="text" class="form-control" id="lgnAdr2DetailDonateur" placeholder="{{Coordonnees.ligneAdr2}}" disabled>
+                  </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-8 offset-md-4">
+            <label for="lgnAdr3DetailDonateur"><h6>Troisième ligne d'adresse :</h6></label>
+            <input type="text" class="form-control" id="lgnAdr3DetailDonateur" placeholder="{{Coordonnees.ligneAdr3}}" disabled>
+          </div>
+        </div>
+     
+        <div class="form-row">            
+          <div class="form-group col-md-1 offset-md-4">
+            <label for="codePostalDetailDonateur"><h6>CP :</h6></label>
+            <input type="text" class="form-control" id="codePostalDetailDonateur" placeholder="{{Coordonnees.codePostal}}" disabled>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="villeDetailDonateur"><h6>Ville :</h6></label>
+            <input type="text" class="form-control" id="villeDetailDonateur" placeholder="{{Coordonnees.ville}}" disabled>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="paysDetailDonateur"><h6>Pays :</h6></label>
+            <input type="text" class="form-control" id="paysDetailDonateur" placeholder="{{Coordonnees.pays}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-4 offset-md-4">
+            <label for="email1DetailDonateur"><h6>EMail :</h6></label>
+            <input type="text" class="form-control" id="email1DetailDonateur" placeholder="{{Coordonnees.email1}}" disabled>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="email2DetailDonateur"><h6>EMail :</h6></label>
+            <input type="text" class="form-control" id="email2DetailDonateur" placeholder="{{Coordonnees.email2}}" disabled>
+          </div>
+          
+          <div class="form-group col-md-4 offset-md-4">
+            <label for="tel1DetailDonateur"><h6>Tel. :</h6></label>
+            <input type="text" class="form-control" id="tel1DetailDonateur" placeholder="{{Coordonnees.telephone1}}" disabled>
+          </div>
+          <div class="form-group col-md-4 ">
+            <label for="tel2DetailDonateur"><h6>Tel. :</h6></label>
+            <input type="text" class="form-control" id="tel2DetailDonateur" placeholder="{{Coordonnees.telephone2}}" disabled>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="observationDetailDonateur"><h6>Observation(s) :</h6></label>
+          <textarea rows="5" class="form-control" id="observationDetailDonateur" placeholder="{{Donateur.observationsDonateur}}" disabled></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+
+{# Onglet Don de l'exercice en cours#}
+    <div id="Don" class="container tab-pane fade"><br>    
+      {% for recette in Recettes %} 
+      {% if recette.exerciceComptableRecette == ExComptableEnCours.exerciceEnCours %}    
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="typeRecetteDetailDonateur"><h6>Type :</h6> </label>
+            <input type="text" class="form-control" id="typeRecetteDetailDonateur" placeholder="{{recette.typeRecette.typeDeRecette}}" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for="dteRecetteDetailDonateur"><h6>Date:</h6></label>
+            <input type="text" class="form-control" id="dteRecetteDetailDonateur" placeholder="{{recette.datePaiementRecette|date('d/m/Y')}}" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for="montantRecetteDetailDonateur"><h6>Montant :</h6></label>
+            <input type="text" class="form-control" id="montantRecetteDetailDonateur" placeholder="{{recette.montantRecette}} €" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="observationDetailDonateur"><h6>Description : </h6></label>
+          <textarea rows="5" class="form-control" id="observationDetailDonateur" placeholder="{{recette.descriptionRecette}}" disabled></textarea>
+          </div>
+        </div>
+      </form>
+      <hr>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+{# Onglet Don des années précédent l'exercice comptabele en Cours #}
+    <div id="DonsAnterieurs" class="container tab-pane fade"><br>    
+      {% for recette in Recettes %} 
+      {% if recette.exerciceComptableRecette != ExComptableEnCours.exerciceEnCours %}
+      <form>
+        <div class="row">
+          <h5> ANNEE : {{recette.exerciceComptableRecette}}</h5>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="typeRecetteDetailDonateur"><h6>Type :</h6> </label>
+            <input type="text" class="form-control" id="typeRecetteDetailDonateur" placeholder="{{recette.typeRecette.typeDeRecette}}" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for="dteRecetteDetailDonateur"><h6>Date:</h6></label>
+            <input type="text" class="form-control" id="dteRecetteDetailDonateur" placeholder="{{recette.datePaiementRecette|date('d/m/Y')}}" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for="montantRecetteDetailDonateur"><h6>Montant :</h6></label>
+            <input type="text" class="form-control" id="montantRecetteDetailDonateur" placeholder="{{recette.montantRecette}} €" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="observationSmithDetailDonateur"><h6>Description : </h6></label>
+          <textarea rows="5" class="form-control" id="observationSmithDetailDonateur" placeholder="{{recette.descriptionRecette}}" disabled></textarea>
+          </div>
+        </div>
+      </form>
+      <hr>
+      {% endif %}
+      {% endfor %}
+    </div>
+  
+</div>
+              
+{% endblock %}
+

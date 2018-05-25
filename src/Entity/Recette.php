@@ -18,7 +18,7 @@ class Recette
 
     
     /**
-     * @ORM\Column(type="string", length=4)
+     * @ORM\Column(type="integer")
      */
     private $exerciceComptableRecette;
 
@@ -59,7 +59,6 @@ class Recette
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="recette")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $idMembre;
 
@@ -74,6 +73,11 @@ class Recette
      * @ORM\JoinColumn(nullable=false)
      */
     private $modePaiement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Donateur", inversedBy="idRecette")
+     */
+    private $idDonateur;
 
     public function getId()
     {
@@ -209,6 +213,18 @@ class Recette
     public function setModePaiement(?ModePaiement $modePaiement): self
     {
         $this->modePaiement = $modePaiement;
+
+        return $this;
+    }
+
+    public function getIdDonateur(): ?Donateur
+    {
+        return $this->idDonateur;
+    }
+
+    public function setIdDonateur(?Donateur $idDonateur): self
+    {
+        $this->idDonateur = $idDonateur;
 
         return $this;
     }

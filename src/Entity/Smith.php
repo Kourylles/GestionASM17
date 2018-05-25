@@ -38,6 +38,11 @@ class Smith
      */
     private $idMembre;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $annivEnvoye;
+
     public function __construct()
     {
         $this->idMembre = new ArrayCollection();
@@ -123,6 +128,18 @@ class Smith
                 $idMembre->setSmithLie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAnnivEnvoye(): ?bool
+    {
+        return $this->annivEnvoye;
+    }
+
+    public function setAnnivEnvoye(bool $annivEnvoye): self
+    {
+        $this->annivEnvoye = $annivEnvoye;
 
         return $this;
     }

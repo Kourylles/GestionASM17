@@ -16,4 +16,16 @@ detail_membres:
 
 donateurs:
     path: /donateurs
-    controller: App\Controller\DonateursController::afficherDonateurs    
+    controller: App\Controller\DonateursController::afficherDonateurs
+    
+detail_donateurs:
+    path: /donateurs/{id}
+    controller: App\Controller\DonateursController::detailDonateurs
+
+professionnels:
+    path: /professionnels
+    controller : App\Controller\ProfessionnelsController::afficherProfessionnels
+
+detail_professionnels:
+    path : /professionnels/{id}
+    controller : App\Controller\ProfessionnelsController::detailProfessionnels

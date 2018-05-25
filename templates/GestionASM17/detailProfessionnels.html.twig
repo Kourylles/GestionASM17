@@ -1,0 +1,218 @@
+{# GestionASM17/templates/GestionASM17/detailProfessionnels.html/twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Détail Professionnels{% endblock %}
+{% block body %}
+<div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-dark">Modifier</button>
+    <button type="button" class="btn btn-dark">Envoyer Mail</button>
+  </div>
+  <div class="container-fluid">
+    <br>
+    <div class="row">
+      <table class="table table-borderless col-md-12">
+        <tbody>
+          <tr>
+            </td>
+            <td style="padding-top:16px;"><h4>{{Pro.titreProfessionnel}} {{Pro.prenomProfessionnel}} {{Pro.nomProfessionnel|upper}}</h4></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+  </div>
+
+  <!-- Création des 4 onglets -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item ">
+      <a class="nav-link active" data-toggle="tab" href="#Coordonnées"><h5>Coordonnées</h5></a>
+    </li>
+    {# <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#"><h5></h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#"><h5></h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#><h5></h5></a>
+    </li> #}
+  </ul>
+
+  <!-- Création du contenu des onglets -->
+  <div class="tab-content">
+{# Onglet Coordonnées #}
+    <div id="Coordonnées" class="container tab-pane active"><br>      
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="nomDetailPro"><h6>Nom :</h6></label>
+            <input type="text" class="form-control" id="nomDetailPro" placeholder="{{Pro.nomProfessionnel}}" disabled>
+          </div>
+          <div class="form-group col-md-8 offset-md-1">
+            <label for="lgnAdr1DetalPro"><h6>Première ligne d'adresse :</h6></label>
+            <input type="text" class="form-control" id="lgnAdr1DetailPro" placeholder="{{Coordonnees.ligneAdr1}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+                  <div class="form-group col-md-3">
+                      <label for="prenomDetailPro"><h6>Prénom(s) :</h6></label>
+                      <input type="text" class="form-control" id="prenomDetailPro" placeholder="{{Pro.prenomProfessionnel}}" disabled >
+                    </div>
+                  <div class="form-group col-md-8 offset-md-1">
+                    <label for="lgnAdr2DetalPro"><h6>Deuxième ligne d'adresse :</h6></label>
+                    <input type="text" class="form-control" id="lgnAdr2DetailPro" placeholder="{{Coordonnees.ligneAdr2}}" disabled>
+                  </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="fonctionDetailPro"><h6>Spécialité :</h6></label>
+            <input type="text" class="form-control" id="fonctionCaDetailPro" placeholder="{{Pro.fonctionProfessionnel}}" disabled >
+          </div>
+          <div class="form-group col-md-8 offset-md-1">
+            <label for="lgnAdr3DetalPro"><h6>Troisième ligne d'adresse :</h6></label>
+            <input type="text" class="form-control" id="lgnAdr3DetailPro" placeholder="{{Coordonnees.ligneAdr3}}" disabled>
+          </div>
+        </div>
+     
+        <div class="form-row">  
+          <div class="form-group col-md-1 offset-md-4">
+            <label for="codePostalDetailMembre"><h6>CP :</h6></label>
+            <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{Coordonnees.codePostal}}" disabled>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="villeDetailMembre"><h6>Ville :</h6></label>
+            <input type="text" class="form-control" id="villeDetailMembre" placeholder="{{Coordonnees.ville}}" disabled>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="paysDetailMembre"><h6>Pays :</h6></label>
+            <input type="text" class="form-control" id="paysDetailMembre" placeholder="{{Coordonnees.pays}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-4 offset-md-4">
+            <label for="email1DetailMembre"><h6>EMail :</h6></label>
+            <input type="text" class="form-control" id="email1DetailMembre" placeholder="{{Coordonnees.email1}}" disabled>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="email2DetailMembre"><h6>EMail :</h6></label>
+            <input type="text" class="form-control" id="email2DetailMembre" placeholder="{{Coordonnees.email2}}" disabled>
+          </div>
+          
+          <div class="form-group col-md-4 offset-md-4">
+            <label for="tel1DetailMembre"><h6>Tel. :</h6></label>
+            <input type="text" class="form-control" id="tel1DetailMembre" placeholder="{{Coordonnees.telephone1}}" disabled>
+          </div>
+          <div class="form-group col-md-4 ">
+            <label for="tel2DetailMembre"><h6>Tel. :</h6></label>
+            <input type="text" class="form-control" id="tel2DetailMembre" placeholder="{{Coordonnees.telephone2}}" disabled>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for="observationDetailpro"><h6>Observation(s) :</h6></label>
+          <textarea rows="5" class="form-control" id="observationDetailPro" placeholder="{{Pro.observationsProfessionnel}}" disabled></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+
+{# Onglet Smith Relié #}
+    {# <div id="" class="container tab-pane fade"><br>
+<form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for=""><h6></h6> </label>
+            <input type="text" class="form-control" id="" 
+              placeholder="" disabled>
+          </div>
+          <div class="form-group col-md-2 offset-md-1">
+            <label for=""><h6></h6></label>
+            <input type="text" class="form-control" id=""
+              placeholder="" disabled>
+          </div>
+          <div class="form-group col-md-1 offset-md-1">
+            <label for=""><h6></h6></label>
+            <input type="text" class="form-control" id=""
+              placeholder="" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for=""><h6></h6></label>
+          <textarea rows="5" class="form-control" id="" 
+              placeholder="" disabled>
+          </textarea>
+          </div>
+        </div>
+      </form>
+    </div> #}
+
+{# Onglet Cotisation #}
+    {# <div id="Contributions" class="container tab-pane fade"><br>    
+      
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for=""><h6></h6> </label>
+            <input type="text" class="form-control" id="" placeholder="" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for=""><h6></h6></label>
+            <input type="text" class="form-control" id="" placeholder="" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for=""><h6></h6></label>
+            <input type="text" class="form-control" id="" placeholder="" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for=""><h6></h6></label>
+          <textarea rows="5" class="form-control" id="" placeholder="" disabled></textarea>
+          </div>
+        </div>
+      </form>
+      <hr>
+    </div> #}
+
+{# Onglet CotisationAnterieur #}
+    {# <div id="" class="container tab-pane fade"><br>    
+      <form>
+        <div class="row">
+          <h5></h5>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for=""><h6></h6> </label>
+            <input type="text" class="form-control" id="" placeholder="" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for=""><h6></h6></label>
+            <input type="text" class="form-control" id="" placeholder="" disabled>
+          </div>
+          <div class="form-group col-md-3 offset-md-1">
+            <label for=""><h6></h6></label>
+            <input type="text" class="form-control" id="" placeholder="" disabled>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-12">
+          <label for=""><h6></h6></label>
+          <textarea rows="5" class="form-control" id="" placeholder="" disabled></textarea>
+          </div>
+        </div>
+      </form>
+      <hr>
+    </div> #}
+  
+</div>
+              
+{% endblock %}
+

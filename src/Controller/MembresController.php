@@ -14,17 +14,24 @@ use App\Entity\Recette;
 
 class MembresController extends Controller
 {
+       
     public function afficherMembres()
     {
-        $DatePaiementCotiMembre = "20/03/2018";
+
 //Récupère sous forme de tableau les Membres et leurs adresses
         $ListeMembreEtAdresse = $this->getDoctrine()
         ->getRepository(Membre::class)
         ->getMembresEtAdresses();
-        
+
+//Récupère la cotisation en cours pour en afficher la date dans la vue
+        // $CotiEnCours = $this->getDoctrine()
+        // ->getRepository(Recette::class)
+        // ->getExoComptableDerniereCoti($Membre->getId(),"1");
+
         return $this->render('GestionASM17/membres.html.twig', array(
-            'ListeMembresEtAdresses'=>$ListeMembreEtAdresse,
-            'DatePaiementCotiMembre'=>$DatePaiementCotiMembre 
+            'ListeMembresEtAdresses'=>$ListeMembreEtAdresse
+        //     'DatePaiementCotiMembre'=>$DatePaiementCotiMembre ,
+        //     'CotiEnCours'=>$CotiEnCours
         ));
     }
 
@@ -58,14 +65,16 @@ class MembresController extends Controller
 //Récupère toutes les recettes du membre dont l'Id est passé en paramètre dans la route
         $Recettes = $this->getDoctrine()
         ->getRepository(Recette::class)
-        ->findByIdMembre($Membre->getId(),$ExComptableEnCours->getExerciceEnCours());       
-
+        ->findByIdMembre($Membre->getId(),$ExComptableEnCours->getExerciceEnCours());   
+  
+//Renvoi de la vue
         return $this->render('GestionASM17/detailMembre.html.twig', array(
+            'ExComptableEnCours'=>$ExComptableEnCours,
             'Membre'=>$Membre ,
             'Coordonnees'=>$Coordonnees ,
             'Recettes'=>$Recettes ,
             'LienDeParente'=>$LienDeParente ,
-            'FonctionCa'=>$FonctionCa
+            'FonctionCa'=>$FonctionCa 
         ));
     }
 

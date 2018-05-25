@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,11 @@ class Professionnel
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $titreProfessionnel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees")
+     */
+    private $coordonnees;
 
     public function getId()
     {
@@ -105,4 +112,17 @@ class Professionnel
 
         return $this;
     }
+
+    public function getCoordonnees(): ?Coordonnees
+    {
+        return $this->coordonnees;
+    }
+
+    public function setCoordonnees(?Coordonnees $coordonnees): self
+    {
+        $this->coordonnees = $coordonnees;
+
+        return $this;
+    }
+
 }

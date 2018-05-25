@@ -4,35 +4,40 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
 use App\Entity\Membre;
 use App\Entity\Donateur;
 use App\Entity\Smith;
 use App\Entity\Recette;
 use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Depense;
+use App\Form\AnnivOkType;
 
 class GestionASM17Controller extends Controller
 {
 
-    public function accueil()
+    public function accueil(Request $request)
     {
 //Récupère le nombre de membres total à jour de cotisation ou non
         $NbreMembre=$this->getDoctrine()
         ->getRepository(Membre::class)
         ->countByMembre();
 
-//Récupère le nombre de membre à jour de leur cotisation pour l'exercice comptable en cours
-        //Récupération de l'exercice comptable en cours
+//Récupération de l'exercice comptable en cours
         $ExComptableEnCours = $this->getDoctrine()
         ->getRepository(ExerciceComptableEnCours::class)
-        ->findExComptableEnCours(); //une seule ligne dans la base avec id=1
-        //Calcul du nombre de coti payée pour l'exercice comptable en cours
-        $NbreMembreOkCoti = $this->getDoctrine()
-        ->getRepository(Recette::class)
-        ->findNbreRecetteParType($ExComptableEnCours,"1");//id 1 de la table type de recette=cotisation
+        ->findExComptableEnCours(); //une seule ligne dans la base avec id=1        
 
-//Calcul du nombre de membre non à jour de cotisation
-        $NbreMembreNokCoti = ($NbreMembre - $NbreMembreOkCoti);
+//Récupère le nombre de membre à jour ou non à jour de leur cotisation pour l'exercice comptable en cours
+        //Nbre de membres à jour
+        $NbreMembreOkCoti = $this->getDoctrine()
+        ->getRepository(Membre::class)
+        ->getMembreAjourCoti();//id 1 de la table type de recette=cotisation
+        //Nbre de membres non à jour
+        $NbreMembreNokCoti = $this->getDoctrine()
+        ->getRepository(Membre::class)
+        ->getMembreNonAjourCoti();//id 1 de la table type de recette=cotisation
 
 //Récupère le nombre de donateurs
         $NbreDonateur =$this->getDoctrine()
@@ -56,6 +61,22 @@ class GestionASM17Controller extends Controller
         ->getRepository(Membre::class)
         ->getTableauAnnivSmith();
 
+//Récupère les 10 dernières recettes
+        $DixDernieresRecettes = $this->getDoctrine()
+        ->getRepository(Recette::class)
+        ->getXDernieresRecettes($ExComptableEnCours->getExerciceEnCours());
+
+//Création du formulaire qui va permettre de passer à "True" le booleen qui stocke
+//l'envoi de la carte d'anniverssaire
+        // foreach ($ListeMembreTableauAnnivSmith as $value) {
+        //         $smith = new Smith();
+        //         $AnnivEnvoyeForm = $this->createForm(AnnivOkType::class, $smith);
+        //         $AnnivEnvoyeForm->handleRequest($request);
+        // }
+        // $smith = new Smith();
+        // $AnnivEnvoyeForm = $this->createForm(AnnivOkType::class, $smith);
+        // $AnnivEnvoyeForm->handleRequest($request);
+
         return $this->render('GestionASM17/accueil.html.twig', array(
             'NbreMembre'=>$NbreMembre,
             'NbreMembreOkCoti'=>$NbreMembreOkCoti,
@@ -64,7 +85,9 @@ class GestionASM17Controller extends Controller
             'TotalRecette'=>$TotalRecette,
             'SommeParTypeDeRecette'=>$SommeParTypeDeRecette,
             'TotalDepense'=>$TotalDepense,
-            'ListeMembreTableauAnnivSmith'=>$ListeMembreTableauAnnivSmith
+            'ListeMembreTableauAnnivSmith'=>$ListeMembreTableauAnnivSmith,
+            'DixDernieresRecettes'=>$DixDernieresRecettes
+        //     'AnnivEnvoyeForm' => $AnnivEnvoyeForm->createView(),
         ));
     }
 }

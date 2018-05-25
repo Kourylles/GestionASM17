@@ -30,6 +30,33 @@ class DonateurRepository extends ServiceEntityRepository
  
     return (int) $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function getDonateursEtAdresses(): array
+{
+    $conn = $this->getEntityManager()->getConnection();
+
+    $sql = '
+        SELECT * 
+        FROM coordonnees 
+        INNER JOIN `donateur`
+        ON `donateur`.`coordonnees_id`= `coordonnees`.`id`
+        ';
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+
+// SELECT * 
+// FROM membre 
+// INNER JOIN `coordonnees`
+// ON `membre`.`coordonnees_id`= `coordonnees`.`id`
+
+    // returns an array of arrays (i.e. a raw data set)
+    return $stmt->fetchAll();
+}
+
+
+
+
 //    /**
 //     * @return Donateur[] Returns an array of Donateur objects
 //     */
