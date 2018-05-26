@@ -116,15 +116,22 @@ public function getMembresEtAdresses(): array
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
-
-// SELECT * 
-// FROM membre 
-// INNER JOIN `coordonnees`
-// ON `membre`.`coordonnees_id`= `coordonnees`.`id`
-
     // returns an array of arrays (i.e. a raw data set)
     return $stmt->fetchAll();
 }
+
+public function getXDerniersMembres()
+{
+    $qb = $this->CreateQueryBuilder('m')
+        ->join('m.coordonnees','c')
+        ->addSelect('c')
+        ->andwhere('m.coordonnees = c.id')
+        ->setMaxResults(20)
+        ->getQuery()
+    ;
+    return  $qb->getArrayResult();
+}
+
 
 
 //    /**

@@ -31,6 +31,17 @@ class DepenseRepository extends ServiceEntityRepository
 
         return  $qb->getArrayResult();
     }
+
+    public function getXDernieresDepenses($ExComptable)
+    {
+        $qb = $this->CreateQueryBuilder('d')
+            ->where('d.anneeDepense = :exCompt')
+            ->setParameter('exCompt',$ExComptable)
+            ->setMaxResults(20)
+            ->getQuery()
+        ;
+        return  $qb->getArrayResult();
+    }
 //    /**
 //     * @return Depense[] Returns an array of Depense objects
 //     */

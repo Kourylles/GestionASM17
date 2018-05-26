@@ -61,10 +61,22 @@ class GestionASM17Controller extends Controller
         ->getRepository(Membre::class)
         ->getTableauAnnivSmith();
 
-//Récupère les 10 dernières recettes
-        $DixDernieresRecettes = $this->getDoctrine()
+//Récupère les 20 dernières recettes
+        $DernieresRecettes = $this->getDoctrine()
         ->getRepository(Recette::class)
-        ->getXDernieresRecettes($ExComptableEnCours->getExerciceEnCours());
+        ->getXDernieresRecettesParType($ExComptableEnCours->getExerciceEnCours(),3,4);
+        // var_dump($DernieresRecettes);die;
+
+//Récupère les 20 dernières recettes
+$DernieresDepenses = $this->getDoctrine()
+->getRepository(Depense::class)
+->getXDernieresDepenses($ExComptableEnCours->getExerciceEnCours());
+// var_dump($DernieresRecettes);die;
+
+// Récupère les 20 derniers membres ajoutés
+$DerniersMembres = $this->getDoctrine()
+->getRepository(Membre::class)
+->getXDerniersMembres($ExComptableEnCours->getExerciceEnCours(),1,2);
 
 //Création du formulaire qui va permettre de passer à "True" le booleen qui stocke
 //l'envoi de la carte d'anniverssaire
@@ -86,7 +98,9 @@ class GestionASM17Controller extends Controller
             'SommeParTypeDeRecette'=>$SommeParTypeDeRecette,
             'TotalDepense'=>$TotalDepense,
             'ListeMembreTableauAnnivSmith'=>$ListeMembreTableauAnnivSmith,
-            'DixDernieresRecettes'=>$DixDernieresRecettes
+            'DernieresRecettes'=>$DernieresRecettes,
+            'DernieresDepenses'=>$DernieresDepenses,
+            'DerniersMembres'=>$DerniersMembres
         //     'AnnivEnvoyeForm' => $AnnivEnvoyeForm->createView(),
         ));
     }

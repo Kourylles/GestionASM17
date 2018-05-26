@@ -31,7 +31,6 @@ class RecetteRepository extends ServiceEntityRepository
                 ->groupBy('r.typeRecette')
                 ->getQuery()   
             ;
-
             return  $qb->getArrayResult();
         }
 
@@ -44,18 +43,35 @@ class RecetteRepository extends ServiceEntityRepository
             ->Select('SUM(r.montantRecette) as resultat')
             ->getQuery()   
         ;
-
         return  $qb->getArrayResult();
     }
 
-    public function getXDernieresRecettes($ExComptable)
+    public function getXDernieresRecettesParType($ExComptable, $TypeRecette1, $TypeRecette2)
     {
         $qb = $this->CreateQueryBuilder('r')
+            ->join('r.typeRecette','t')
+            ->addSelect('t')
             ->where('r.exerciceComptableRecette = :exCompt')
-            ->andWhere(limit(10))
+            ->andWhere('r.typeRecette =:typeRecette1')
+            ->orWhere('r.typeRecette =:typeRecette2')
             ->setParameter('exCompt',$ExComptable)
+            ->setParameter('typeRecette1',$TypeRecette1)        
+            ->setParameter('typeRecette2',$TypeRecette2)
+            ->setMaxResults(20)
+            ->getQuery()
         ;
+        return  $qb->getArrayResult();
     }
+
+//     SELECT * FROM `recette` 
+// JOIN type_recette
+// WHERE exercice_comptable_recette='2018'
+// AND type_recette_id='3'
+// AND recette.type_recette_id=type_recette.id
+
+
+
+
 
     // /**
     //  * @return Recette[] Returns an array of Recette objects
