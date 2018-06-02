@@ -17,6 +17,9 @@ class ExerciceComptableEnCoursType extends AbstractType
     {
         $builder
             ->add('exerciceEnCours', TextType::class)
+            ->add('save', SubmitType::class, [
+                'label'=>'Enregistrer'
+            ])
         ;
     }
 

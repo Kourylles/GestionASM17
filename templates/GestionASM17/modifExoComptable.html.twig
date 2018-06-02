@@ -1,35 +1,28 @@
-{# GestionASM17/templates/GestionASM17/detailMembre.html/twig#}
+{# GestionASM17/templates/GestionASM17/modifExoComptable.html.twig#}
 
 {% extends 'base.html.twig' %}
 {% block title %}{{parent()}}-ModifExCpt{% endblock %}
 {% block body %}
 
-{# <form> #}
-{{ form_start(formChangeExCompt) }}
+{% form_theme formChangeExCompt 'bootstrap_4_layout.html.twig' %}
 
+<h3>Changement de l'Exercice Comptable :</h3>
+<br>
   <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Exercice Comptable Actuel :</label>
-    <div class="col-sm-1">
-      <input type="email" class="form-control" id="AncienExComptable" placeholder="">
+    <div class="col-sm-6 offset-sm-2">
+      <h5>Exercice Comptable Actuel :</h5>
+      <input type="text" class="form-control" id="AncienExComptable" placeholder="{{exComptableEnCours.exerciceEnCours}}" disabled>
+     <br>
+
+      {{ form_start(formChangeExCompt) }}
+      <h5> 
+      {{ form_row(formChangeExCompt.exerciceEnCours, {
+          'label':"Nouvel Exercice Comptable"
+        }) }}
+      </h5>
+      {{ form_end(formChangeExCompt) }}
     </div>
   </div>
-  <div class="form-group row col-sm-10">{{ form_widget(formChangeExCompt) }}
-    
-    {# <div class="col-sm-1">
-      <input type="password" class="form-control" id="NouvelExComptable" placeholder="">
-    </div> #}
-  </div>
-{{ form_end(formChangeExCompt) }}
-  
-{# </form> #}
-
-
-
-
-
-
-
-
-             
+            
 {% endblock %}
 

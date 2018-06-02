@@ -1,0 +1,10 @@
+# config/validator/validation.yaml
+App\Entity\ExerciceComptableEnCours:
+    properties:
+        exerciceEnCours:
+            - NotBlank: ~
+            - Length: 
+                max: 4
+                min: 4
+                minMessage : "Merci de saisir une année sur 4 caractères"
+                maxMessage : "Merci de saisir une année sur 4 caractères"

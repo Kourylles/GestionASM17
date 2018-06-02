@@ -23,18 +23,18 @@
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
-                <span class="badge badge-light">{{NbreMembre}}</span>
+                <span class="badge badge-light">{{nbreMembre}}</span>
               </button>
             </td>
             <td colspan="2" style="text-align:center;">
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
-                <span class="badge badge-light">{{NbreDonateur}}</span>
+                <span class="badge badge-light">{{nbreDonateur}}</span>
               </button>
             </td>
               </tr>
           <tr>
-          {% for coti in NbreMembreOkCoti %}         
+          {% for coti in nbreMembreOkCoti %}         
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-success btn-block">
               A jour  :
@@ -44,7 +44,7 @@
              {% endfor %}
           </tr>
           <tr>
-          {% for coti in NbreMembreNokCoti  %}
+          {% for coti in nbreMembreNokCoti  %}
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-danger btn-block">
                 Non à Jour :
@@ -72,8 +72,8 @@
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
                 <span class="badge badge-light">
-                {% for sommeDesRecettes in TotalRecette %} 
-                  {% if TotalRecette|length <1 %}
+                {% for sommeDesRecettes in totalRecette %} 
+                  {% if totalRecette|length <1 %}
                   0 €
                   {% else %}
                     {{sommeDesRecettes.resultat}} €
@@ -87,8 +87,8 @@
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
                 <span class="badge badge-light">
-                {% for sommeDesDepenses in TotalDepense %} 
-                  {% if TotalRecette|length <1 %}
+                {% for sommeDesDepenses in totalDepense %} 
+                  {% if totalRecette|length <1 %}
                   0 €
                   {% else %}
                     {{sommeDesDepenses.resultat}} €
@@ -105,7 +105,7 @@
             <td style="text-align:center;">Subventions</td>
           </tr>
             <tr>
-            {% for typeRecette in SommeParTypeDeRecette %}            
+            {% for typeRecette in sommeParTypeDeRecette %}            
               <td>             
                 <button type="button" class="btn-lg btn-basic btn-block">
                   <span class="badge badge-light">{{typeRecette.resultat}} €</span>
@@ -128,13 +128,13 @@
       <a class="nav-link active" data-toggle="tab" href="#AnnivAVenir"><h5>Anniverssaires futures</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#DerniersMembres"><h5>Derniers Enregistrements</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#derniersMembres"><h5>Derniers Enregistrements</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#DernieresRecettes"><h5>Dernières Recettes {#{{ExComptableEnCours.exerciceEnCours}}#}</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#dernieresRecettes"><h5>Dernières Recettes {#{{ExComptableEnCours.exerciceEnCours}}#}</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#DernieresDepenses"><h5>Dernières Dépenses</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#dernieresDepenses"><h5>Dernières Dépenses</h5></a>
     </li>
   </ul>
 
@@ -160,7 +160,7 @@
                   {# <th style="text-align:center;">ENVOYE</th> #}
                 </tr>
               </thead>
-              {% for smith in ListeMembreTableauAnnivSmith %}                
+              {% for smith in listeMembreTableauAnnivSmith %}                
                   <tr>
                 {% if smith.coti_ok %}
                     <td align="center">
@@ -188,7 +188,7 @@
       </div> {# Fin DIV6 #}
 
 {# Onglet Dernièrs Membres #}
-    <div id="DerniersMembres" class="container tab-pane fade"><br>
+    <div id="derniersMembres" class="container tab-pane fade"><br>
       {# DIV10 qui contient les dernières recettes #}
       <div clas="table-responsive">
 
@@ -204,7 +204,7 @@
                   <th style="text-align:center;">MAIL</th>
                 </tr>
               </thead>
-              {% for membre in DerniersMembres %}                
+              {% for membre in derniersMembres %}                
                   <tr>
                     <td style="vertical-align:middle;">{{membre.nomMembre}}</td>
                     <td style="vertical-align:middle;">{{membre.prenomMembre}}</td>
@@ -218,7 +218,7 @@
           </table>
         <br>
       </div> {# Fin DIV10 #}
-    </div> {# Div DernieresRecettes #}
+    </div> {# Div dernieresRecettes #}
 
 
 
@@ -227,7 +227,7 @@
 
 
 {# Onglet Dernières Recettes #}
-    <div id="DernieresRecettes" class="container tab-pane fade"><br>
+    <div id="dernieresRecettes" class="container tab-pane fade"><br>
       {# DIV8 qui contient les dernières recettes #}
       <div clas="table-responsive">
 
@@ -241,7 +241,7 @@
                   <th style="text-align:center;">MONTANT</th>
                 </tr>
               </thead>
-              {% for recette in DernieresRecettes %}                
+              {% for recette in dernieresRecettes %}                
                   <tr>
                     <td style="text-align:center;vertical-align:middle;">{{recette.datePaiementRecette|date('d/m/Y')}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{recette.typeRecette.typeDeRecette }}</td>
@@ -253,10 +253,10 @@
           </table>
         <br>
       </div> {# Fin DIV8 #}
-    </div> {# Div DernieresRecettes #}
+    </div> {# Div dernieresRecettes #}
 
       {# Onglet Dernières Dépenses #}
-    <div id="DernieresDepenses" class="container tab-pane fade"><br>
+    <div id="dernieresDepenses" class="container tab-pane fade"><br>
       {# DIV9 qui contient les dernières dépenses #}
       <div clas="table-responsive">
 
@@ -270,7 +270,7 @@
                   <th style="text-align:center;">MONTANT</th>
                 </tr>
               </thead>
-              {% for depense in DernieresDepenses %}                
+              {% for depense in dernieresDepenses %}                
                   <tr>
                     <td style="text-align:center;vertical-align:middle;">{{depense.dateDepense|date('d/m/Y')}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{depense.debiteur}}</td>
@@ -282,7 +282,7 @@
           </table>
         <br>
       </div> {# Fin DIV9 #}
-    </div> {# Div DernieresDepenses#}
+    </div> {# Div dernieresDepenses#}
 
     
     
@@ -320,7 +320,7 @@
             <th style="text-align:center;">ENVOYE</th>
           </tr>
         </thead>
-         {% for smith in ListeMembreTableauAnnivSmith %}                
+         {% for smith in listeMembreTableauAnnivSmith %}                
             <tr>
           {% if smith.coti_ok %}
               <td align="center">

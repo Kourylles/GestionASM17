@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExerciceComptableEnCoursRepository")
@@ -11,7 +12,6 @@ class ExerciceComptableEnCours
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -34,6 +34,13 @@ class ExerciceComptableEnCours
     public function getExerciceEnCours(): ?string
     {
         return $this->exerciceEnCours;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function setExerciceEnCours(string $ExerciceEnCours): self

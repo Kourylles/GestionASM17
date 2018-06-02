@@ -29,8 +29,7 @@ class MembreRepository extends ServiceEntityRepository
             ->createQueryBuilder('m');
         $qb ->select($qb->expr()->count('m'));
  
-    return (int) $qb->getQuery()->getSingleScalarResult();
-        
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     public function getMembreAjourCoti()

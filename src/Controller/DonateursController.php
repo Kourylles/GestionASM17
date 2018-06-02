@@ -2,61 +2,59 @@
 // GestionASM17/src/Controller/DonateursController.php
 namespace App\Controller;
 
+//Use Symfony
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+
+//Entitées utilisées
 use App\Entity\Donateur;
 use App\Entity\Coordonnees;
 use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Recette;
 
+//Repositories utilisées
+use App\Repository\DonateurRepository;
+use App\Repository\ExerciceComptableEnCoursRepository;
+use App\Repository\DonateursRepository;
+use App\Repository\CoordonneesRepository;
+use App\Repository\RecetteRepository;
+
 
 class DonateursController extends Controller
 {
-       
-    public function afficherDonateurs()
+    public function afficherDonateurs(DonateurRepository $repoDonateur)
     {
+//Récupère sous forme de tableau les Donateurs et leurs adresses
+                $listeDonateurEtAdresse = $repoDonateur->getDonateursEtAdresses();
 
-        //Récupère sous forme de tableau les Donateurs et leurs adresses
-                $ListeDonateurEtAdresse = $this->getDoctrine()
-                ->getRepository(Donateur::class)
-                ->getDonateursEtAdresses();
-        
+//Le controleur retourne une vue en lui passant les paramètres : form et exo comptable en cours
                 return $this->render('GestionASM17/donateurs.html.twig', array(
-                    'ListeDonateurEtAdresse'=>$ListeDonateurEtAdresse
+                    'listeDonateurEtAdresse'=>$listeDonateurEtAdresse
                 ));
-            }
+        }
 
-    public function detailDonateurs($id)
+    public function detailDonateurs(
+            $id,
+            ExerciceComptableEnCoursRepository $exoComptEnCours,
+            DonateurRepository $repoDonateur,
+            CoordonneesRepository $repoCoordonnees,
+            RecetteRepository $repoRecette)
     {
 //Récupération de l'exercice comptable
-        $ExComptableEnCours = $this->getDoctrine()
-        ->getRepository(ExerciceComptableEnCours::class)
-        ->findExComptableEnCours(); //une seule ligne dans la base avec id=1
-
-//Récupère les données du donateur passé en paramètre dans une instance de Donateur
-        $Donateur = $this->getDoctrine()
-        ->getRepository(Donateur::class)
-        ->find($id);       
-
+        $exComptableEnCours = $exoComptEnCours->findExComptableEnCours(); //une seule ligne dans la base avec id=1
+//Récupère les données du donateur passé en paramètre dans une instance de donateur
+        $donateur = $repoDonateur->find($id);       
 // Récupère les coordonnées du donateur passé en paramètre
-        $Coordonnees = $this->getDoctrine()
-        ->getRepository(Coordonnees::class)
-        ->find($Donateur->getCoordonnees());
-
+        $coordonnees = $repoCoordonnees->find($donateur->getCoordonnees());
 //Récupère toutes les recettes du donateur dont l'Id est passé en paramètre dans la route
-        $Recettes = $this->getDoctrine()
-        ->getRepository(Recette::class)
-        ->findByIdDonateur($Donateur->getId(),$ExComptableEnCours->getExerciceEnCours());
+        $recettes = $repoRecette->findByIdDonateur($donateur->getId(),$exComptableEnCours->getExerciceEnCours());
   
-//Renvoi de la vue
+//Le controleur retourne une vue en lui passant les paramètres necessaires
         return $this->render('GestionASM17/detailDonateur.html.twig', array(
-            'ExComptableEnCours'=>$ExComptableEnCours,
-            'Donateur'=>$Donateur ,
-            'Coordonnees'=>$Coordonnees ,
-            'Recettes'=>$Recettes 
+            'exComptableEnCours'=>$exComptableEnCours,
+            'donateur'=>$donateur ,
+            'coordonnees'=>$coordonnees ,
+            'recettes'=>$recettes 
         ));
     }
-
-
-
 }

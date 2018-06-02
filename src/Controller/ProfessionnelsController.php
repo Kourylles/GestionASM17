@@ -2,45 +2,47 @@
 // GestionASM17/src/Controller/ProController.php
 namespace App\Controller;
 
+//Use Symfony
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+//Entitées utilisées
 use App\Entity\Professionnel;
 use App\Entity\Coordonnees;
 
+//Repositories utilisées
+use App\Repository\ProfessionnelRepository;
+use App\Repository\CoordonneesRepository;
 
 class ProfessionnelsController extends Controller
 {
        
-    public function afficherProfessionnels()
+    public function afficherProfessionnels(ProfessionnelRepository $repoPro)
     {
 
 //Récupère sous forme de tableau les Professionnels et leurs adresses
-        $ListeProEtAdresse = $this->getDoctrine()
-        ->getRepository(Professionnel::class)
-        ->getProEtAdresses();
+        $listeProEtAdresse = $repoPro->getProEtAdresses();
 
+//Le controleur retourne une vue en lui passant le paramètre necessaire
         return $this->render('GestionASM17/professionnels.html.twig', array(
-            'ListeProEtAdresse'=>$ListeProEtAdresse
+            'listeProEtAdresse'=>$listeProEtAdresse
         ));
     }
 
-    public function detailProfessionnels($id)
+    public function detailProfessionnels(
+        $id,
+        ProfessionnelRepository $repoPro,
+        CoordonneesRepository $repoCoordonnees)
     {
 //Récupère les données du Professionnel passé en paramètre dans une instance de professionnel
-        $Pro = $this->getDoctrine()
-        ->getRepository(Professionnel::class)
-        ->find($id);  
-
+        $Pro = $repoPro->find($id);  
 // Récupère les coordonnées du Professionnel passé en paramètre
-        $Coordonnees = $this->getDoctrine()
-        ->getRepository(Coordonnees::class)
-        ->find($Pro->getCoordonnees());  
+        $coordonnees = $repoCoordonnees->find($Pro->getCoordonnees());  
   
-//Renvoi de la vue
+//Le controleur retourne une vue en lui passant le paramètre necessaire
         return $this->render('GestionASM17/detailProfessionnels.html.twig', array(
             'Pro'=>$Pro ,
-            'Coordonnees'=>$Coordonnees
+            'coordonnees'=>$coordonnees
         ));
     }
 

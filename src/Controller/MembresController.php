@@ -2,8 +2,11 @@
 // GestionASM17/src/Controller/MembresController.php
 namespace App\Controller;
 
+//Use Symfony
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+
+//Entitées utilisées
 use App\Entity\Membre;
 use App\Entity\Coordonnees;
 use App\Entity\ExerciceComptableEnCours;
@@ -12,72 +15,61 @@ use App\Entity\LienParente;
 use App\Entity\FonctionCa;
 use App\Entity\Recette;
 
+//Repositories utilisés
+use App\Repository\MembreRepository;
+use App\Repository\ExerciceComptableEnCoursRepository;
+use App\Repository\CoordonneesRepository;
+use App\Repository\LienParenteRepository;
+use App\Repository\FonctionCaRepository;
+use App\Repository\RecetteRepository;
+
 class MembresController extends Controller
 {
-       
-    public function afficherMembres()
+    public function afficherMembres(MembreRepository $repoMembre)
     {
 
 //Récupère sous forme de tableau les Membres et leurs adresses
-        $ListeMembreEtAdresse = $this->getDoctrine()
-        ->getRepository(Membre::class)
-        ->getMembresEtAdresses();
+        $listeMembreEtAdresse = $repoMembre->getMembresEtAdresses();
 
-//Récupère la cotisation en cours pour en afficher la date dans la vue
-        // $CotiEnCours = $this->getDoctrine()
-        // ->getRepository(Recette::class)
-        // ->getExoComptableDerniereCoti($Membre->getId(),"1");
-
+//Le controleur retourne une vue en lui passant la liste des membres en paramètre
         return $this->render('GestionASM17/membres.html.twig', array(
-            'ListeMembresEtAdresses'=>$ListeMembreEtAdresse
-        //     'DatePaiementCotiMembre'=>$DatePaiementCotiMembre ,
-        //     'CotiEnCours'=>$CotiEnCours
+            'listeMembreEtAdresse'=>$listeMembreEtAdresse
         ));
     }
 
-    public function detailMembres($id)
+    public function detailMembres(
+            $id,
+            ExerciceComptableEnCoursRepository $repoExoComptable,
+            MembreRepository $repoMembre,
+            CoordonneesRepository $repoCoordonnees,
+            LienParenteRepository $repoLienParente,
+            FonctionCaRepository $repoFonctionCa,
+            RecetteRepository $repoRecette
+            )
     {
 //Récupération de l'exercice comptable
-        $ExComptableEnCours = $this->getDoctrine()
-        ->getRepository(ExerciceComptableEnCours::class)
-        ->findExComptableEnCours(); //une seule ligne dans la base avec id=1
-
+        $exComptableEnCours = $repoExoComptable->findExComptableEnCours(); //une seule ligne dans la base avec id=1
 //Récupère les données du membre passé en paramètre dans une instance de membre
-        $Membre = $this->getDoctrine()
-        ->getRepository(Membre::class)
-        ->find($id);  
-
+        $membre = $repoMembre->find($id);  
 // Récupère les coordonnées du membres passé en paramètre
-        $Coordonnees = $this->getDoctrine()
-        ->getRepository(Coordonnees::class)
-        ->find($Membre->getCoordonnees());
+        $coordonnees = $repoCoordonnees->find($membre->getCoordonnees());
+//Récupère le libellé du lien de parenté en fonction du code contenu dans l'entity membre
+        $lienDeParente =$repoLienParente->find($membre->getLienParente());
 
-//Récupère le libellé du lien de parenté en fonction du code contenu dans l'entity Membre
-        $LienDeParente =$this->getDoctrine()
-        ->getRepository(LienParente::class)
-        ->find($Membre->getLienParente());
-
-//Récupère le libellé de la fonction CA en fonction du code contenu dans l'entity Membre
-        $FonctionCa =$this->getDoctrine()
-        ->getRepository(FonctionCa::class)
-        ->find($Membre->getFonctionCa());
-
+        dump($lienDeParente);
+//Récupère le libellé de la fonction CA en fonction du code contenu dans l'entity membre
+        $fonctionCa =$repoFonctionCa->find($membre->getFonctionCa());
 //Récupère toutes les recettes du membre dont l'Id est passé en paramètre dans la route
-        $Recettes = $this->getDoctrine()
-        ->getRepository(Recette::class)
-        ->findByIdMembre($Membre->getId(),$ExComptableEnCours->getExerciceEnCours());   
+        $recettes = $repoRecette->findByIdMembre($membre->getId(),$exComptableEnCours->getExerciceEnCours());   
   
-//Renvoi de la vue
+//Le controleur retourne une vue en lui passant les paramètres : form et exo comptable en cours
         return $this->render('GestionASM17/detailMembre.html.twig', array(
-            'ExComptableEnCours'=>$ExComptableEnCours,
-            'Membre'=>$Membre ,
-            'Coordonnees'=>$Coordonnees ,
-            'Recettes'=>$Recettes ,
-            'LienDeParente'=>$LienDeParente ,
-            'FonctionCa'=>$FonctionCa 
+            'exComptableEnCours'=>$exComptableEnCours,
+            'membre'=>$membre ,
+            'coordonnees'=>$coordonnees ,
+            'recettes'=>$recettes ,
+            'lienDeParente'=>$lienDeParente ,
+            'fonctionCa'=>$fonctionCa 
         ));
     }
-
-
-
 }

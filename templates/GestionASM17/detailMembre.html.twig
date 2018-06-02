@@ -1,7 +1,7 @@
 {# GestionASM17/templates/GestionASM17/detailMembre.html/twig#}
 
 {% extends 'base.html.twig' %}
-{% block title %}{{parent()}}-Détail Membre{% endblock %}
+{% block title %}{{parent()}}-Détail membre{% endblock %}
 {% block body %}
 <div>
   <div class="btn-group">
@@ -15,13 +15,13 @@
         <tbody>
           <tr>
             <td width="5px">
-              {% if Membre.cotiOk %}
+              {% if membre.cotiOk %}
                 <button type="button" class="btn-lg btn-success"></button>
               {% else %}
                 <button type="button" class="btn-lg btn-danger"></button>
               {% endif %}
             </td>
-            <td style="padding-top:16px;"><h4>{{Membre.prenomMembre}} {{Membre.nomMembre}}</h4></td>
+            <td style="padding-top:16px;"><h4>{{membre.prenomMembre}} {{membre.nomMembre}}</h4></td>
           </tr>
         </tbody>
       </table>
@@ -38,7 +38,7 @@
       <a class="nav-link" data-toggle="tab" href="#Smith"><h5>Smith</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#Contributions"><h5>Contribution(s) {{ExComptableEnCours.exerciceEnCours}}</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#Contributions"><h5>Contribution(s) {{exComptableEnCours.exerciceEnCours}}</h5></a>
     </li>
     <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#ContributionsAnterieures"><h5>Contribution(s) Antèrieure(s)</h5></a>
@@ -53,79 +53,79 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="nomDetailMembre"><h6>Nom :</h6></label>
-            <input type="text" class="form-control" id="nomDetailMembre" placeholder="{{Membre.nomMembre}}" disabled>
+            <input type="text" class="form-control" id="nomDetailMembre" placeholder="{{membre.nomMembre}}" disabled>
           </div>
           <div class="form-group col-md-8 offset-md-1">
             <label for="lgnAdr1DetalMembre"><h6>Première ligne d'adresse :</h6></label>
-            <input type="text" class="form-control" id="lgnAdr1DetalMembre" placeholder="{{Coordonnees.ligneAdr1}}" disabled>
+            <input type="text" class="form-control" id="lgnAdr1DetalMembre" placeholder="{{coordonnees.ligneAdr1}}" disabled>
           </div>
         </div>
 
         <div class="form-row">
                   <div class="form-group col-md-3">
                       <label for="prenomDetailMembre"><h6>Prénom(s) :</h6></label>
-                      <input type="text" class="form-control" id="prenomDetailMembre" placeholder="{{Membre.prenomMembre}}" disabled >
+                      <input type="text" class="form-control" id="prenomDetailMembre" placeholder="{{membre.prenomMembre}}" disabled >
                     </div>
                   <div class="form-group col-md-8 offset-md-1">
                     <label for="lgnAdr2DetalMembre"><h6>Deuxième ligne d'adresse :</h6></label>
-                    <input type="text" class="form-control" id="lgnAdr2DetalMembre" placeholder="{{Coordonnees.ligneAdr2}}" disabled>
+                    <input type="text" class="form-control" id="lgnAdr2DetalMembre" placeholder="{{coordonnees.ligneAdr2}}" disabled>
                   </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="fonctionCaDetailMembre"><h6>Fonction au C.A. :</h6></label>
-            <input type="text" class="form-control" id="fonctionCaDetailMembre" placeholder="{{FonctionCa.fonctionDansLeCa}}" disabled >
+            <input type="text" class="form-control" id="fonctionCaDetailMembre" placeholder="{{fonctionCa.fonctionDansLeCa}}" disabled >
           </div>
           <div class="form-group col-md-8 offset-md-1">
             <label for="lgnAdr3DetalMembre"><h6>Troisième ligne d'adresse :</h6></label>
-            <input type="text" class="form-control" id="lgnAdr3DetalMembre" placeholder="{{Coordonnees.ligneAdr3}}" disabled>
+            <input type="text" class="form-control" id="lgnAdr3DetalMembre" placeholder="{{coordonnees.ligneAdr3}}" disabled>
           </div>
         </div>
      
         <div class="form-row">  
            <div class="form-group col-md-2">
             <label for="codePostalDetailMembre"><h6>Lien de parenté :</h6></label>
-            <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{LienDeParente.LienDeParente}}" disabled>
+            <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{lienDeParente.lienDeParente}}" disabled>
           </div>            
           <div class="form-group col-md-1 offset-md-2">
             <label for="codePostalDetailMembre"><h6>CP :</h6></label>
-            <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{Coordonnees.codePostal}}" disabled>
+            <input type="text" class="form-control" id="codePostalDetailMembre" placeholder="{{coordonnees.codePostal}}" disabled>
           </div>
           <div class="form-group col-md-4">
             <label for="villeDetailMembre"><h6>Ville :</h6></label>
-            <input type="text" class="form-control" id="villeDetailMembre" placeholder="{{Coordonnees.ville}}" disabled>
+            <input type="text" class="form-control" id="villeDetailMembre" placeholder="{{coordonnees.ville}}" disabled>
           </div>
           <div class="form-group col-md-3">
             <label for="paysDetailMembre"><h6>Pays :</h6></label>
-            <input type="text" class="form-control" id="paysDetailMembre" placeholder="{{Coordonnees.pays}}" disabled>
+            <input type="text" class="form-control" id="paysDetailMembre" placeholder="{{coordonnees.pays}}" disabled>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-4 offset-md-4">
             <label for="email1DetailMembre"><h6>EMail :</h6></label>
-            <input type="text" class="form-control" id="email1DetailMembre" placeholder="{{Coordonnees.email1}}" disabled>
+            <input type="text" class="form-control" id="email1DetailMembre" placeholder="{{coordonnees.email1}}" disabled>
           </div>
           <div class="form-group col-md-4">
             <label for="email2DetailMembre"><h6>EMail :</h6></label>
-            <input type="text" class="form-control" id="email2DetailMembre" placeholder="{{Coordonnees.email2}}" disabled>
+            <input type="text" class="form-control" id="email2DetailMembre" placeholder="{{coordonnees.email2}}" disabled>
           </div>
           
           <div class="form-group col-md-4 offset-md-4">
             <label for="tel1DetailMembre"><h6>Tel. :</h6></label>
-            <input type="text" class="form-control" id="tel1DetailMembre" placeholder="{{Coordonnees.telephone1}}" disabled>
+            <input type="text" class="form-control" id="tel1DetailMembre" placeholder="{{coordonnees.telephone1}}" disabled>
           </div>
           <div class="form-group col-md-4 ">
             <label for="tel2DetailMembre"><h6>Tel. :</h6></label>
-            <input type="text" class="form-control" id="tel2DetailMembre" placeholder="{{Coordonnees.telephone2}}" disabled>
+            <input type="text" class="form-control" id="tel2DetailMembre" placeholder="{{coordonnees.telephone2}}" disabled>
           </div>
         </div>
         
         <div class="form-row">
           <div class="form-group col-md-12">
           <label for="observationDetailMembre"><h6>Observation(s) :</h6></label>
-          <textarea rows="5" class="form-control" id="observationDetailMembre" placeholder="{{Membre.observationsMembre}}" disabled></textarea>
+          <textarea rows="5" class="form-control" id="observationDetailMembre" placeholder="{{membre.observationsMembre}}" disabled></textarea>
           </div>
         </div>
       </form>
@@ -138,19 +138,19 @@
           <div class="form-group col-md-3">
             <label for="prenomSmithDetailMembre"><h6>Prénom :</h6> </label>
             <input type="text" class="form-control" id="prenomSmithDetailMembre" 
-              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.prenomSmith}}
+              placeholder="{% if membre.smithLie is not null %}{{membre.smithLie.prenomSmith}}
                            {% else %}{% endif %}" disabled>
           </div>
           <div class="form-group col-md-2 offset-md-1">
             <label for="dteNaisSmithDetalMembre"><h6>Date de naissance :</h6></label>
             <input type="text" class="form-control" id="dteNaisSmithDetalMembre"
-              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.dateNaissanceSmith|date('d/m/Y')}}
+              placeholder="{% if membre.smithLie is not null %}{{membre.smithLie.dateNaissanceSmith|date('d/m/Y')}}
                            {% else %}{% endif %}" disabled>
           </div>
           <div class="form-group col-md-1 offset-md-1">
             <label for="ageSmithDetalMembre"><h6>Age :</h6></label>
             <input type="text" class="form-control" id="ageSmithDetalMembre"
-              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.getAge()}} ans
+              placeholder="{% if membre.smithLie is not null %}{{membre.smithLie.getAge()}} ans
                            {% else %}{% endif %}" disabled>
           </div>
         </div>
@@ -159,7 +159,7 @@
           <div class="form-group col-md-12">
           <label for="observationSmithDetailMembre"><h6>Observation(s) :</h6></label>
           <textarea rows="5" class="form-control" id="observationSmithDetailMembre" 
-              placeholder="{% if Membre.smithLie is not null %}{{Membre.smithLie.observationsSmith}}
+              placeholder="{% if membre.smithLie is not null %}{{membre.smithLie.observationsSmith}}
                            {% else %}Pas de SMITH lié{% endif %}" disabled>
           </textarea>
           </div>
@@ -169,8 +169,8 @@
 
 {# Onglet Cotisation #}
     <div id="Contributions" class="container tab-pane fade"><br>    
-      {% for recette in Recettes %} 
-      {% if recette.exerciceComptableRecette == ExComptableEnCours.exerciceEnCours %}
+      {% for recette in recettes %} 
+      {% if recette.exerciceComptableRecette == exComptableEnCours.exerciceEnCours %}
       <form>
         {# <div class="row">
           <h5> ANNEE : {{recette.exerciceComptableRecette}}</h5>
@@ -204,8 +204,8 @@
 
 {# Onglet CotisationAnterieur #}
     <div id="ContributionsAnterieures" class="container tab-pane fade"><br>    
-      {% for recette in Recettes %} 
-      {% if recette.exerciceComptableRecette != ExComptableEnCours.exerciceEnCours %}
+      {% for recette in recettes %} 
+      {% if recette.exerciceComptableRecette != exComptableEnCours.exerciceEnCours %}
       <form>
         <div class="row">
           <h5> ANNEE : {{recette.exerciceComptableRecette}}</h5>

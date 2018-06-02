@@ -24,7 +24,7 @@
                             <th style="text-align:center;">MAIL</th>
                           </tr>
                         </thead>
-                        {% for professionnel in ListeProEtAdresse %}
+                        {% for professionnel in listeProEtAdresse %}
                           <tr>
                             <td style="text-align:center;vertical-align:middle;">{{professionnel.titre_professionnel}}</td>
                             <td style="text-align:center;vertical-align:middle;"><a href="{{url('detail_professionnels',{'id':professionnel.id})}}">{{professionnel.nom_professionnel|upper}}</a></td>
