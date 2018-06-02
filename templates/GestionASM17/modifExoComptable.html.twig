@@ -1,0 +1,35 @@
+{# GestionASM17/templates/GestionASM17/detailMembre.html/twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-ModifExCpt{% endblock %}
+{% block body %}
+
+{# <form> #}
+{{ form_start(formChangeExCompt) }}
+
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Exercice Comptable Actuel :</label>
+    <div class="col-sm-1">
+      <input type="email" class="form-control" id="AncienExComptable" placeholder="">
+    </div>
+  </div>
+  <div class="form-group row col-sm-10">{{ form_widget(formChangeExCompt) }}
+    
+    {# <div class="col-sm-1">
+      <input type="password" class="form-control" id="NouvelExComptable" placeholder="">
+    </div> #}
+  </div>
+{{ form_end(formChangeExCompt) }}
+  
+{# </form> #}
+
+
+
+
+
+
+
+
+             
+{% endblock %}
+

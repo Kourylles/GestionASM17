@@ -21,6 +21,11 @@ class ExerciceComptableEnCours
      */
     private $exerciceEnCours;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateDeModif;
+
     public function getId()
     {
         return $this->id;
@@ -34,6 +39,18 @@ class ExerciceComptableEnCours
     public function setExerciceEnCours(string $ExerciceEnCours): self
     {
         $this->exerciceEnCours = $ExerciceEnCours;
+
+        return $this;
+    }
+
+    public function getDateDeModif(): ?\DateTimeInterface
+    {
+        return $this->dateDeModif;
+    }
+
+    public function setDateDeModif(\DateTimeInterface $dateDeModif): self
+    {
+        $this->dateDeModif = $dateDeModif;
 
         return $this;
     }

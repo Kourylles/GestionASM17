@@ -29,3 +29,7 @@ professionnels:
 detail_professionnels:
     path : /professionnels/{id}
     controller : App\Controller\ProfessionnelsController::detailProfessionnels
+
+changer_ExerciceComptable:
+    path: /exerciceComptable
+    controller : App\Controller\ExerciceComptableEnCoursController::changerExerciceComptable

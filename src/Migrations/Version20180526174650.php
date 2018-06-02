@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
@@ -8,21 +8,21 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20180428133857 extends AbstractMigration
+final class Version20180526174650 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE professionnel ADD titre_professionnel VARCHAR(50) DEFAULT NULL');
+        $this->addSql('ALTER TABLE exercice_comptable_en_cours ADD date_de_modif DATETIME NOT NULL');
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE professionnel DROP titre_professionnel');
+        $this->addSql('ALTER TABLE exercice_comptable_en_cours DROP date_de_modif');
     }
 }
