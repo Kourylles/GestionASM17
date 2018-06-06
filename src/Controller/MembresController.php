@@ -35,6 +35,7 @@ class MembresController extends Controller
         return $this->render('GestionASM17/membres.html.twig', array(
             'listeMembreEtAdresse'=>$listeMembreEtAdresse
         ));
+        dump($listeMembreEtAdresse);die;
     }
 
     public function detailMembres(

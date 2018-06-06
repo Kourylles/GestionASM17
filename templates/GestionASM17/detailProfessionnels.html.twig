@@ -9,19 +9,22 @@
     <button type="button" class="btn btn-dark">Envoyer Mail</button>
   </div>
   <div class="container-fluid">
-    <br>
-    <div class="row">
-      <table class="table table-borderless col-md-12">
-        <tbody>
-          <tr>
-            </td>
-            <td style="padding-top:16px;"><h4>{{Pro.titreProfessionnel}} {{Pro.prenomProfessionnel}} {{Pro.nomProfessionnel|upper}}</h4></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <hr>
+      <br>
+      <div class="row">
+        <table class="table table-borderless col-md-12">
+          <tbody>
+            <tr>
+              <td style="padding-top:16px;">
+                <h3>{{Pro.titreProfessionnel}} {{Pro.prenomProfessionnel}} {{Pro.nomProfessionnel|upper}}</h3>
+                <h6><i>Date de Création : {{Pro.dateCreation|date("d/m/Y")}}</i></h6> 
+                <h6><i>Date de Modification : {{Pro.dateModif|date("d/m/Y")}}</i></h6>               
+                </td>
+              </tr>
+           </tbody>
+          </table>
   </div>
+  <hr>
+</div>
 
   <!-- Création des 4 onglets -->
   <ul class="nav nav-tabs">

@@ -31,6 +31,27 @@ class DonateurRepository extends ServiceEntityRepository
     return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
+//Retourne le nombre de donateur dont le don correspond à l'exercie comptable en cours
+     /**
+     * @param 
+     * @return NombreDeDonateurDeExoComptableEnCOurs(int)
+     */
+    public function getDonateurExoEnCoursi()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT COUNT(*) as ajour
+            FROM donateur 
+            WHERE donateur.don_ok = TRUE
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+ // Récupérer un tableau de tableau (une ligne de la base de données)
+ return $stmt->fetchAll();
+}
+
+
+
     public function getDonateursEtAdresses(): array
 {
     $conn = $this->getEntityManager()->getConnection();

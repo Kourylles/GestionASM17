@@ -48,6 +48,16 @@ class Professionnel
      */
     private $coordonnees;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateModif;
+
     public function getId()
     {
         return $this->id;
@@ -121,6 +131,30 @@ class Professionnel
     public function setCoordonnees(?Coordonnees $coordonnees): self
     {
         $this->coordonnees = $coordonnees;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateModif(): ?\DateTimeInterface
+    {
+        return $this->dateModif;
+    }
+
+    public function setDateModif(\DateTimeInterface $dateModif): self
+    {
+        $this->dateModif = $dateModif;
 
         return $this;
     }

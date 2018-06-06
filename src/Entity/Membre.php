@@ -66,6 +66,16 @@ class Membre
      */
     private $smithLie;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateModif;
+
     
     public function __construct()
     {
@@ -201,6 +211,30 @@ class Membre
     public function setSmithLie(?Smith $smithLie): self
     {
         $this->smithLie = $smithLie;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateModif(): ?\DateTimeInterface
+    {
+        return $this->dateModif;
+    }
+
+    public function setDateModif(\DateTimeInterface $dateModif): self
+    {
+        $this->dateModif = $dateModif;
 
         return $this;
     }

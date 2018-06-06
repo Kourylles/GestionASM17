@@ -21,7 +21,11 @@
                 <button type="button" class="btn-lg btn-danger"></button>
               {% endif %}
             </td>
-            <td style="padding-top:16px;"><h4>{{membre.prenomMembre}} {{membre.nomMembre}}</h4></td>
+            <td style="padding-top:16px;">
+              <h3>{{membre.prenomMembre}} {{membre.nomMembre}}</h3>
+              <h6><i>Date de Création : {{membre.dateCreation|date("d/m/Y")}}</i></h6> 
+              <h6><i>Date de Modification : {{membre.dateModif|date("d/m/Y")}}</i></h6>               
+            </td>
           </tr>
         </tbody>
       </table>

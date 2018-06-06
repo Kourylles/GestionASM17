@@ -50,6 +50,16 @@ class Donateur
      */
     private $donOK;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateModif;
+
     public function __construct()
     {
         $this->idRecette = new ArrayCollection();
@@ -147,6 +157,30 @@ class Donateur
     public function setDonOK(bool $donOK): self
     {
         $this->donOK = $donOK;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateModif(): ?\DateTimeInterface
+    {
+        return $this->dateModif;
+    }
+
+    public function setDateModif(\DateTimeInterface $dateModif): self
+    {
+        $this->dateModif = $dateModif;
 
         return $this;
     }

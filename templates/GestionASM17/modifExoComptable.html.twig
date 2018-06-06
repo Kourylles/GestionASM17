@@ -21,6 +21,9 @@
         }) }}
       </h5>
       {{ form_end(formChangeExCompt) }}
+      {% for message in app.session.flashbag.get('note') %}
+      <h5>{{message}}</h5> 
+      {% endfor %}
     </div>
   </div>
             

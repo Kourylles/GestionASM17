@@ -37,15 +37,16 @@ class GestionASM17Controller extends Controller
     {
 //Récupère le nombre de membres total à jour de cotisation ou non
         $nbreMembre = $repoMembre->countByMembre();
-//Récupération de l'exercice comptable en cours
-        $exComptableEnCours = $repoExoCompt->findExComptableEnCours(); //une seule ligne dans la base avec id=1        
+//Récupération de l'exercice comptable en cours, la table ne contient qu'un champ d'id=1
+        $exComptableEnCours = $repoExoCompt->findExComptableEnCours(); 
+ 
 //Récupère le nombre de membre à jour ou non à jour de leur cotisation pour l'exercice comptable en cours
         //Nbre de membres à jour
         $nbreMembreOkCoti = $repoMembre->getMembreAjourCoti();//id 1 de la table type de recette=cotisation
         //Nbre de membres non à jour
         $nbreMembreNokCoti = $repoMembre->getMembreNonAjourCoti();//id 1 de la table type de recette=cotisation
-//Récupère le nombre de donateurs
-        $nbreDonateur =$repoDonateur->countByDonateur();
+//Récupère le nombre de donateurs de l'exercice comptable en cours
+        $nbreDonateur =$repoDonateur->getDonateurExoEnCoursi();
 //Tableau des Recettes : Total par type de recettes
         $sommeParTypeDeRecette = $repoRecette->getSommeTypeRecetteByExComptable($exComptableEnCours->getExerciceEnCours());
 //Tableau des Recettes : Total des recettes

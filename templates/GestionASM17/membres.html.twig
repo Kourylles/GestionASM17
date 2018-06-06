@@ -8,8 +8,9 @@
               <br>
             <div>
         {# Affichage du tableau des Membres #}
+            <div class="container-fluid">
               <div class="row">
-                  <div class="col-sm-9 col-lg-9 col-xl-9 offset-sm-1 offset-lg-1 offset-xl-1">
+                  <div class="col-sm-12 col-lg-12 ">
                     <table class="table table-bordered table-hover table-responsive">
                       <tbody>
                         <thead class="thead-dark">
@@ -21,7 +22,8 @@
                             <th style="text-align:center;">CP</th>
                             <th style="text-align:center;">VILLE</th>
                             <th style="text-align:center;">MAIL</th>  
-                            {# <th style="text-align:center;">DATE</th> #}
+                            <th style="text-align:center;">CREE LE</th>
+                            <th style="text-align:center;">MODIFIE LE</th>
                           </tr>
                         </thead>
                         {% for membre in listeMembreEtAdresse %}
@@ -37,10 +39,12 @@
                             {% endif %}
                             <td style="vertical-align:middle;"><a href={{url('detail_membres',{'id':membre.id})}}>{{membre.nom_membre|upper}}</a></td>
                             <td style="vertical-align:middle;">{{membre.prenom_membre}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr2}} {{membre.ligne_adr3}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr2}}<br> {{membre.ligne_adr3}}</td>
                             <td style="text-align:center;vertical-align:middle;">{{membre.code_postal}}</td>
                             <td style="vertical-align:middle;">{{membre.ville}}</td>
                             <td style="vertical-align:middle;">{{membre.email1}}</td>
+                            <td style="vertical-align:middle;">{{membre.date_creation|date("m/d/Y")}}</td>
+                            <td style="vertical-align:middle;">{{membre.date_modif|date("m/d/Y")}}</td>
                             
                             {# <td style="text-align:center;">{{CotiEnCours}}</td> #}
                           </tr>
@@ -49,6 +53,7 @@
                     </table>
                   </div>
                 </div>
+              </div>
               
             
               

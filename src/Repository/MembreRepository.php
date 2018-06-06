@@ -2,9 +2,14 @@
 
 namespace App\Repository;
 
-use App\Entity\Membre;
+//Use Synfony
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
+//Use Doctrine
 use Symfony\Bridge\Doctrine\RegistryInterface;
+
+//Entitées utilisées
+use App\Entity\Membre;
 
 /**
  * @method Membre|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +24,7 @@ class MembreRepository extends ServiceEntityRepository
         parent::__construct($registry, Membre::class);
     }
     
+    //Retourne le nombre de membre
      /**
      * @param 
      * @return NombreDeMembre(int)
@@ -32,19 +38,42 @@ class MembreRepository extends ServiceEntityRepository
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function getMembreAjourCoti()
+    //Retourne la liste des membres  à jour de leur cotisation
+     /**
+     * @param 
+     * @return ListeDesMembreAJourDeCotisation(array)
+     */
+    public function getListeMembreAjourCoti()
     {
         $conn = $this->getEntityManager()->getConnection();
-
         $sql = '
-            SELECT COUNT(*) as ajour
+            SELECT * 
             FROM membre 
             WHERE membre.coti_ok = TRUE
             ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
     
-        // returns an array of arrays (i.e. a raw data set)
+        // Récupérer un tableau de tableau (une ligne de la base de données)
+        return $stmt->fetchAll();
+    }
+
+//Retourne le nombre de membre dont la cotisation est à jour
+     /**
+     * @param 
+     * @return NombreDeMembreAJourDeCotisation(int)
+     */
+    public function getMembreAjourCoti()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT COUNT(*) as ajour
+            FROM membre 
+            WHERE membre.coti_ok = TRUE
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();    
+        // Récupérer un tableau de tableau (une ligne de la base de données)
         return $stmt->fetchAll();
     }
 
@@ -64,8 +93,9 @@ class MembreRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-    /**
-     * 
+      /**
+     * @param 
+     * @return ListeDesMembresLiesAUnSmith(array)
      */
     public function getMembreAvecSmith()
     {
@@ -130,7 +160,6 @@ public function getXDerniersMembres()
     ;
     return  $qb->getArrayResult();
 }
-
 
 
 //    /**

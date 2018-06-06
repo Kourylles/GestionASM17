@@ -9,19 +9,22 @@
     <button type="button" class="btn btn-dark">Envoyer Mail</button>
   </div>
   <div class="container-fluid">
-    <br>
-    <div class="row">
-        <h4>{{donateur.prenomDonateur}} {{donateur.nomDonateur}}</h4></td>
+      <br>
+      <div class="row">
+        <table class="table table-borderless col-md-12">
+          <tbody>
+            <tr>
+              <td style="padding-top:16px;">
+                <h3>{{donateur.prenomDonateur}} {{donateur.nomDonateur}}</h3>
+                <h6><i>Date de Création : {{donateur.dateCreation|date("d/m/Y")}}</i></h6> 
+                <h6><i>Date de Modification : {{donateur.dateModif|date("d/m/Y")}}</i></h6>               
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
     </div>
-    <hr>
-    {# <pre>
-    recette
-        {{ dump(recettes) }}
-    donateur
-        {{dump(donateur)}}
-    </pre> #}
-
-  </div>
   <!-- Onglet de Navigation -->
   <ul class="nav nav-tabs">
     <li class="nav-item ">

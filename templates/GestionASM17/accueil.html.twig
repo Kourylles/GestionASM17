@@ -4,7 +4,6 @@
 {% block body%}
 {# Div1 qui contient l'ensemble de la page #}
 <div class="table-responsive">
-
 <h3>Physionomie de l'association :</h3>
 {# Div2 qui contient les deux tableaux : membres/donateurs et recettes/depenses #}
   <div class="row">
@@ -27,10 +26,12 @@
               </button>
             </td>
             <td colspan="2" style="text-align:center;">
-              <button type="button" class="btn-lg btn-basic btn-block">
-                Total :
-                <span class="badge badge-light">{{nbreDonateur}}</span>
-              </button>
+              {% for donateur in nbreDonateur %}
+                 <button type="button" class="btn-lg btn-basic btn-block">
+                    Total :
+                     <span class="badge badge-light">{{donateur.ajour}}</span>
+                   </button>             
+              {% endfor %}
             </td>
               </tr>
           <tr>
@@ -82,7 +83,6 @@
             </td>
                 </span>                         
               </button>
-       
             <td>
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
@@ -118,7 +118,6 @@
   </div> {# Fin DIV5 #}
   </div> {# Fin DIV3 #}
 </div> {# Fin DIV2 #}
-
 <br>
 <br>
 
@@ -128,7 +127,7 @@
       <a class="nav-link active" data-toggle="tab" href="#AnnivAVenir"><h5>Anniverssaires futures</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#derniersMembres"><h5>Derniers Enregistrements</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#derniersMembres"><h5>Derniers Memrbes Enregistrés</h5></a>
     </li>
     <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#dernieresRecettes"><h5>Dernières Recettes {#{{ExComptableEnCours.exerciceEnCours}}#}</h5></a>
@@ -196,12 +195,15 @@
             <tbody>
               <thead class="thead-dark">
                 <tr>
-                  <th style="text-align:center;">NOM</th>
-                  <th style="text-align:center;">PRENOM</th>
-                  <th style="text-align:center;">ADRESSE</th>
-                  <th style="text-align:center;">CP</th>
-                  <th style="text-align:center;">VILLE</th>
-                  <th style="text-align:center;">MAIL</th>
+                  <th style="text-align:center;vertical-align:middle;">NOM</th>
+                  <th style="text-align:center;vertical-align:middle">PRENOM</th>
+                  <th style="text-align:center;vertical-align:middle">ADRESSE</th>
+                  <th style="text-align:center;vertical-align:middle">CP</th>
+                  <th style="text-align:center;vertical-align:middle">VILLE</th>
+                  <th style="text-align:center;vertical-align:middle">MAIL</th>
+                  <th style="text-align:center;vertical-align:middle">MODIFIE  LE</th>
+                  
+
                 </tr>
               </thead>
               {% for membre in derniersMembres %}                
@@ -212,6 +214,7 @@
                     <td style="text-align:center;vertical-align:middle;">{{membre.coordonnees.codePostal}}</td>
                     <td style="vertical-align:middle;">{{membre.coordonnees.ville}}</td>
                     <td style="vertical-align:middle;">{{membre.coordonnees.email1}}</td>
+                    <td style="vertical-align:middle;">{{membre.dateModif|date("m/d/Y")}}</td>
                   </tr> 
               {% endfor %}
             </tbody>        
@@ -220,25 +223,18 @@
       </div> {# Fin DIV10 #}
     </div> {# Div dernieresRecettes #}
 
-
-
-
-
-
-
 {# Onglet Dernières Recettes #}
     <div id="dernieresRecettes" class="container tab-pane fade"><br>
       {# DIV8 qui contient les dernières recettes #}
       <div clas="table-responsive">
-
           <table class="table table-bordered table-striped table-hover">
             <tbody>
               <thead class="thead-dark">
                 <tr>
-                  <th style="text-align:center;">DATE</th>
-                  <th style="text-align:center;">TYPE</th>
-                  <th style="text-align:center;">DESCRIPTION</th>
-                  <th style="text-align:center;">MONTANT</th>
+                  <th style="text-align:center;vertical-align:middle">DATE</th>
+                  <th style="text-align:center;vertical-align:middle">TYPE</th>
+                  <th style="text-align:center;vertical-align:middle">DESCRIPTION</th>
+                  <th style="text-align:center;vertical-align:middle">MONTANT</th>
                 </tr>
               </thead>
               {% for recette in dernieresRecettes %}                
@@ -246,7 +242,7 @@
                     <td style="text-align:center;vertical-align:middle;">{{recette.datePaiementRecette|date('d/m/Y')}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{recette.typeRecette.typeDeRecette }}</td>
                     <td style="text-align:center;vertical-align:middle;">{{recette.descriptionRecette}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{recette.montantRecette}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.montantRecette}} €</td>
                   </tr> 
               {% endfor %}
             </tbody>        
@@ -259,15 +255,14 @@
     <div id="dernieresDepenses" class="container tab-pane fade"><br>
       {# DIV9 qui contient les dernières dépenses #}
       <div clas="table-responsive">
-
           <table class="table table-bordered table-striped table-hover">
             <tbody>
               <thead class="thead-dark">
                 <tr>
-                  <th style="text-align:center;">DATE</th>
-                  <th style="text-align:center;">DEBITEUR</th>
-                  <th style="text-align:center;">DESCRIPTION</th>
-                  <th style="text-align:center;">MONTANT</th>
+                  <th style="text-align:center;vertical-align:middle">DATE</th>
+                  <th style="text-align:center;vertical-align:middle">DEBITEUR</th>
+                  <th style="text-align:center;vertical-align:middle">DESCRIPTION</th>
+                  <th style="text-align:center;vertical-align:middle">MONTANT</th>
                 </tr>
               </thead>
               {% for depense in dernieresDepenses %}                
@@ -275,7 +270,7 @@
                     <td style="text-align:center;vertical-align:middle;">{{depense.dateDepense|date('d/m/Y')}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{depense.debiteur}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{depense.description}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{depense.montantDepense}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{depense.montantDepense}} €</td>
                   </tr> 
               {% endfor %}
             </tbody>        
@@ -283,16 +278,6 @@
         <br>
       </div> {# Fin DIV9 #}
     </div> {# Div dernieresDepenses#}
-
-    
-    
-    
-    
-    
-    
-
-
-
   </div> {#div tb-content#}
 
 
