@@ -3,49 +3,46 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{parent()}}-Professionnels{% endblock %}
 {% block body %}
-            <div>
-              <h3>Liste des Professionnels :</h3>
-              <br>
-            </div>
-        {# Affichage du tableau des Proffessionels #}
-            <div class="container">
-              <div class="row">
-                  <div class="col-sm-12 col-lg-12">
-                    <table class="table table-bordered table-hover table-responsive">
-                      <tbody>
-                        <thead class="thead-dark">
-                          <tr >
-                            <th style="text-align:center;vertical-align:middle;">TITRE</th>
-                            <th style="text-align:center;vertical-align:middle;">NOM</th>
-                            <th style="text-align:center;vertical-align:middle;">PRENOM</th>
-                            <th style="text-align:center;vertical-align:middle;">ADRESSE</th>
-                            <th style="text-align:center;vertical-align:middle;">CP</th>
-                            <th style="text-align:center;vertical-align:middle;">VILLE</th>
-                            <th style="text-align:center;vertical-align:middle;">MAIL</th>
-                            <th style="text-align:center;vertical-align:middle;">CREE LE</th>
-                            <th style="text-align:center;vertical-align:middle;">MODIFIE LE</th>
-                          </tr>
-                        </thead>
-                        {% for professionnel in listeProEtAdresse %}
-                          <tr>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.titre_professionnel}}</td>
-                            <td style="text-align:center;vertical-align:middle;"><a href="{{url('detail_professionnels',{'id':professionnel.id})}}">{{professionnel.nom_professionnel|upper}}</a></td>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.prenom_professionnel}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.ligne_adr1}}<br> {{professionnel.ligne_adr2}} {{professionnel.ligne_adr3}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.code_postal}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.ville}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.email1}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.date_creation|date("d/m/Y")}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{professionnel.date_modif|date("d/m/Y")}}</td>
-                          </tr>
-                        {% endfor %}
-                      </tbody>      
-                    </table>
-                  </div>
-                </div>
-              </div>
-              
-            
-              
+    <div>
+      <h3>Liste des Professionnels :</h3>
+      <br>
+    </div>
+{# Affichage du tableau des Proffessionels #}
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <table class="table table-bordered table-hover table-responsive">
+              <tbody>
+                <thead class="thead-dark">
+                  <tr >
+                    <th style="text-align:center;vertical-align:middle;">TITRE</th>
+                    <th style="text-align:center;vertical-align:middle;">NOM</th>
+                    <th style="text-align:center;vertical-align:middle;">PRENOM</th>
+                    <th style="text-align:center;vertical-align:middle;">ADRESSE</th>
+                    <th style="text-align:center;vertical-align:middle;">CP</th>
+                    <th style="text-align:center;vertical-align:middle;">VILLE</th>
+                    <th style="text-align:center;vertical-align:middle;">MAIL</th>
+                    <th style="text-align:center;vertical-align:middle;">CREE LE</th>
+                    <th style="text-align:center;vertical-align:middle;">MODIFIE LE</th>
+                  </tr>
+                </thead>
+                {% for professionnel in listeProEtAdresse %}
+                  <tr>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.titre_professionnel}}</td>
+                    <td style="text-align:center;vertical-align:middle;"><a href="{{url('detail_professionnels',{'id':professionnel.id})}}">{{professionnel.nom_professionnel|upper}}</a></td>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.prenom_professionnel}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.ligne_adr1}}<br> {{professionnel.ligne_adr2}} {{professionnel.ligne_adr3}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.code_postal}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.ville}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.email1}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.date_creation|date("d/m/Y")}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{professionnel.date_modif|date("d/m/Y")}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>      
+            </table>
+          </div>
+        </div>
+      </div>              
 {% endblock %}
 

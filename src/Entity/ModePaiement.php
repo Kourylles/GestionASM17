@@ -43,12 +43,6 @@ class ModePaiement
         return $this->modeDePaiement;
     }
 
-    public function setModeDePaiement(string $ModeDePaiement): self
-    {
-        $this->modeDePaiement = $ModeDePaiement;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Depense[]

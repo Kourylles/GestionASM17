@@ -3,11 +3,25 @@
 // src/Form/MembreType.php
 namespace App\Form;
 
+//Composant Synfony
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+//Composant formulaire
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+//Entité(s) utilisée(s)
 use App\Entity\Membre;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Coordonnees;
+use App\Entity\LienParente;
+use App\Entity\FonctionCa;
+use App\Entity\Recette;
+use App\Entity\Smith;
+
 
 class MembreType extends AbstractType
 {
@@ -16,9 +30,21 @@ class MembreType extends AbstractType
         $builder
             ->add('nomMembre', TextType::class)
             ->add('prenomMembre', TextType::class)
-            ->add('lienParente', TextType::class)
-            ->add('fonctionCa', TexteType::class)
-            ->add('observationMembre', TextareaType::class)
+            ->add('observationsMembre', TextareaType::class)
+//Imbrication du formulaire pour saisir les coordonnées
+            ->add('coordonnees',CoordonneesType::class)
+//Imbrication du lien de parenté
+            ->add('lienParente', EntityType::class, array(
+                'class'=>LienParente::class,
+                'choice_label'=>'lienDeParente'
+            ))
+//Imbrication du type de membre au Conseil d'administration
+            ->add('fonctionCa', EntityType::class, array(
+                'class'=>FonctionCa::class,
+                'choice_label'=>'fonctionDansLeCa'
+            ))
+//Imbrication du formulaire du Smith
+            ->add('Smith',SmithType::class)
         ;
     }
 

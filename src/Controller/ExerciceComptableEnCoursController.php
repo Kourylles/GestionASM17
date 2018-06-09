@@ -34,7 +34,7 @@ class ExerciceComptableEnCoursController extends Controller
         DonateurRepository $repoDonateur    
         )
     {
-//Récupération de l'exercice comptable la table continet une seule ligne avec id=1
+//Récupération de l'exercice comptable la table contient une seule ligne avec id=1
         $exComptableEnCours = $repoExComptableEnCours->findExComptableEnCours(); 
 
 //Récupération du formulaire avec en paramètre, l'exercice comptabele récupéré qui sera modifié
@@ -73,9 +73,7 @@ class ExerciceComptableEnCoursController extends Controller
 //Stockage dans la base de données
                $entityManager->persist($exComptableEnCours);
                $entityManager->flush($exComptableEnCours);
-               
-
-
+         
 //Affichage du message de bonne exécution de l'enregistrement
                  $session=$request->getSession()->getFlashBag()->add('info', 'L\'exercice comptable a été modifié');
 

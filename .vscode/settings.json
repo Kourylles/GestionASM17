@@ -1,2 +1,5 @@
 {
+    "phpformatter.arguments": [
+        ["--custom-config=C:/Users/Lionel/OneDrive/Documents/INFORMATIQUES/PROGRAMMATION/VC Studio/config.php_cs.txt"]
+      ],
 }
