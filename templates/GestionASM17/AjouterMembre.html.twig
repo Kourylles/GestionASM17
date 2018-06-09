@@ -3,7 +3,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{parent()}}-AjouterMembre{% endblock %}
 {% block body %}
-<!-- {% form_theme formAjouterMembre 'bootstrap_4_layout.html.twig' %} -->
+{% form_theme formAjouterMembre 'bootstrap_4_layout.html.twig' %}
 <div>
     <div class="container-fluid">
       <div class="row">
@@ -21,94 +21,91 @@
       <hr>
     </div>
   
-    <!-- Création des 4 onglets -->
+    <!-- Création des onglets -->
     <ul class="nav nav-tabs">
       <li class="nav-item ">
-        <a class="nav-link active" data-toggle="tab" href="#DonneesMembre"><h5>Membre</h5></a>
+        <a class="nav-link active" data-toggle="tab" href="#donneesMembre"><h5>Membre</h5></a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" data-toggle="tab" href="#Coordonnees"><h5>Coordonnées</h5></a>
+        <a class="nav-link" data-toggle="tab" href="#recette"><h5>Recette</h5></a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" data-toggle="tab" href="#Cotisation"><h5>Cotisation </h5></a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" data-toggle="tab" href="#Don"><h5>Don </h5></a>
+        <a class="nav-link" data-toggle="tab" href="#smith"><h5>Smith Associé </h5></a>
       </li>
     </ul>
-    {{ form_start(formAjouterMembre) }}
     <!-- Création du contenu des onglets -->
     <div class="tab-content">
   {# Onglet Membre #}
-      <div id="DonneesMembre" class="container tab-pane active"><br>      
-        
+      <div id="donneesMembre" class="container tab-pane active"><br>      
+        {{ form_start(formAjouterMembre) }}
         <div class="form-row">
-            <div class="form-group col-md-4">
-                <h5> {{ form_row(formAjouterMembre.nomMembre, {'label':"Nom :"}) }}</h5>
-            </div>
-            <div class="form-group col-md-4 offset-md-1">
-                 <h5> {{ form_row(formAjouterMembre.prenomMembre, {'label':"Prénom :"}) }}</h5>
-            </div>     
+          <div class="form-group col-md-4">
+            <h5> {{ form_row(formAjouterMembre.nomMembre, {'label':"Nom :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-4 offset-md-1">
+            <h5> {{ form_row(formAjouterMembre.prenomMembre, {'label':"Prénom :"}) }}</h5>
+          </div>     
         </div>       
         <div class="form-row">
-                <div class="form-group col-md-4">
-                     <h5> {{ form_row(formAjouterMembre.lienParente, {'label':"Parenté avec un Smith :"}) }}</h5>
-                </div>
-                <div class="form-group col-md-4 offset-md-1">
-                     <h5> {{ form_row(formAjouterMembre.fonctionCa, {'label':"Fonction au CA :"}) }}</h5>
-                </div>          
-                </div> 
+          <div class="form-group col-md-4">
+            <h5> {{ form_row(formAjouterMembre.lienParente, {'label':"Parenté avec un Smith :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-4 offset-md-1">
+            <h5> {{ form_row(formAjouterMembre.fonctionCa, {'label':"Fonction au CA :"}) }}</h5>
+          </div>          
+        </div> 
         <div class="form-row">
-            <div class="form-group col-md-9">
-                <h5> {{ form_row(formAjouterMembre.observationsMembre, {'label':"Observation(s) :"}) }}</h5>
-            </div>      
+          <div class="form-group col-md-9">
+            <h5> {{ form_row(formAjouterMembre.observationsMembre, {'label':"Observation(s) :"}) }}</h5>
+          </div>      
         </div>
-     </div> 
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr1, {'label':"Première Ligne d'Adresse :"}) }}</h5>
+          </div>      
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr2, {'label':"Deuxième Ligne d'Adresse :"}) }}</h5>
+          </div>      
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr3, {'label':"Troisième Ligne d'Adresse :"}) }}</h5>
+          </div>      
+        </div>
+        {{form_end(formAjouterMembre)}}
+        </div> 
   
-  {# Onglet Coordonnées  #}
-  <div id="Coordonnees" class="container tab-pane active"><br>      
+  {# Onglet Recette  #}
+  <div id="recette" class="container tab-pane active"><br>      
     <div class="form-row">
         <div class="form-group col-md-8">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr1, {'label':"Première ligne d'adresse :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.datePaiementRecette, {'label':"Date de Paiement :"}) }}</h5>
         </div>
     </div>
     <div class="form-row ">
         <div class="form-group col-md-8">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr2, {'label':"Deuxième ligne d'adresse :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.descriptionRecette, {'label':"description :"}) }}</h5>
         </div>     
     </div>
     <div class="form-row">
          <div class="form-group col-md-8">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr3, {'label':"Troisème ligne d'adresse :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.montantRecette, {'label':"Montant :"}) }}</h5>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-1">
-             <h5> {{ form_row(formAjouterMembre.coordonnees.codePostal, {'label':"CP :"}) }}</h5>
+             <h5> {{ form_row(formAjouterRecette.numTitrePaiementRecette, {'label':"Numéro du Titre de Paiement :"}) }}</h5>
          </div>
          <div class="form-group col-md-4">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.ville, {'label':"Ville :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.numRemiseDeChequeRecette, {'label':"Numéro de la Remise de Chèque :"}) }}</h5>
          </div>
          <div class="form-group col-md-3">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.pays, {'label':"Pays :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.modePaiement, {'label':"Mode de Paiement :"}) }}</h5>
          </div>
     </div>
-    <div class="form-row">
-            <div class="form-group col-md-4">
-                 <h5> {{ form_row(formAjouterMembre.coordonnees.email1, {'label':"EMail 1 :"}) }}</h5>
-             </div>
-             <div class="form-group col-md-4">
-                <h5> {{ form_row(formAjouterMembre.coordonnees.email2, {'label':"EMail 2 :"}) }}</h5>
-             </div>
-        </div>
-        <div class="form-row">
-                <div class="form-group col-md-4">
-                     <h5> {{ form_row(formAjouterMembre.coordonnees.telephone1, {'label':"Tel. 1 :"}) }}</h5>
-                 </div>
-                 <div class="form-group col-md-4">
-                    <h5> {{ form_row(formAjouterMembre.coordonnees.telephone2, {'label':"Tel. 2 :"}) }}</h5>
-                 </div>
-            </div>
+    {{form_end(formAjouterRecette)}}
     </div>             
    
  </div> 
@@ -116,7 +113,7 @@
 
   {# Onglet Cotisation #}           
   
-     {#} <div id="Cotisation" class="container tab-pane fade"><br>    
+     {#} <div id="smith" class="container tab-pane fade"><br>    
         {% for recette in recettes %} 
         {% if recette.exerciceComptableRecette == exComptableEnCours.exerciceEnCours %}
         <form>
@@ -184,7 +181,7 @@
         {% endif %}
         {% endfor %}
       </div> #}
-      {{ form_end(formAjouterMembre) }}
+      
   </div>
 
               
