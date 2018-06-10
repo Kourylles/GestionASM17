@@ -32,13 +32,13 @@ class MembreType extends AbstractType
                 'class' => LienParente::class,
                 'choice_label' => 'lienDeParente',
                 ]
-            )
-        //Imbrication du type de membre au Conseil d'administration
-            ->add('fonctionCa', EntityType::class, [
-                'class' => FonctionCa::class,
-                'choice_label' => 'fonctionDansLeCa',
-                ]
             );
+        //Imbrication du type de membre au Conseil d'administration
+            // ->add('fonctionCa', EntityType::class, [
+            //     'class' => FonctionCa::class,
+            //     'choice_label' => 'fonctionDansLeCa',
+            //     ]
+            // );
     }
 
     public function configureOptions(OptionsResolver $resolver)

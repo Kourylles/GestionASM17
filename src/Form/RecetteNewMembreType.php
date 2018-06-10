@@ -24,7 +24,9 @@ class RecetteNewMembreType extends AbstractType
     {
         $builder
             ->add('descriptionRecette',TextareaType::class)
-            ->add('datePaiementRecette',DateType::class)
+            ->add('datePaiementRecette',DateType::class, array(
+                'widget'=>'single_text',
+            ))
             ->add('montantRecette',NumberType::class)
             ->add('numTitrePaiementRecette', TextType::class)
             ->add('numRemiseDeChequeRecette',TextType::class)

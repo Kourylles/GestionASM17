@@ -59,7 +59,8 @@ class MembresController extends Controller
         MembreRepository $repoMembre,
         CoordonneesRepository $repoCoordonnees,
         LienParenteRepository $repoLienParente,
-        FonctionCaRepository $repoFonctionCa
+        FonctionCaRepository $repoFonctionCa,
+        RecetteRepository $repoRecette
     ) {
         //Récupération de l'exercice comptable
         $exComptableEnCours = $repoExoComptable->findExComptableEnCours(); //une seule ligne dans la base avec id=1
@@ -74,9 +75,7 @@ class MembresController extends Controller
         $fonctionCa =$repoFonctionCa->find($membre->getFonctionCa());
 
         //Récupère toutes les recettes du membre dont l'Id est dans la route
-        $recettes = $repoRecette->findByIdMembre(
-            $membre->getId(), $exComptableEnCours->getExerciceEnCours()
-        );   
+        $recettes = $repoRecette->findByIdMembre($membre->getId(), $exComptableEnCours->getExerciceEnCours());   
   
         //Le controleur retourne une vue en lui passant des paramètres 
         return $this->render(
