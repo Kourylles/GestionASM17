@@ -27,6 +27,8 @@ class MembreType extends AbstractType
             ->add('observationsMembre', TextareaType::class)
         //Imbrication du formulaire pour saisir les coordonnées
             ->add('coordonnees', CoordonneesType::class)
+        //Imbrication du formulaire pour saisir le Smith lié
+            ->add('smithLie', SmithType::class)
         //Imbrication du lien de parenté
             ->add('lienParente', EntityType::class, [
                 'class' => LienParente::class,

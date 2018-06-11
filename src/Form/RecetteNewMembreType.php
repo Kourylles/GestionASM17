@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Recette;
 use App\Entity\ModePaiement;
 
+
 class RecetteNewMembreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -27,10 +28,11 @@ class RecetteNewMembreType extends AbstractType
             ->add('datePaiementRecette',DateType::class, array(
                 'widget'=>'single_text',
             ))
-            ->add('montantRecette',NumberType::class)
+            ->add('idMembre', MembreType::class)//ajout
+            ->add('montantRecette', NumberType::class)
             ->add('numTitrePaiementRecette', TextType::class)
-            ->add('numRemiseDeChequeRecette',TextType::class)
-//Imbrication du Mode de paiement
+            ->add('numRemiseDeChequeRecette', TextType::class)
+            //Imbrication du Mode de paiement
             ->add('modePaiement', EntityType::class, [
                 'class'=>ModePaiement::class,
                 'choice_label'=>'modeDePaiement',
