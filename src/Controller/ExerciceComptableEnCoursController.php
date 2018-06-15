@@ -51,7 +51,7 @@ class ExerciceComptableEnCoursController extends Controller
 //Récupération des membres dont la coti est Ok
         $listeMembreAJour = $repoMembre->findBy(array('CotiOK' => '1'));
 
-//Le champ CotiOk de chaque Membre retourné est passé à false
+//Le champ cotiOk de chaque Membre retourné est passé à false
                 foreach($listeMembreAJour as $membre)
                 {
                 $membre->setCotiOk(False);

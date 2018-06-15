@@ -93,25 +93,25 @@ class MembresController extends Controller
     public function ajouterMembre(
         Request $request,
         ObjectManager $entityManager,
-        ExerciceComptableEnCoursRepository $repoExComptableEnCours, 
-        MembreRepository $repoMembre,
-        RecetteRepository $repoRecette, 
-        Smithrepository $repoSmith    
+        ExerciceComptableEnCoursRepository $repoExComptableEnCours
     ) {
         //Instanciation des objets utilisés
-        $membre = new Membre();
         $recette = new Recette();
-        $smith = new Smith();
 
         //Récupération des formulaires
-        $formAjouterMembre =  $this->createForm(MembreType::class, $membre);
         $formAjouterRecette = $this->createForm(RecetteNewMembreType::class, $recette);
-        $formAjouterSmith = $this->createForm(SmithType::class, $smith);
 
         // Analyse de la requete de soumission des formulaires
-        $formAjouterMembre->handleRequest($request);
         $formAjouterRecette->handleRequest($request);
-        $formAjouterSmith->handleRequest($request);
+
+        if ($formAjouterRecette ->isSubmitted() ){
+            $membre = new Membre();
+            $recette->setIdMembre($membre);
+           $data=$formAjouterRecette->getdata();
+           $entityManager->persist($recette);
+           $entityManager->flush();
+           dump($recette);
+        }
 
         //Récupération dc l'exercice comptable en cours
         $exComptableEnCours = $repoExComptableEnCours->findExComptableEnCours();
@@ -119,9 +119,7 @@ class MembresController extends Controller
         //Retourne une vue avec les paramètres : form et exo comptable en cours
         return $this->render(
             'GestionASM17/AjouterMembre.html.twig', array(
-            'formAjouterMembre' => $formAjouterMembre->createView(),
-            'formAjouterRecette'=> $formAjouterRecette->createView(),
-            'formAjouterSmith'=> $formAjouterSmith->createView(),            
+            'formAjouterRecette'=> $formAjouterRecette->createView(),          
             'exComptableEnCours' =>$exComptableEnCours
                 )
         );

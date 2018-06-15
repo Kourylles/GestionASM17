@@ -1,28 +1,28 @@
 # config/validator/validation.yaml
-App\Entity\ExerciceComptableEnCours:
-    properties:
-        exerciceEnCours:
-            - NotBlank: ~
-            - Length: 
-                max: 4
-                min: 4
-                minMessage : "Merci de saisir une année sur 4 caractères"
-                maxMessage : "Merci de saisir une année sur 4 caractères"
+# App\Entity\ExerciceComptableEnCours:
+#     properties:
+#         exerciceEnCours:
+#             - NotBlank: ~
+#             - Length: 
+#                 max: 4
+#                 min: 4
+#                 minMessage : "Merci de saisir une année sur 4 caractères"
+#                 maxMessage : "Merci de saisir une année sur 4 caractères"
 
-App\Entity\Membre :
-    properties:
-        nomMembre :
-            - NotBlank: ~
-            - Lenght:
-                min:2
-                minMessage : "Merci de saisir un nom d'au moins deux caractères"
+# App\Entity\Membre :
+#     properties:
+#         nomMembre :
+#             - NotBlank: ~
+#             - Lenght:
+#                 min:2
+#                 minMessage : "Merci de saisir un nom d'au moins deux caractères"
 
-App\Entity\Membre :
-    properties:
-        prenomSmith:
-            - NotBlank : ~
-        dateNaissanceSmith :
-            - Date : ~
-                message : "Merci de saisir une date valide"
+# App\Entity\Membre :
+#     properties:
+#         prenomSmith:
+#             - NotBlank : ~
+#         dateNaissanceSmith :
+#             - Date : ~
+#                 message : "Merci de saisir une date valide"
 
             

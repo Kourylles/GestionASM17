@@ -33,8 +33,6 @@ class Membre
      */
     private $observationsMembre;
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees")
      * @ORM\JoinColumn(nullable=false)
@@ -42,7 +40,7 @@ class Membre
     private $coordonnees;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="idMembre")
+     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="idMembre", cascade={"persist"})
      */
     private $recette;
 
@@ -59,7 +57,7 @@ class Membre
     /**
      * @ORM\Column(type="boolean")
      */
-    private $CotiOK;
+    private $cotiOK;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Smith", inversedBy="idMembre")
@@ -92,9 +90,9 @@ class Membre
         return $this->nomMembre;
     }
 
-    public function setNomMembre(string $NomMembre): self
+    public function setNomMembre(string $nomMembre): self
     {
-        $this->nomMembre = $NomMembre;
+        $this->nomMembre = $nomMembre;
 
         return $this;
     }
@@ -104,7 +102,7 @@ class Membre
         return $this->prenomMembre;
     }
 
-    public function setPrenomMembre(string $PrenomMembre): self
+    public function setPrenomMembre(string $prenomMembre): self
     {
         $this->prenomMembre = $prenomMembre;
 
@@ -116,13 +114,12 @@ class Membre
         return $this->observationsMembre;
     }
 
-    public function setObservationsMembre(?string $ObservationsMembre): self
+    public function setObservationsMembre(?string $observationsMembre): self
     {
-        $this->observationsMembre = $ObservationsMembre;
+        $this->observationsMembre = $observationsMembre;
 
         return $this;
     }
-
     
     public function getCoordonnees(): ?Coordonnees
     {
@@ -196,9 +193,9 @@ class Membre
         return $this->CotiOK;
     }
 
-    public function setCotiOK(bool $CotiOK): self
+    public function setCotiOK(bool $cotiOK): self
     {
-        $this->CotiOK = $CotiOK;
+        $this->cotiOK = $cotiOK;
 
         return $this;
     }
@@ -238,8 +235,5 @@ class Membre
 
         return $this;
     }
-
-    
-
     
 }
