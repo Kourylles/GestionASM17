@@ -48,7 +48,7 @@ class Recette
     private $numRemiseDeChequeRecette;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true)
      */
     private $etatRapprochementRecette;
 
@@ -58,7 +58,7 @@ class Recette
     private $numReleveCompteRecette;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="recette")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="recette", cascade={"persist"})
      */
     private $idMembre;
 

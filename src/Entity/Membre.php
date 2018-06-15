@@ -34,13 +34,13 @@ class Membre
     private $observationsMembre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $coordonnees;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="idMembre", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="idMembre", cascade={"persist","remove"})
      */
     private $recette;
 
@@ -55,12 +55,12 @@ class Membre
     private $fonctionCa;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $cotiOK;
+    private $cotiOk;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", inversedBy="idMembre")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", inversedBy="idMembre", cascade={"persist"})
      */
     private $smithLie;
 
@@ -73,6 +73,12 @@ class Membre
      * @ORM\Column(type="datetime")
      */
     private $dateModif;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees", inversedBy="coordonnees")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idMembre;
 
     
     public function __construct()
@@ -188,14 +194,14 @@ class Membre
         return $this;
     }
 
-    public function getCotiOK(): ?bool
+    public function getCotiOk(): ?bool
     {
-        return $this->CotiOK;
+        return $this->cotiOk;
     }
 
-    public function setCotiOK(bool $cotiOK): self
+    public function setCotiOk(bool $bool): self
     {
-        $this->cotiOK = $cotiOK;
+        $this->cotiOk = $bool;
 
         return $this;
     }
@@ -232,6 +238,18 @@ class Membre
     public function setDateModif(\DateTimeInterface $dateModif): self
     {
         $this->dateModif = $dateModif;
+
+        return $this;
+    }
+
+    public function getIdMembre(): ?Coordonnees
+    {
+        return $this->idMembre;
+    }
+
+    public function setIdMembre(?Coordonnees $idMembre): self
+    {
+        $this->idMembre = $idMembre;
 
         return $this;
     }

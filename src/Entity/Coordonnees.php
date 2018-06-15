@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +67,13 @@ class Coordonnees
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="coordonnees", cascade={"persist"})
+     */
+    private $idMembre;
+
+
 
     public function getId()
     {
@@ -190,4 +199,6 @@ class Coordonnees
 
         return $this;
     }
+
+   
 }

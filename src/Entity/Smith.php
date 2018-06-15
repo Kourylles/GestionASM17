@@ -34,12 +34,12 @@ class Smith
     private $observationsSmith;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Membre", mappedBy="smithLie")
+     * @ORM\OneToMany(targetEntity="App\Entity\Membre", mappedBy="smithLie", cascade={"persist"})
      */
     private $idMembre;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true)
      */
     private $annivEnvoye;
 

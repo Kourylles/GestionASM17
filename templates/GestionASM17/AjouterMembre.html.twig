@@ -13,7 +13,8 @@
             <tr>
               <td style="padding-top:16px;">
                 <h3>Ajouter un Membre</h3>
-                <h6><i>Date de Création : {{"now"|date("d/m/Y")}}</i></h6>              
+                {{% set dateCreation = now|date("d/m/Y") %}}
+                <h6><i>{{ form_row(formAjouterRecette.idMembre.dateCreation|date("d/m/Y"), {'label':"Date de Création :"}, { 'attr': { 'value':dateCreation) } }) }}</i></h6>              
               </td>
               <td>
                 <button type="submit" class="btn-dark" >ENREGISTRER</button>

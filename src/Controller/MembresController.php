@@ -30,6 +30,8 @@ use App\Repository\LienParenteRepository;
 use App\Repository\FonctionCaRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\SmithRepository;
+use App\Repository\MontantCotisationRepository;
+use App\Repository\TypeRecetteRepository;
 
 //Formulaire utilisé
 use App\Form\MembreType;
@@ -93,8 +95,19 @@ class MembresController extends Controller
     public function ajouterMembre(
         Request $request,
         ObjectManager $entityManager,
-        ExerciceComptableEnCoursRepository $repoExComptableEnCours
+        ExerciceComptableEnCoursRepository $repoExComptableEnCours,
+        MontantCotisationRepository $repoMontantCoti,
+        TypeRecetteRepository $repoTypeRecette
     ) {
+        //Récupération dc l'exercice comptable en cours
+        $exComptableEnCours = $repoExComptableEnCours->findExComptableEnCours();
+
+        //Récupération des types de recette
+        $typeRecette = $repoTypeRecette->findAll();
+
+        //Récupération du montant de la cotisation
+        $montantCotisation = $repoMontantCoti->find(1);
+
         //Instanciation des objets utilisés
         $recette = new Recette();
 
@@ -104,17 +117,28 @@ class MembresController extends Controller
         // Analyse de la requete de soumission des formulaires
         $formAjouterRecette->handleRequest($request);
 
+        //Si le formulaire est soumis
         if ($formAjouterRecette ->isSubmitted() ){
-            $membre = new Membre();
-            $recette->setIdMembre($membre);
-           $data=$formAjouterRecette->getdata();
+            //l'exercice comptable de la recette est initialisé à l'exercice comptable en cours
+            $recette->setexerciceComptableRecette($exComptableEnCours->getExerciceEnCours());
+                //Séparation des données => Création d'une cotisation et d'un don si montant>25€
+                if ($recette->getMontantRecette()>$montantCotisation->getMontantCotisation()){
+                        $recette->setTypeRecette($typeRecette[1]);
+                        $recette->setMontantRecette($recette->getMontantRecette()-$montantCotisation->getMontantCotisation());
+                        $recetteCoti = clone $recette;
+                        $recette->setTypeRecette($typeRecette[0]);
+                        $recetteCoti->setMontantRecette($montantCotisation->getMontantCotisation());
+                        
+                }
+        //Enregistrement des objets dans la base de données
            $entityManager->persist($recette);
+           $entityManager->persist($recetteCoti);
            $entityManager->flush();
            dump($recette);
+           dump($recetteCoti);
         }
 
-        //Récupération dc l'exercice comptable en cours
-        $exComptableEnCours = $repoExComptableEnCours->findExComptableEnCours();
+
 
         //Retourne une vue avec les paramètres : form et exo comptable en cours
         return $this->render(
