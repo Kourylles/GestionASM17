@@ -13,8 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 Use Doctrine\Common\Persistence\ObjectManager;
 
 //Entitées utilisées
-use App\Entity\Membre;
-
+use App\Entity\Adherent;
 use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Coordonnees;
 use App\Entity\LienParente;
@@ -23,6 +22,7 @@ use App\Entity\Recette;
 use App\Entity\Smith;
 
 //Repositories utilisés
+use App\Repository\AdherentRepository;
 use App\Repository\MembreRepository;
 use App\Repository\ExerciceComptableEnCoursRepository;
 use App\Repository\CoordonneesRepository;

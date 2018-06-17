@@ -33,23 +33,6 @@ class Smith
      */
     private $observationsSmith;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Membre", mappedBy="smithLie", cascade={"persist"})
-     */
-    private $idMembre;
-
-    /**
-     * @ORM\Column(type="boolean",nullable=true)
-     */
-    private $annivEnvoye;
-
-    public function __construct()
-    {
-        $this->idMembre = new ArrayCollection();
-    }
-
-   
-
 //Ascesseurs et mutateurs
     public function getId()
     {
@@ -101,48 +84,7 @@ class Smith
         return $dateInterval->y;
     }
 
-    /**
-     * @return Collection|Membre[]
-     */
-    public function getIdMembre(): Collection
-    {
-        return $this->idMembre;
-    }
-
-    public function addIdMembre(Membre $idMembre): self
-    {
-        if (!$this->idMembre->contains($idMembre)) {
-            $this->idMembre[] = $idMembre;
-            $idMembre->setSmithLie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdMembre(Membre $idMembre): self
-    {
-        if ($this->idMembre->contains($idMembre)) {
-            $this->idMembre->removeElement($idMembre);
-            // set the owning side to null (unless already changed)
-            if ($idMembre->getSmithLie() === $this) {
-                $idMembre->setSmithLie(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getAnnivEnvoye(): ?bool
-    {
-        return $this->annivEnvoye;
-    }
-
-    public function setAnnivEnvoye(bool $annivEnvoye): self
-    {
-        $this->annivEnvoye = $annivEnvoye;
-
-        return $this;
-    }
+   
 
     
 }

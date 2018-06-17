@@ -19,49 +19,98 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-//Récupérer la somme total des recettes par type de recette
+    //Récupérer la somme total des recettes par type de recette
 
-    public function getSommeTypeRecetteByExComptable($ExerciceComptable)
+    public function getSommeTypeRecetteByExComptable()
         {
-            $qb = $this->createQueryBuilder('r')
-                ->addSelect('r.typeRecette')
-                ->where('r.exerciceComptableRecette = :exCompt')
-                ->setParameter('exCompt',$ExerciceComptable)
-                ->Select('SUM(r.montantRecette) as resultat')
-                ->groupBy('r.typeRecette')
-                ->getQuery()   
-            ;
-            return  $qb->getArrayResult();
+            $conn = $this->getEntityManager()->getConnection();
+            $sql ='
+                SELECT `montant_recette`as resultat
+                FROM `recette` 
+                WHERE `recette_active`= true
+                GROUP BY `type_recette_id`
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
         }
 
-    public function getTotalRecetteByExComptable($ExerciceComptable)
-    {
-        $qb = $this->createQueryBuilder('r')
-            ->addSelect('r.montantRecette')
-            ->where('r.exerciceComptableRecette = :exCompt')
-            ->setParameter('exCompt',$ExerciceComptable)
-            ->Select('SUM(r.montantRecette) as resultat')
-            ->getQuery()   
-        ;
-        return  $qb->getArrayResult();
-    }
+        public function getTotalRecetteByExComptable($ExerciceComptable)
+        {
+            $conn = $this->getEntityManager()->getConnection();
+            $sql='
+                SELECT SUM(`montant_recette`) as resultat
+                FROM `recette` 
+                WHERE `recette_active`=true            
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
 
-    public function getXDernieresRecettesParType($ExComptable, $TypeRecette1, $TypeRecette2)
-    {
-        $qb = $this->CreateQueryBuilder('r')
-            ->join('r.typeRecette','t')
-            ->addSelect('t')
-            ->where('r.exerciceComptableRecette = :exCompt')
-            ->andWhere('r.typeRecette =:typeRecette1')
-            ->orWhere('r.typeRecette =:typeRecette2')
-            ->setParameter('exCompt',$ExComptable)
-            ->setParameter('typeRecette1',$TypeRecette1)        
-            ->setParameter('typeRecette2',$TypeRecette2)
-            ->setMaxResults(20)
-            ->getQuery()
-        ;
-        return  $qb->getArrayResult();
-    }
+        public function getXDernieresRecettesParType($ExComptable, $TypeRecette1, $TypeRecette2)
+        {
+            $conn = $this->getEntityManager()->getConnection();
+            $sql='
+                SELECT * 
+                FROM `adherent`,`coordonneEs`, `type_adherent`,`recette`, `type_recette`
+                WHERE `adherent`.`coordonnees_id` = `coordonnees`.`id`
+                AND `adherent`.`type_adherent_id`=`type_adherent`.`id`
+                AND `recette`.`adherent_id` = `adherent`.`id`
+                AND `recette`.`type_recette_id` = `type_recette`.`id`
+                AND `adherent`.`actif`=true
+                AND `recette`.`recette_active`=true
+                LIMIT 20
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
+    
+
+//Récupérer la somme total des recettes par type de recette
+
+    // public function getSommeTypeRecetteByExComptable($ExerciceComptable)
+    //     {
+    //         $qb = $this->createQueryBuilder('r')
+    //             ->addSelect('r.typeRecette')
+    //             ->where('r.exerciceComptableRecette = :exCompt')
+    //             ->setParameter('exCompt',$ExerciceComptable)
+    //             ->Select('SUM(r.montantRecette) as resultat')
+    //             ->groupBy('r.typeRecette')
+    //             ->getQuery()   
+    //         ;
+    //         return  $qb->getArrayResult();
+    //     }
+
+    // public function getTotalRecetteByExComptable($ExerciceComptable)
+    // {
+    //     $qb = $this->createQueryBuilder('r')
+    //         ->addSelect('r.montantRecette')
+    //         ->where('r.exerciceComptableRecette = :exCompt')
+    //         ->setParameter('exCompt',$ExerciceComptable)
+    //         ->Select('SUM(r.montantRecette) as resultat')
+    //         ->getQuery()   
+    //     ;
+    //     return  $qb->getArrayResult();
+    // }
+
+    // public function getXDernieresRecettesParType($ExComptable, $TypeRecette1, $TypeRecette2)
+    // {
+    //     $qb = $this->CreateQueryBuilder('r')
+    //         ->join('r.typeRecette','t')
+    //         ->addSelect('t')
+    //         ->where('r.exerciceComptableRecette = :exCompt')
+    //         ->andWhere('r.typeRecette =:typeRecette1')
+    //         ->orWhere('r.typeRecette =:typeRecette2')
+    //         ->setParameter('exCompt',$ExComptable)
+    //         ->setParameter('typeRecette1',$TypeRecette1)        
+    //         ->setParameter('typeRecette2',$TypeRecette2)
+    //         ->setMaxResults(20)
+    //         ->getQuery()
+    //     ;
+    //     return  $qb->getArrayResult();
+    // }
 
 //     SELECT * FROM `recette` 
 // JOIN type_recette

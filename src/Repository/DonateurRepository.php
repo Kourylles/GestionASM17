@@ -19,7 +19,7 @@ class DonateurRepository extends ServiceEntityRepository
         parent::__construct($registry, Donateur::class);
     }
 
-        /**
+    /**
      * @param 
      * @return NombreDeDonateur(int)
      */
@@ -36,7 +36,7 @@ class DonateurRepository extends ServiceEntityRepository
      * @param 
      * @return NombreDeDonateurDeExoComptableEnCOurs(int)
      */
-    public function getDonateurExoEnCoursi()
+    public function getDonateurExoEnCours()
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '

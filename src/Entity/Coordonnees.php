@@ -68,12 +68,6 @@ class Coordonnees
      */
     private $email2;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="coordonnees", cascade={"persist"})
-     */
-    private $idMembre;
-
-
 
     public function getId()
     {

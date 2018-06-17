@@ -22,7 +22,8 @@
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
-                <span class="badge badge-light">{{nbreMembre}}</span>
+                <span class="badge badge-light">{{nbreAdherent}}</span>
+                {# <span class="badge badge-light">{{nbreMembre}}</span> #}
               </button>
             </td>
             <td colspan="2" style="text-align:center;">
@@ -35,7 +36,7 @@
             </td>
               </tr>
           <tr>
-          {% for coti in nbreMembreOkCoti %}         
+          {% for coti in nbreMembreCotiOk %}         
             <td style="text-align:center;">
               <button type="button" class="btn-lg btn-success btn-block">
               A jour  :
@@ -127,7 +128,7 @@
       <a class="nav-link active" data-toggle="tab" href="#AnnivAVenir"><h5>Anniverssaires futures</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#derniersMembres"><h5>Derniers Memrbes Enregistrés</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#derniersMembres"><h5>Derniers Membres Enregistrés</h5></a>
     </li>
     <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#dernieresRecettes"><h5>Dernières Recettes {#{{ExComptableEnCours.exerciceEnCours}}#}</h5></a>
@@ -161,7 +162,7 @@
               </thead>
               {% for smith in listeMembreTableauAnnivSmith %}                
                   <tr>
-                {% if smith.coti_ok %}
+                {% if smith.actif %}
                     <td align="center">
                       <button type="button" class="btn-lg btn-success"></button>
                     </td>
@@ -172,7 +173,7 @@
                 {% endif %}
                     <td style="text-align:center;vertical-align:middle;">{{smith.date_naissance_smith|date('d/m/Y')}}</td>
                     <td style="text-align:center;vertical-align:middle;">	{{ ('now'|date('Y') - smith.date_naissance_smith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.date_naissance_smith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
-                    <td style="text-align:center;vertical-align:middle;">{{smith.prenom_smith}} {{smith.nom_membre|upper}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{smith.prenom_smith}} {{smith.nom|upper}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{smith.ligne_adr2}}<br>{{smith.ligne_adr3}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{smith.code_postal}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{smith.ville}}</td> 
@@ -186,10 +187,11 @@
         </div>
       </div> {# Fin DIV6 #}
 
-{# Onglet Dernièrs Membres #}
+{# Onglet Derniers Membres #}
     <div id="derniersMembres" class="container tab-pane fade"><br>
       {# DIV10 qui contient les dernières recettes #}
-      <div clas="table-responsive">
+      <div class="col-lg-11 col-sm-11 offset-lg-1 offset-sm-1">
+      <div class="table-responsive">
 
           <table class="table table-bordered table-striped table-hover">
             <tbody>
@@ -201,6 +203,8 @@
                   <th style="text-align:center;vertical-align:middle">CP</th>
                   <th style="text-align:center;vertical-align:middle">VILLE</th>
                   <th style="text-align:center;vertical-align:middle">MAIL</th>
+                  <th style="text-align:center;vertical-align:middle;">TYPE</th>
+                  <th style="text-align:center;vertical-align:middle;">MONTANT</th>
                   <th style="text-align:center;vertical-align:middle">MODIFIE  LE</th>
                   
 
@@ -208,20 +212,22 @@
               </thead>
               {% for membre in derniersMembres %}                
                   <tr>
-                    <td style="vertical-align:middle;">{{membre.nomMembre}}</td>
-                    <td style="vertical-align:middle;">{{membre.prenomMembre}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{membre.coordonnees.ligneAdr2}}<br>{{membre.coordonnees.ligneAdr3}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{membre.coordonnees.codePostal}}</td>
-                    <td style="vertical-align:middle;">{{membre.coordonnees.ville}}</td>
-                    <td style="vertical-align:middle;">{{membre.coordonnees.email1}}</td>
-                    <td style="vertical-align:middle;">{{membre.dateModif|date("m/d/Y")}}</td>
+                    <td style="vertical-align:middle;">{{membre.nom}}</td>
+                    <td style="vertical-align:middle;">{{membre.prenom}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr2}}<br>{{membre.ligne_adr3}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{membre.code_postal}}</td>
+                    <td style="vertical-align:middle;">{{membre.ville}}</td>
+                    <td style="vertical-align:middle;">{{membre.email1}}</td>
+                    <td style="vertical-align:middle;">{{membre.type_adherent}}</td>
+                    <td style="vertical-align:middle;">{{membre.montant_recette}} €</td>
+                    <td style="vertical-align:middle;">{{membre.date_modification|date("d/m/Y")}}</td>
                   </tr> 
               {% endfor %}
             </tbody>        
           </table>
         <br>
       </div> {# Fin DIV10 #}
-    </div> {# Div dernieresRecettes #}
+    {# </div> Div dernieresRecettes #}
 
 {# Onglet Dernières Recettes #}
     <div id="dernieresRecettes" class="container tab-pane fade"><br>
@@ -239,10 +245,10 @@
               </thead>
               {% for recette in dernieresRecettes %}                
                   <tr>
-                    <td style="text-align:center;vertical-align:middle;">{{recette.datePaiementRecette|date('d/m/Y')}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{recette.typeRecette.typeDeRecette }}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{recette.descriptionRecette}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{recette.montantRecette}} €</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.date_paiement_recette|date('d/m/Y')}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.type_de_recette}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.description_recette}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{recette.montant_recette}} €</td>
                   </tr> 
               {% endfor %}
             </tbody>        

@@ -23,7 +23,7 @@ class Recette
     private $exerciceComptableRecette;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $descriptionRecette;
 
@@ -57,11 +57,7 @@ class Recette
      */
     private $numReleveCompteRecette;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="recette", cascade={"persist"})
-     */
-    private $idMembre;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeRecette")
      * @ORM\JoinColumn(nullable=false)
@@ -75,9 +71,16 @@ class Recette
     private $modePaiement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Donateur", inversedBy="idRecette")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Adherent", inversedBy="recette")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $idDonateur;
+    private $adherent;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $recetteActive;
+
 
     public function getId()
     {
@@ -181,18 +184,6 @@ class Recette
         return $this;
     }
 
-    public function getIdMembre(): ?Membre
-    {
-        return $this->idMembre;
-    }
-
-    public function setIdMembre(?Membre $idMembre): self
-    {
-        $this->idMembre = $idMembre;
-
-        return $this;
-    }
-
     public function getTypeRecette(): ?TypeRecette
     {
         return $this->typeRecette;
@@ -217,15 +208,28 @@ class Recette
         return $this;
     }
 
-    public function getIdDonateur(): ?Donateur
+    public function getAdherent(): ?Adherent
     {
-        return $this->idDonateur;
+        return $this->adherent;
     }
 
-    public function setIdDonateur(?Donateur $idDonateur): self
+    public function setAdherent(?Adherent $adherent): self
     {
-        $this->idDonateur = $idDonateur;
+        $this->adherent = $adherent;
 
         return $this;
     }
+
+    public function getRecetteActive(): ?bool
+    {
+        return $this->recetteActive;
+    }
+
+    public function setRecetteActive(bool $recetteActive): self
+    {
+        $this->recetteActive = $recetteActive;
+
+        return $this;
+    }
+
 }

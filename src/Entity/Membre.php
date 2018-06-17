@@ -74,13 +74,7 @@ class Membre
      */
     private $dateModif;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees", inversedBy="coordonnees")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $idMembre;
-
-    
+   
     public function __construct()
     {
         $this->recette = new ArrayCollection();
@@ -242,16 +236,6 @@ class Membre
         return $this;
     }
 
-    public function getIdMembre(): ?Coordonnees
-    {
-        return $this->idMembre;
-    }
-
-    public function setIdMembre(?Coordonnees $idMembre): self
-    {
-        $this->idMembre = $idMembre;
-
-        return $this;
-    }
+  
     
 }
