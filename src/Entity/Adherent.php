@@ -271,4 +271,9 @@ class Adherent
 
         return $this;
     }
+
+    public function getIdentifiant(): ?int
+    {
+        return $this->identifiant;
+    }
 }

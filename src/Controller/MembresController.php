@@ -23,7 +23,6 @@ use App\Entity\Smith;
 
 //Repositories utilisés
 use App\Repository\AdherentRepository;
-use App\Repository\MembreRepository;
 use App\Repository\ExerciceComptableEnCoursRepository;
 use App\Repository\CoordonneesRepository;
 use App\Repository\LienParenteRepository;
@@ -41,11 +40,11 @@ use App\Form\SmithType;
 
 class MembresController extends Controller
 {
-    public function afficherMembres(MembreRepository $repoMembre)
+    public function afficherMembres(AdherentRepository $repoAdherent)
     {
 
         //Récupère sous forme de tableau les Membres et leurs adresses
-        $listeMembreEtAdresse = $repoMembre->getMembresEtAdresses();
+        $listeMembreEtAdresse = $repoAdherent->getMembresEtAdresses();
 
         //Le controleur retourne une vue en lui passant la liste des membres en paramètre
         return $this->render(
@@ -58,7 +57,7 @@ class MembresController extends Controller
     public function detailMembres(
         $id,
         ExerciceComptableEnCoursRepository $repoExoComptable,
-        MembreRepository $repoMembre,
+        AdherentRepository $repoAdherent,
         CoordonneesRepository $repoCoordonnees,
         LienParenteRepository $repoLienParente,
         FonctionCaRepository $repoFonctionCa,
@@ -67,18 +66,15 @@ class MembresController extends Controller
         //Récupération de l'exercice comptable
         $exComptableEnCours = $repoExoComptable->findExComptableEnCours(); //une seule ligne dans la base avec id=1
         //Récupère les données du membre dans une instance de membre
-        $membre = $repoMembre->find($id);  
+        $membre = $repoAdherent->find($id);  
         // Récupère les coordonnées du membres passé en paramètre
         $coordonnees = $repoCoordonnees->find($membre->getCoordonnees());
         //Récupère le libellé du lien de parenté 
         $lienDeParente =$repoLienParente->find($membre->getLienParente());
-
         //Récupère le libellé de la fonction CA 
-        $fonctionCa =$repoFonctionCa->find($membre->getFonctionCa());
-
+        $fonctionCa =$repoFonctionCa->find($membre->getFonctionAuCa());
         //Récupère toutes les recettes du membre dont l'Id est dans la route
-        $recettes = $repoRecette->findByIdMembre($membre->getId(), $exComptableEnCours->getExerciceEnCours());   
-  
+        $recettes = $repoRecette->findByAdherent($membre->getId(), $exComptableEnCours->getExerciceEnCours());
         //Le controleur retourne une vue en lui passant des paramètres 
         return $this->render(
             'GestionASM17/detailMembre.html.twig', array(

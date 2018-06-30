@@ -28,7 +28,7 @@
                         </thead>
                         {% for membre in listeMembreEtAdresse %}
                           <tr>
-                            {% if membre.coti_ok %}
+                            {% if membre.actif %}
                               <td align="center">
                                 <button type="button" class="btn-lg btn-success"></button>
                               </td>
@@ -37,14 +37,14 @@
                                 <button type="button" class="btn-lg btn-danger"></button>
                               </td>
                             {% endif %}
-                            <td style="vertical-align:middle;"><a href={{url('detail_membres',{'id':membre.id})}}>{{membre.nom_membre|upper}}</a></td>
-                            <td style="vertical-align:middle;">{{membre.prenom_membre}}</td>
+                            <td style="vertical-align:middle;"><a href={{url('detail_membres',{'id':membre.id})}}>{{membre.nom|upper}}</a></td>
+                            <td style="vertical-align:middle;">{{membre.prenom}}</td>
                             <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr2}}<br> {{membre.ligne_adr3}}</td>
                             <td style="text-align:center;vertical-align:middle;">{{membre.code_postal}}</td>
                             <td style="vertical-align:middle;">{{membre.ville}}</td>
                             <td style="vertical-align:middle;">{{membre.email1}}</td>
-                            <td style="vertical-align:middle;">{{membre.date_creation|date("m/d/Y")}}</td>
-                            <td style="vertical-align:middle;">{{membre.date_modif|date("m/d/Y")}}</td>
+                            <td style="vertical-align:middle;">{{membre.date_creation|date("d/m/Y")}}</td>
+                            <td style="vertical-align:middle;">{{membre.date_modification|date("d/m/Y")}}</td>
                             
                             {# <td style="text-align:center;">{{CotiEnCours}}</td> #}
                           </tr>

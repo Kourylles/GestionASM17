@@ -15,9 +15,9 @@
           <tbody>
             <tr>
               <td style="padding-top:16px;">
-                <h3>{{Pro.titreProfessionnel}} {{Pro.prenomProfessionnel}} {{Pro.nomProfessionnel|upper}}</h3>
-                <h6><i>Date de Création : {{Pro.dateCreation|date("d/m/Y")}}</i></h6> 
-                <h6><i>Date de Modification : {{Pro.dateModif|date("d/m/Y")}}</i></h6>               
+                <h3>{{pro.titreProfessionnel}} {{pro.prenomProfessionnel}} {{pro.nomProfessionnel|upper}}</h3>
+                <h6><i>Date de Création : {{pro.dateCreation|date("d/m/Y")}}</i></h6> 
+                <h6><i>Date de Modification : {{pro.dateModif|date("d/m/Y")}}</i></h6>               
                 </td>
               </tr>
            </tbody>
@@ -50,7 +50,7 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="nomDetailPro"><h6>Nom :</h6></label>
-            <input type="text" class="form-control" id="nomDetailPro" placeholder="{{Pro.nomProfessionnel}}" disabled>
+            <input type="text" class="form-control" id="nomDetailPro" placeholder="{{pro.nomProfessionnel}}" disabled>
           </div>
           <div class="form-group col-md-8 offset-md-1">
             <label for="lgnAdr1DetalPro"><h6>Première ligne d'adresse :</h6></label>
@@ -61,7 +61,7 @@
         <div class="form-row">
                   <div class="form-group col-md-3">
                       <label for="prenomDetailPro"><h6>Prénom(s) :</h6></label>
-                      <input type="text" class="form-control" id="prenomDetailPro" placeholder="{{Pro.prenomProfessionnel}}" disabled >
+                      <input type="text" class="form-control" id="prenomDetailPro" placeholder="{{pro.prenomProfessionnel}}" disabled >
                     </div>
                   <div class="form-group col-md-8 offset-md-1">
                     <label for="lgnAdr2DetalPro"><h6>Deuxième ligne d'adresse :</h6></label>
@@ -72,7 +72,7 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="fonctionDetailPro"><h6>Spécialité :</h6></label>
-            <input type="text" class="form-control" id="fonctionCaDetailPro" placeholder="{{Pro.fonctionProfessionnel}}" disabled >
+            <input type="text" class="form-control" id="fonctionCaDetailPro" placeholder="{{pro.fonctionProfessionnel}}" disabled >
           </div>
           <div class="form-group col-md-8 offset-md-1">
             <label for="lgnAdr3DetalPro"><h6>Troisième ligne d'adresse :</h6></label>
@@ -117,7 +117,7 @@
         <div class="form-row">
           <div class="form-group col-md-12">
           <label for="observationDetailpro"><h6>Observation(s) :</h6></label>
-          <textarea rows="5" class="form-control" id="observationDetailPro" placeholder="{{Pro.observationsProfessionnel}}" disabled></textarea>
+          <textarea rows="5" class="form-control" id="observationDetailPro" placeholder="{{pro.observationsProfessionnel}}" disabled></textarea>
           </div>
         </div>
       </form>

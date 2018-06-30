@@ -74,4 +74,11 @@ class ModePaiement
 
         return $this;
     }
+
+    public function setModeDePaiement(string $modeDePaiement): self
+    {
+        $this->modeDePaiement = $modeDePaiement;
+
+        return $this;
+    }
 }

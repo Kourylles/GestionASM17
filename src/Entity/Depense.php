@@ -74,6 +74,11 @@ class Depense
      */
     private $compteDebite;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $depenseActive;
+
     public function getId()
     {
         return $this->id;
@@ -207,6 +212,18 @@ class Depense
     public function setCompteDebite(?Tresorerie $compteDebite): self
     {
         $this->compteDebite = $compteDebite;
+
+        return $this;
+    }
+
+    public function getDepenseActive(): ?bool
+    {
+        return $this->depenseActive;
+    }
+
+    public function setDepenseActive(bool $depenseActive): self
+    {
+        $this->depenseActive = $depenseActive;
 
         return $this;
     }

@@ -19,19 +19,20 @@ class DepenseRepository extends ServiceEntityRepository
         parent::__construct($registry, Depense::class);
     }
 
+    //Récupérer la somme totale des recettes en cours
     public function getTotalDepenseByExComptable($ExerciceComptable)
-    {
-        $qb = $this->createQueryBuilder('d')
-            ->addSelect('d.montantDepense')
-            ->where('d.anneeDepense = :exCompt')
-            ->setParameter('exCompt',$ExerciceComptable)
-            ->Select('SUM(d.montantDepense) as resultat')
-            ->getQuery()   
-        ;
-
-        return  $qb->getArrayResult();
-    }
-
+        {
+            $conn = $this->getEntityManager()->getConnection();
+            $sql='
+                SELECT SUM(`montant_depense`) as resultat
+                FROM `depense` 
+                WHERE `depense_active`= true            
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
+    //Récupérer les 20 dernières dépenses enregistrées
     public function getXDernieresDepenses($ExComptable)
     {
         $qb = $this->CreateQueryBuilder('d')

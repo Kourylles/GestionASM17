@@ -15,16 +15,16 @@
         <tbody>
           <tr>
             <td width="5px">
-              {% if membre.cotiOk %}
+              {% if membre.actif %}
                 <button type="button" class="btn-lg btn-success"></button>
               {% else %}
                 <button type="button" class="btn-lg btn-danger"></button>
               {% endif %}
             </td>
             <td style="padding-top:16px;">
-              <h3>{{membre.prenomMembre}} {{membre.nomMembre}}</h3>
+              <h3>{{membre.prenom}} {{membre.nom}}</h3>
               <h6><i>Date de Création : {{membre.dateCreation|date("d/m/Y")}}</i></h6> 
-              <h6><i>Date de Modification : {{membre.dateModif|date("d/m/Y")}}</i></h6>               
+              <h6><i>Date de Modification : {{membre.dateModification|date("d/m/Y")}}</i></h6>               
             </td>
           </tr>
         </tbody>
@@ -57,7 +57,7 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="nomDetailMembre"><h6>Nom :</h6></label>
-            <input type="text" class="form-control" id="nomDetailMembre" placeholder="{{membre.nomMembre}}" disabled>
+            <input type="text" class="form-control" id="nomDetailMembre" placeholder="{{membre.nom}}" disabled>
           </div>
           <div class="form-group col-md-8 offset-md-1">
             <label for="lgnAdr1DetalMembre"><h6>Première ligne d'adresse :</h6></label>
@@ -68,7 +68,7 @@
         <div class="form-row">
                   <div class="form-group col-md-3">
                       <label for="prenomDetailMembre"><h6>Prénom(s) :</h6></label>
-                      <input type="text" class="form-control" id="prenomDetailMembre" placeholder="{{membre.prenomMembre}}" disabled >
+                      <input type="text" class="form-control" id="prenomDetailMembre" placeholder="{{membre.prenom}}" disabled >
                     </div>
                   <div class="form-group col-md-8 offset-md-1">
                     <label for="lgnAdr2DetalMembre"><h6>Deuxième ligne d'adresse :</h6></label>
@@ -129,7 +129,7 @@
         <div class="form-row">
           <div class="form-group col-md-12">
           <label for="observationDetailMembre"><h6>Observation(s) :</h6></label>
-          <textarea rows="5" class="form-control" id="observationDetailMembre" placeholder="{{membre.observationsMembre}}" disabled></textarea>
+          <textarea rows="5" class="form-control" id="observationDetailMembre" placeholder="{{membre.observation}}" disabled></textarea>
           </div>
         </div>
       </form>
@@ -174,7 +174,7 @@
 {# Onglet Cotisation #}
     <div id="Contributions" class="container tab-pane fade"><br>    
       {% for recette in recettes %} 
-      {% if recette.exerciceComptableRecette == exComptableEnCours.exerciceEnCours %}
+      {% if recette.exercice_comptable_recette == exComptableEnCours.exerciceEnCours %}
       <form>
         {# <div class="row">
           <h5> ANNEE : {{recette.exerciceComptableRecette}}</h5>
@@ -182,22 +182,22 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="typeRecetteDetailMembre"><h6>Type :</h6> </label>
-            <input type="text" class="form-control" id="typeRecetteDetailMembre" placeholder="{{recette.typeRecette.typeDeRecette}}" disabled>
+            <input type="text" class="form-control" id="typeRecetteDetailMembre" placeholder="{{recette.type_de_recette}}" disabled>
           </div>
           <div class="form-group col-md-3 offset-md-1">
             <label for="dteRecetteDetailMembre"><h6>Date:</h6></label>
-            <input type="text" class="form-control" id="dteRecetteDetailMembre" placeholder="{{recette.datePaiementRecette|date('d/m/Y')}}" disabled>
+            <input type="text" class="form-control" id="dteRecetteDetailMembre" placeholder="{{recette.date_paiement_recette|date('d/m/Y')}}" disabled>
           </div>
           <div class="form-group col-md-3 offset-md-1">
             <label for="montantRecetteDetailMembre"><h6>Montant :</h6></label>
-            <input type="text" class="form-control" id="montantRecetteDetailMembre" placeholder="{{recette.montantRecette}} €" disabled>
+            <input type="text" class="form-control" id="montantRecetteDetailMembre" placeholder="{{recette.montant_recette}} €" disabled>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-12">
           <label for="observationSmithDetailMembre"><h6>Description : </h6></label>
-          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" placeholder="{{recette.descriptionRecette}}" disabled></textarea>
+          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" placeholder="{{recette.description_recette}}" disabled></textarea>
           </div>
         </div>
       </form>
@@ -209,30 +209,30 @@
 {# Onglet CotisationAnterieur #}
     <div id="ContributionsAnterieures" class="container tab-pane fade"><br>    
       {% for recette in recettes %} 
-      {% if recette.exerciceComptableRecette != exComptableEnCours.exerciceEnCours %}
+      {% if recette.exercice_comptable_recette != exComptableEnCours.exerciceEnCours %}
       <form>
         <div class="row">
-          <h5> ANNEE : {{recette.exerciceComptableRecette}}</h5>
+          <h5> ANNEE : {{recette.exercice_comptable_recette}}</h5>
         </div>
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="typeRecetteDetailMembre"><h6>Type :</h6> </label>
-            <input type="text" class="form-control" id="typeRecetteDetailMembre" placeholder="{{recette.typeRecette.typeDeRecette}}" disabled>
+            <input type="text" class="form-control" id="typeRecetteDetailMembre" placeholder="{{recette.type_de_recette}}" disabled>
           </div>
           <div class="form-group col-md-3 offset-md-1">
             <label for="dteRecetteDetailMembre"><h6>Date:</h6></label>
-            <input type="text" class="form-control" id="dteRecetteDetailMembre" placeholder="{{recette.datePaiementRecette|date('d/m/Y')}}" disabled>
+            <input type="text" class="form-control" id="dteRecetteDetailMembre" placeholder="{{recette.date_paiement_recette|date('d/m/Y')}}" disabled>
           </div>
           <div class="form-group col-md-3 offset-md-1">
             <label for="montantRecetteDetailMembre"><h6>Montant :</h6></label>
-            <input type="text" class="form-control" id="montantRecetteDetailMembre" placeholder="{{recette.montantRecette}} €" disabled>
+            <input type="text" class="form-control" id="montantRecetteDetailMembre" placeholder="{{recette.montant_recette}} €" disabled>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-12">
           <label for="observationSmithDetailMembre"><h6>Description : </h6></label>
-          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" placeholder="{{recette.descriptionRecette}}" disabled></textarea>
+          <textarea rows="5" class="form-control" id="observationSmithDetailMembre" placeholder="{{recette.description_recette}}" disabled></textarea>
           </div>
         </div>
       </form>

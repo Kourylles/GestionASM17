@@ -13,6 +13,7 @@ detail_membres:
     controller : App\Controller\MembresController::detailMembres
     # requirements:
     #     id: 'd\+'
+
 ajouter_membre:
     path: /ajouterMembre
     controller: App\Controller\MembresController::ajouterMembre

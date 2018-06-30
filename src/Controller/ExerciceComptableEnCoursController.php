@@ -16,8 +16,10 @@ use App\Entity\ExerciceComptableEnCours;
 
 //Repository utilisés
 use App\Repository\ExerciceComptableEnCoursRepository;
-use App\Repository\MembreRepository;
-use App\Repository\DonateurRepository;
+use App\Repository\AdherentRepository;
+use App\Repository\RecetteRepository;
+use App\Repository\DepenseRepository;
+
 
 //Formulaire utilisé
 use App\Form\ExerciceComptableEnCoursType;
@@ -30,8 +32,11 @@ class ExerciceComptableEnCoursController extends Controller
         Request $request,
         ObjectManager $entityManager,
         ExerciceComptableEnCoursRepository $repoExComptableEnCours, 
-        MembreRepository $repoMembre,
-        DonateurRepository $repoDonateur    
+        AdherentRepository $repoAdherent,
+        RecetteRepository $repoRecette,
+        DepenseRepository $repoDepense
+        // MembreRepository $repoMembre,
+        // DonateurRepository $repoDonateur    
         )
     {
 //Récupération de l'exercice comptable la table contient une seule ligne avec id=1
@@ -47,28 +52,44 @@ class ExerciceComptableEnCoursController extends Controller
         if ($formChangeExCompt->isSubmitted() && $formChangeExCompt->isValid()) {
             $exComptableEnCours ->setDateDeModif(new \DateTime());
 
-//****Modification de l'état de cotisation des membres : passage du champ Etat_coti de True à false****
-//Récupération des membres dont la coti est Ok
-        $listeMembreAJour = $repoMembre->findBy(array('CotiOk' => '1'));
-
-//Le champ cotiOk de chaque Membre retourné est passé à false
-                foreach($listeMembreAJour as $membre)
+/****************************************************************************************************
+ *    Modification de l'état de cotisation des adhérents : passage du champ Actif de True à False   *
+/****************************************************************************************************/
+//Récupération des adhérents actifs 
+        $listeAdherentsActif = $repoAdherent->findBy(array('actif' => '1'));
+//Le champ Actif de chaque Adhérent retourné est passé à false
+                foreach($listeAdherentsActif as $adherent)
                 {
-                $membre->setCotiOk(False);
-                $entityManager->persist($membre);
-                $entityManager->flush($membre);
+                $adherent->setActif(False);
+                $entityManager->persist($adherent);
+                $entityManager->flush($adherent);
                 }
 
-//Récupération des donateurs dont la coti est Ok
-         $listeDonateurAJour = $repoDonateur->findBy(array('donOK' => '1'));
+/*******************************************************************************************
+ *    Modification de l'état des recettes : passage du champ recette_active True à False   *
+/*******************************************************************************************/
+//Récupération des recettes actives 
+        $listeRecettesActives = $repoRecette->findBy(array('recetteActive' => '1'));
+//Le champ Actif de chaque recette retournée est passé à false
+                foreach($listeRecettesActives as $recette)
+                {
+                $recette->setRecetteActive(False);
+                $entityManager->persist($recette);
+                $entityManager->flush($recette);
+                }
 
-//Le champ CotiOk de chaque Membre retourné est passé à false
-            foreach($listeDonateurAJour as $donateur)
-            {
-              $donateur->setDonOk(False);
-              $entityManager->persist($donateur);
-              $entityManager->flush($donateur);
-            }
+/**********************************************************************************************
+ *    Modification de l'état des dépenses : passage du champ depense_active de True à False   *
+/**********************************************************************************************/
+//Récupération des dépenses actives 
+        $listeDepenseActives = $repoDepense->findBy(array('depenseActive' => '1'));
+//Le champ Actif de chaque dépense retournée est passé à false
+                foreach($listeDepenseActives as $depense)
+                {
+                $depense->setDepenseActive(False);
+                $entityManager->persist($depense);
+                $entityManager->flush($depense);
+                }
 
 //Stockage dans la base de données
                $entityManager->persist($exComptableEnCours);
@@ -87,5 +108,6 @@ class ExerciceComptableEnCoursController extends Controller
                 'exComptableEnCours' =>$exComptableEnCours
         ));
     }
-
 }
+
+

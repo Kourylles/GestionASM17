@@ -19,8 +19,7 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    //Récupérer la somme total des recettes par type de recette
-
+    //Récupérer les recettes actives classées par type de recettes 
     public function getSommeTypeRecetteByExComptable()
         {
             $conn = $this->getEntityManager()->getConnection();
@@ -34,8 +33,8 @@ class RecetteRepository extends ServiceEntityRepository
             $stmt->execute();
             return  $stmt->fetchAll();
         }
-
-        public function getTotalRecetteByExComptable($ExerciceComptable)
+    //Récupérer la somme totale des recettes en cours
+    public function getTotalRecetteByExComptable($ExerciceComptable)
         {
             $conn = $this->getEntityManager()->getConnection();
             $sql='
@@ -47,13 +46,13 @@ class RecetteRepository extends ServiceEntityRepository
             $stmt->execute();
             return  $stmt->fetchAll();
         }
-
-        public function getXDernieresRecettesParType($ExComptable, $TypeRecette1, $TypeRecette2)
+    //Récupérer les 20 dernières recettes enregistrées
+    public function getXDernieresRecettesParType($ExComptable, $TypeRecette1, $TypeRecette2)
         {
             $conn = $this->getEntityManager()->getConnection();
             $sql='
                 SELECT * 
-                FROM `adherent`,`coordonneEs`, `type_adherent`,`recette`, `type_recette`
+                FROM `adherent`,`coordonnees`, `type_adherent`,`recette`, `type_recette`
                 WHERE `adherent`.`coordonnees_id` = `coordonnees`.`id`
                 AND `adherent`.`type_adherent_id`=`type_adherent`.`id`
                 AND `recette`.`adherent_id` = `adherent`.`id`
@@ -141,17 +140,34 @@ class RecetteRepository extends ServiceEntityRepository
     //     return  $qb->getResult();
     // }
 
-    public function findByIdMembre($IdMembre)
+    // public function findByIdMembre($IdMembre)
+    // {
+    //     $qb = $this->createQueryBuilder('r')
+    //         ->andWhere('r.idMembre = :val')
+    //         ->setParameter('val', $IdMembre)
+    //         ->orderBy('r.typeRecette','ASC')
+    //         ->orderBy('r.exerciceComptableRecette', 'DESC')
+    //         ->getQuery()
+    //     ;
+    //     return  $qb->getResult();
+    // }
+
+    public function findByAdherent($IdMembre)
     {
-        $qb = $this->createQueryBuilder('r')
-            ->andWhere('r.idMembre = :val')
-            ->setParameter('val', $IdMembre)
-            ->orderBy('r.typeRecette','ASC')
-            ->orderBy('r.exerciceComptableRecette', 'DESC')
-            ->getQuery()
-        ;
-        return  $qb->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+            $sql='
+            SELECT * 
+            FROM `recette` 
+            INNER JOIN type_recette
+            ON recette.type_recette_id=type_recette.id
+            WHERE `adherent_id`=
+            '.$IdMembre;
+            
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
     }
+
 
     public function findByIdDonateur($IdDonateur)
     {

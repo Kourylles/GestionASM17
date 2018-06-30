@@ -8,20 +8,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 //Entitées utilisées
 use App\Entity\Professionnel;
+use App\Entity\Adherent;
 use App\Entity\Coordonnees;
 
 //Repositories utilisées
 use App\Repository\ProfessionnelRepository;
+use App\Repository\AdherentRepository;
 use App\Repository\CoordonneesRepository;
 
 class ProfessionnelsController extends Controller
 {
        
-    public function afficherProfessionnels(ProfessionnelRepository $repoPro)
+public function afficherProfessionnels(ProfessionnelRepository $repoAdherent)
     {
 
 //Récupère sous forme de tableau les Professionnels et leurs adresses
-        $listeProEtAdresse = $repoPro->getProEtAdresses();
+        $listeProEtAdresse = $repoAdherent->getProEtAdresses();
 
 //Le controleur retourne une vue en lui passant le paramètre necessaire
         return $this->render('GestionASM17/professionnels.html.twig', array(
@@ -31,17 +33,17 @@ class ProfessionnelsController extends Controller
 
     public function detailProfessionnels(
         $id,
-        ProfessionnelRepository $repoPro,
+        ProfessionnelRepository $repoAdherent,
         CoordonneesRepository $repoCoordonnees)
     {
 //Récupère les données du Professionnel passé en paramètre dans une instance de professionnel
-        $Pro = $repoPro->find($id);  
+        $pro = $repoAdherent->find($id);  
 // Récupère les coordonnées du Professionnel passé en paramètre
-        $coordonnees = $repoCoordonnees->find($Pro->getCoordonnees());  
+        $coordonnees = $repoCoordonnees->find($pro->getCoordonnees());  
   
 //Le controleur retourne une vue en lui passant le paramètre necessaire
         return $this->render('GestionASM17/detailProfessionnels.html.twig', array(
-            'Pro'=>$Pro ,
+            'pro'=>$pro ,
             'coordonnees'=>$coordonnees
         ));
     }

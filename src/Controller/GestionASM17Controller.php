@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 //Entitées utilisées
 use App\Entity\Adherent;
-use App\Entity\Membre;
 use App\Entity\Donateur;
 use App\Entity\Smith;
 use App\Entity\Recette;
@@ -18,7 +17,6 @@ use App\Entity\Depense;
 
 //Repositories utilisés
 use App\Repository\AdherentRepository;
-use App\Repository\MembreRepository;
 use App\Repository\ExerciceComptableEnCoursRepository;
 use App\Repository\DonateurRepository;
 use App\Repository\RecetteRepository;
@@ -32,14 +30,13 @@ class GestionASM17Controller extends Controller
     public function accueil(
             Request $request, 
             AdherentRepository $repoAdherent,
-        //     MembreRepository $repoMembre,
             ExerciceComptableEnCoursRepository $repoExoCompt,
             DonateurRepository $repoDonateur,
             RecetteRepository $repoRecette,
             DepenseRepository $repoDepense)
     {
-//Récupère le nombre d'adhérent total à jour de cotisation ou non
-        $nbreAdherent = $repoAdherent->countByAdherent();       
+//Récupère le nombre total de membres jour de cotisation ou non
+        $nbreAdherent = $repoAdherent->CountByMembre();
 //Récupération de l'exercice comptable en cours, la table ne contient qu'un champ d'id=1
         $exComptableEnCours = $repoExoCompt->findExComptableEnCours(); 
 //Récupère le nombre de membre à jour ou non à jour de leur cotisation pour l'exercice comptable en cours
@@ -59,16 +56,14 @@ class GestionASM17Controller extends Controller
         $listeMembreTableauAnnivSmith = $repoAdherent->getTableauAnnivSmith();
 //Récupère les 20 dernières recettes
         $dernieresRecettes = $repoRecette->getXDernieresRecettesParType($exComptableEnCours->getExerciceEnCours(),3,4);
-dump($dernieresRecettes);
-        //Récupère les 20 dernières recettes
+//Récupère les 20 dernières dépenses
         $dernieresDepenses = $repoDepense->getXDernieresDepenses($exComptableEnCours->getExerciceEnCours());
 // Récupère les 20 derniers membres ajoutés
         $derniersMembres = $repoAdherent->getXDerniersMembres($exComptableEnCours->getExerciceEnCours(),1,2);
 
-
-dump($derniersMembres);
 //Le controleur retourne une vue en lui passant les paramètres necessaires
         return $this->render('GestionASM17/accueil.html.twig', array(
+            'exComptableEnCours'=>$exComptableEnCours,
             'nbreAdherent'=>$nbreAdherent,
             'nbreMembreCotiOk'=>$nbreMembreCotiOk,
             'nbreMembreNokCoti'=>$nbreMembreNokCoti,
