@@ -30,11 +30,19 @@
                           <tr>
                             {% if membre.actif %}
                               <td align="center">
-                                <button type="button" class="btn-lg btn-success"></button>
+                                <button type="button" class="btn-lg btn-success">
+                                  {% if membre.is_smith %}
+                                    Smith
+                                  {% endif %}
+                                </button>
                               </td>
                               {% else %}
                               <td align="center">
-                                <button type="button" class="btn-lg btn-danger"></button>
+                                <button type="button" class="btn-lg btn-danger">
+                                  {% if membre.is_smith %}
+                                    Smith
+                                  {% endif %}
+                                </button>
                               </td>
                             {% endif %}
                             <td style="vertical-align:middle;"><a href={{url('detail_membres',{'id':membre.id})}}>{{membre.nom|upper}}</a></td>

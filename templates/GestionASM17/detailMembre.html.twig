@@ -16,9 +16,17 @@
           <tr>
             <td width="5px">
               {% if membre.actif %}
-                <button type="button" class="btn-lg btn-success"></button>
+                <button type="button" class="btn-lg btn-success">
+                  {% if membre.isSmith %}
+                    Smith
+                  {% endif %}
+                </button>
               {% else %}
-                <button type="button" class="btn-lg btn-danger"></button>
+                <button type="button" class="btn-lg btn-danger">
+                  {% if membre.isSmith %}
+                    Smith
+                  {% endif %}
+                </button>
               {% endif %}
             </td>
             <td style="padding-top:16px;">
@@ -42,7 +50,7 @@
       <a class="nav-link" data-toggle="tab" href="#Smith"><h5>Smith</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#Contributions"><h5>Contribution(s) {{exComptableEnCours.exerciceEnCours}}</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#Contributions"><h5>Contribution(s) {{exComptableEnCours}}</h5></a><!-- enlevé .exerciceEnCours-->
     </li>
     <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#ContributionsAnterieures"><h5>Contribution(s) Antèrieure(s)</h5></a>
@@ -174,7 +182,7 @@
 {# Onglet Cotisation #}
     <div id="Contributions" class="container tab-pane fade"><br>    
       {% for recette in recettes %} 
-      {% if recette.exercice_comptable_recette == exComptableEnCours.exerciceEnCours %}
+      {% if recette.exercice_comptable_recette == exComptableEnCours %}<!-- enlevé .exerciceEnCours-->
       <form>
         {# <div class="row">
           <h5> ANNEE : {{recette.exerciceComptableRecette}}</h5>
@@ -209,7 +217,7 @@
 {# Onglet CotisationAnterieur #}
     <div id="ContributionsAnterieures" class="container tab-pane fade"><br>    
       {% for recette in recettes %} 
-      {% if recette.exercice_comptable_recette != exComptableEnCours.exerciceEnCours %}
+      {% if recette.exercice_comptable_recette != exComptableEnCours %}<!-- enlevé .exerciceEnCours-->
       <form>
         <div class="row">
           <h5> ANNEE : {{recette.exercice_comptable_recette}}</h5>

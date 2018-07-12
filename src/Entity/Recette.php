@@ -71,7 +71,7 @@ class Recette
     private $modePaiement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Adherent", inversedBy="recette")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Adherent", inversedBy="recette",cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $adherent;
@@ -81,6 +81,10 @@ class Recette
      */
     private $recetteActive;
 
+    public function __construct()
+    {
+        $this->recetteActive = True;
+    }
 
     public function getId()
     {

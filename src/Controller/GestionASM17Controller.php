@@ -1,6 +1,7 @@
 <?php
 // GestionASM17/src/Controller/GestionASM17Controller.php
 namespace App\Controller;
+session_start();
 
 //Use Symfony
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,6 +40,8 @@ class GestionASM17Controller extends Controller
         $nbreAdherent = $repoAdherent->CountByMembre();
 //Récupération de l'exercice comptable en cours, la table ne contient qu'un champ d'id=1
         $exComptableEnCours = $repoExoCompt->findExComptableEnCours(); 
+//Enregistrement de l'exrecice comptable en cours dans une variable de Session pour réutilisation dans les autres pages
+        $_SESSION['exComptableEnCours']=$exComptableEnCours->getExerciceEnCours();
 //Récupère le nombre de membre à jour ou non à jour de leur cotisation pour l'exercice comptable en cours
         //Nbre d'adhérent à jour
         $nbreMembreCotiOk = $repoAdherent->getMembreAjourCoti();

@@ -55,13 +55,13 @@ class Adherent
     private $typeAdherent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $coordonnees;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Smith")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", cascade={"persist"})
      */
     private $smithLie;
 
@@ -90,6 +90,9 @@ class Adherent
     public function __construct()
     {
         $this->recette = new ArrayCollection();
+        $this->dateCreation=new \Datetime();
+        $this->dateModification = new \DateTime();  
+        $this->actif = True;
     }
 
     public function getId()

@@ -4,6 +4,7 @@
 
 namespace App\Controller;
 
+
 //Composant Symfony
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ Use Doctrine\Common\Persistence\ObjectManager;
 
 //Entitées utilisées
 use App\Entity\Adherent;
-use App\Entity\ExerciceComptableEnCours;
+//use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Coordonnees;
 use App\Entity\LienParente;
 use App\Entity\FonctionCa;
@@ -23,7 +24,6 @@ use App\Entity\Smith;
 
 //Repositories utilisés
 use App\Repository\AdherentRepository;
-use App\Repository\ExerciceComptableEnCoursRepository;
 use App\Repository\CoordonneesRepository;
 use App\Repository\LienParenteRepository;
 use App\Repository\FonctionCaRepository;
@@ -56,15 +56,12 @@ class MembresController extends Controller
 
     public function detailMembres(
         $id,
-        ExerciceComptableEnCoursRepository $repoExoComptable,
         AdherentRepository $repoAdherent,
         CoordonneesRepository $repoCoordonnees,
         LienParenteRepository $repoLienParente,
         FonctionCaRepository $repoFonctionCa,
         RecetteRepository $repoRecette
     ) {
-        //Récupération de l'exercice comptable
-        $exComptableEnCours = $repoExoComptable->findExComptableEnCours(); //une seule ligne dans la base avec id=1
         //Récupère les données du membre dans une instance de membre
         $membre = $repoAdherent->find($id);  
         // Récupère les coordonnées du membres passé en paramètre
@@ -74,11 +71,11 @@ class MembresController extends Controller
         //Récupère le libellé de la fonction CA 
         $fonctionCa =$repoFonctionCa->find($membre->getFonctionAuCa());
         //Récupère toutes les recettes du membre dont l'Id est dans la route
-        $recettes = $repoRecette->findByAdherent($membre->getId(), $exComptableEnCours->getExerciceEnCours());
+        $recettes = $repoRecette->findByAdherent($membre->getId(), $_SESSION['exComptableEnCours']);
         //Le controleur retourne une vue en lui passant des paramètres 
         return $this->render(
             'GestionASM17/detailMembre.html.twig', array(
-            'exComptableEnCours'=>$exComptableEnCours,
+            'exComptableEnCours'=>$_SESSION['exComptableEnCours'],
             'membre'=>$membre ,
             'coordonnees'=>$coordonnees ,
             'recettes'=>$recettes ,
@@ -91,13 +88,9 @@ class MembresController extends Controller
     public function ajouterMembre(
         Request $request,
         ObjectManager $entityManager,
-        ExerciceComptableEnCoursRepository $repoExComptableEnCours,
         MontantCotisationRepository $repoMontantCoti,
         TypeRecetteRepository $repoTypeRecette
     ) {
-        //Récupération dc l'exercice comptable en cours
-        $exComptableEnCours = $repoExComptableEnCours->findExComptableEnCours();
-
         //Récupération des types de recette
         $typeRecette = $repoTypeRecette->findAll();
 
@@ -116,7 +109,7 @@ class MembresController extends Controller
         //Si le formulaire est soumis
         if ($formAjouterRecette ->isSubmitted() ){
             //l'exercice comptable de la recette est initialisé à l'exercice comptable en cours
-            $recette->setexerciceComptableRecette($exComptableEnCours->getExerciceEnCours());
+            $recette->setexerciceComptableRecette(_SESSION['exComptableEnCours']);
                 //Séparation des données => Création d'une cotisation et d'un don si montant>25€
                 if ($recette->getMontantRecette()>$montantCotisation->getMontantCotisation()){
                         $recette->setTypeRecette($typeRecette[1]);
@@ -140,7 +133,7 @@ class MembresController extends Controller
         return $this->render(
             'GestionASM17/AjouterMembre.html.twig', array(
             'formAjouterRecette'=> $formAjouterRecette->createView(),          
-            'exComptableEnCours' =>$exComptableEnCours
+            'exComptableEnCours' =>$_SESSION['exComptableEnCours']
                 )
         );
      

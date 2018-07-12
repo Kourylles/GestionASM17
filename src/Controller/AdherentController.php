@@ -1,6 +1,6 @@
 <?php
 
-// GestionASM17/src/Controller/AdherentCOntroller.php
+// GestionASM17/src/Controller/AdherentController.php
 
 namespace App\Controller;
 
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 //Composant Doctrine
 Use Doctrine\Common\Persistence\ObjectManager;
 
-//Entitées utilisées
+//Entitée utilisée
 use App\Entity\Adherent;
 use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Coordonnees;
@@ -21,7 +21,7 @@ use App\Entity\FonctionCa;
 use App\Entity\Recette;
 use App\Entity\Smith;
 
-//Repositories utilisés
+//Repository utilisé
 use App\Repository\AdherentRepository;
 use App\Repository\ExerciceComptableEnCoursRepository;
 use App\Repository\CoordonneesRepository;
@@ -33,8 +33,7 @@ use App\Repository\MontantCotisationRepository;
 use App\Repository\TypeRecetteRepository;
 
 //Formulaire utilisé
-use App\Form\AdherentType;
-use App\Form\RecetteNewMembreType;
+use App\Form\RecetteType;
 use App\Form\SmithType;
 
 
@@ -55,12 +54,15 @@ class AdherentController extends Controller
 
         //Récupération du montant de la cotisation
         $montantCotisation = $repoMontantCoti->find(1);
+        
 
         //Instanciation des objets utilisés
         $recette = new Recette();
+        $adherent=new Adherent;
+        var_dump($adherent);
 
         //Récupération des formulaires
-        $formAjouterRecette = $this->createForm(RecetteNewMembreType::class, $recette);
+        $formAjouterRecette = $this->createForm(RecetteType::class, $recette);
 
         // Analyse de la requete de soumission des formulaires
         $formAjouterRecette->handleRequest($request);
@@ -78,19 +80,21 @@ class AdherentController extends Controller
                         $recetteCoti->setMontantRecette($montantCotisation->getMontantCotisation());
                         
                 }
+
         //Enregistrement des objets dans la base de données
            $entityManager->persist($recette);
            $entityManager->persist($recetteCoti);
            $entityManager->flush();
-           dump($recette);
-           dump($recetteCoti);
+           var_dump($adherent); 
+        
+        //Redirige vers la page de l'adhérent ajouté
+        return $this->render('GestionASM17/detailMembre.html.twig', array('id' =>$recette->getAdherent())) ;
         }
-
 
 
         //Retourne une vue avec les paramètres : form et exo comptable en cours
         return $this->render(
-            'GestionASM17/AjouterMembre.html.twig', array(
+            'GestionASM17/AjouterAdherent.html.twig', array(
             'formAjouterRecette'=> $formAjouterRecette->createView(),          
             'exComptableEnCours' =>$exComptableEnCours
                 )
