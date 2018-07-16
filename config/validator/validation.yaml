@@ -25,4 +25,11 @@
 #             - Date : ~
 #                 message : "Merci de saisir une date valide"
 
-            
+#App\Entity\Depense:
+#     properties:
+#         montantDepense:
+#             - NotBlank: ~
+#                 message : "La Saisie d'un montant est obligatoire."
+#             - Type :
+#                 type : float
+#                 message : "Merci de saisir un nombre décimal."

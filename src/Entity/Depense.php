@@ -39,7 +39,7 @@ class Depense
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $numTitrePaiementDepence;
+    private $numTitrePaiementDepense;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
@@ -78,6 +78,17 @@ class Depense
      * @ORM\Column(type="boolean")
      */
     private $depenseActive;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $numFacture;
+
+    public function __construct()
+    { 
+        $this->rapprochee = False;
+        $this->depenseActive = True;
+    }
 
     public function getId()
     {
@@ -132,14 +143,14 @@ class Depense
         return $this;
     }
 
-    public function getNumTitrePaiementDepence(): ?string
+    public function getNumTitrePaiementDepense(): ?string
     {
-        return $this->numTitrePaiementDepence;
+        return $this->numTitrePaiementDepense;
     }
 
-    public function setNumTitrePaiementDepence(string $numTitrePaiementDepence): self
+    public function setNumTitrePaiementDepense(string $numTitrePaiementDepense): self
     {
-        $this->numTitrePaiementDepence = $numTitrePaiementDepence;
+        $this->numTitrePaiementDepense = $numTitrePaiementDepense;
 
         return $this;
     }
@@ -224,6 +235,18 @@ class Depense
     public function setDepenseActive(bool $depenseActive): self
     {
         $this->depenseActive = $depenseActive;
+
+        return $this;
+    }
+
+    public function getNumFacture(): ?string
+    {
+        return $this->numFacture;
+    }
+
+    public function setNumFacture(string $numFacture): self
+    {
+        $this->numFacture = $numFacture;
 
         return $this;
     }

@@ -279,10 +279,10 @@
               </thead>
               {% for depense in dernieresDepenses %}                
                   <tr>
-                    <td style="text-align:center;vertical-align:middle;">{{depense.dateDepense|date('d/m/Y')}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{depense.date_depense|date('d/m/Y')}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{depense.debiteur}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{depense.description}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{depense.montantDepense}} €</td>
+                    <td style="text-align:center;vertical-align:middle;">{{depense.montant_depense}} €</td>
                   </tr> 
               {% endfor %}
             </tbody>        

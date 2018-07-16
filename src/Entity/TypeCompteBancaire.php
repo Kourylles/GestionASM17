@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PosteAnalytiqueRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TypeCompteBancaireRepository")
  */
-class PosteAnalytique
+class TypeCompteBancaire
 {
     /**
      * @ORM\Id()
@@ -19,21 +19,21 @@ class PosteAnalytique
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $posteAnalytique;
+    private $typeDeCompte;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getPosteAnalytique() : ? string
+    public function getTypeDeCompte(): ?string
     {
-        return $this->posteAnalytique;
+        return $this->typeDeCompte;
     }
 
-    public function setPosteAnalytique(string $posteAnalytique) : self
+    public function setTypeDeCompte(string $typeDeCompte): self
     {
-        $this->posteAnalytique = $posteAnalytique;
+        $this->typeDeCompte = $typeDeCompte;
 
         return $this;
     }

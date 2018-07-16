@@ -2,11 +2,11 @@
 
 namespace App\Repository;
 
-//use Doctrine
+//Composants Doctrine
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-//Entité(s) utilisées
+//Use Entity
 use App\Entity\Adherent;
 
 /**
@@ -133,8 +133,9 @@ class AdherentRepository extends ServiceEntityRepository
             ON `adherent`.`smith_lie_id` = `smith`.`id`
             INNER JOIN `coordonnees`
             ON `adherent`.`coordonnees_id` = `coordonnees`.`id`
-            WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) <30
-            OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) <30
+            WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) <15
+            OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) <15
+            ORDER BY adherent.actif DESC, smith.date_naissance_smith  DESC
             ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
@@ -155,6 +156,7 @@ class AdherentRepository extends ServiceEntityRepository
             INNER JOIN `coordonnees`
             ON `adherent`.`coordonnees_id`= `coordonnees`.`id`
             WHERE  `type_adherent_id`=1
+            ORDER BY adherent.actif DESC, adherent.nom ASC
             ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
@@ -178,6 +180,7 @@ class AdherentRepository extends ServiceEntityRepository
                 AND `recette`.`type_recette_id` = `type_recette`.`id`
                 AND `adherent`.`actif`=true
                 AND `recette`.`recette_active`=true
+                ORDER BY adherent.date_modification DESC, adherent.type_adherent_id ASC
                 LIMIT 20
                 ';
             $stmt = $conn->prepare($sql);

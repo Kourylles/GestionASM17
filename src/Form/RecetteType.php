@@ -28,18 +28,21 @@ class RecetteType extends AbstractType
     {
         $builder
             ->add('descriptionRecette',TextareaType::class)
-            ->add('datePaiementRecette',DateType::class, array(
+            ->add('datePaiementRecette',DateType::class, 
+                [
                 'widget'=>'single_text',
-            ))
+                ]
+            )
             ->add('adherent', AdherentType::class)
             ->add('montantRecette', NumberType::class)
             ->add('numTitrePaiementRecette', TextType::class)
             ->add('numRemiseDeChequeRecette', TextType::class)
             //Imbrication du Mode de paiement
-            ->add('modePaiement', EntityType::class, [
+            ->add('modePaiement', EntityType::class, 
+                [
                 'class'=>ModePaiement::class,
                 'choice_label'=>'modeDePaiement',
-            ]
+                ]
             );
     }
 

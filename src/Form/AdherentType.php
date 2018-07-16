@@ -1,20 +1,25 @@
 <?php
 
-// src/Form/AdherentType.php
+//src/Form/AdherentType.php
 
 namespace App\Form;
 
-//Composant Synfony
+//Composants Synfony
 use Symfony\Component\OptionsResolver\OptionsResolver;
-//Composant formulaire
+
+//Composants formulaire
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-//Entité(s) utilisée(s)
+
+//Composant Doctrine
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+
+//Use Entity
 use App\Entity\Adherent;
 use App\Entity\TypeAdherent;
 use App\Entity\LienParente;

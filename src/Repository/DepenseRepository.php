@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
-use App\Entity\Depense;
+//Composants Doctrine
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+
+//Use Entity
+use App\Entity\Depense;
 
 /**
  * @method Depense|null find($id, $lockMode = null, $lockVersion = null)
@@ -35,14 +38,35 @@ class DepenseRepository extends ServiceEntityRepository
     //Récupérer les 20 dernières dépenses enregistrées
     public function getXDernieresDepenses($ExComptable)
     {
-        $qb = $this->CreateQueryBuilder('d')
-            ->where('d.anneeDepense = :exCompt')
-            ->setParameter('exCompt',$ExComptable)
-            ->setMaxResults(20)
-            ->getQuery()
-        ;
-        return  $qb->getArrayResult();
-    }
+        $conn = $this->getEntityManager()->getConnection();
+            $sql='
+                SELECT * 
+                FROM `depense` 
+                WHERE depense.depense_active=true
+                ORDER BY depense.date_depense DESC 
+                LIMIT 20          
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
+
+    //Récupérer les Dépenses de l'exercice comptable en cours
+    public function getToutesLesDepenses()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+            $sql='
+                SELECT * 
+                FROM `depense` 
+                ORDER BY depense.date_depense DESC 
+                LIMIT 20          
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
+    
+    
 //    /**
 //     * @return Depense[] Returns an array of Depense objects
 //     */

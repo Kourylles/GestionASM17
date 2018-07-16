@@ -34,6 +34,19 @@ detail_professionnels:
     path : /professionnels/{id}
     controller : App\Controller\ProfessionnelsController::detailProfessionnels
 
+depenses:
+    path : /depenses
+    controller : App\Controller\DepenseController::afficherDepenses
+
+detail_depenses:
+    path: /depense/{id}
+    controller : App\Controller\DepenseController::detailDepenses
+
+ajouter_depense :
+    path: /ajouterDepense
+    controller : App\Controller\DepenseController::ajouterDepense
+
 changer_ExerciceComptable:
     path: /exerciceComptable
     controller : App\Controller\ExerciceComptableEnCoursController::changerExerciceComptable
+

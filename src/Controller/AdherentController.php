@@ -1,6 +1,6 @@
 <?php
 
-// GestionASM17/src/Controller/AdherentController.php
+//GestionASM17/src/Controller/AdherentController.php
 
 namespace App\Controller;
 
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 //Composant Doctrine
 Use Doctrine\Common\Persistence\ObjectManager;
 
-//Entitée utilisée
+//Use Entity
 use App\Entity\Adherent;
 use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Coordonnees;
@@ -21,7 +21,7 @@ use App\Entity\FonctionCa;
 use App\Entity\Recette;
 use App\Entity\Smith;
 
-//Repository utilisé
+//Use Repository
 use App\Repository\AdherentRepository;
 use App\Repository\ExerciceComptableEnCoursRepository;
 use App\Repository\CoordonneesRepository;
@@ -32,7 +32,7 @@ use App\Repository\SmithRepository;
 use App\Repository\MontantCotisationRepository;
 use App\Repository\TypeRecetteRepository;
 
-//Formulaire utilisé
+//Use Form
 use App\Form\RecetteType;
 use App\Form\SmithType;
 
@@ -58,8 +58,7 @@ class AdherentController extends Controller
 
         //Instanciation des objets utilisés
         $recette = new Recette();
-        $adherent=new Adherent;
-        var_dump($adherent);
+        $adherent=new Adherent();
 
         //Récupération des formulaires
         $formAjouterRecette = $this->createForm(RecetteType::class, $recette);
@@ -70,7 +69,7 @@ class AdherentController extends Controller
         //Si le formulaire est soumis
         if ($formAjouterRecette ->isSubmitted() ){
             //l'exercice comptable de la recette est initialisé à l'exercice comptable en cours
-            $recette->setexerciceComptableRecette($exComptableEnCours->getExerciceEnCours());
+            $recette->setexerciceComptableRecette($_SESSION['exComptableEnCours']);//$exComptableEnCours->getExerciceEnCours());
                 //Séparation des données => Création d'une cotisation et d'un don si montant>25€
                 if ($recette->getMontantRecette()>$montantCotisation->getMontantCotisation()){
                         $recette->setTypeRecette($typeRecette[1]);
@@ -79,26 +78,36 @@ class AdherentController extends Controller
                         $recette->setTypeRecette($typeRecette[0]);
                         $recetteCoti->setMontantRecette($montantCotisation->getMontantCotisation());
                         
-                }
+                
 
         //Enregistrement des objets dans la base de données
            $entityManager->persist($recette);
            $entityManager->persist($recetteCoti);
            $entityManager->flush();
-           var_dump($adherent); 
+           
+        
+        //Redirige vers la page de l'adhérent ajouté
+        return $this->render('GestionASM17/detailMembre.html.twig', array('id' =>$recette->getAdherent())) ;}
+        else {
+                    //Enregistrement des objets dans la base de données
+           $entityManager->persist($recette);
+           $entityManager->flush();
+           
         
         //Redirige vers la page de l'adhérent ajouté
         return $this->render('GestionASM17/detailMembre.html.twig', array('id' =>$recette->getAdherent())) ;
+        }
         }
 
 
         //Retourne une vue avec les paramètres : form et exo comptable en cours
         return $this->render(
-            'GestionASM17/AjouterAdherent.html.twig', array(
+            'GestionASM17/AjouterAdherent.html.twig', 
+            [
             'formAjouterRecette'=> $formAjouterRecette->createView(),          
-            'exComptableEnCours' =>$exComptableEnCours
-                )
-        );
+            'exComptableEnCours' =>$_SESSION['exComptableEnCours']//$exComptableEnCours
+            ]
+         );
      
     }
     

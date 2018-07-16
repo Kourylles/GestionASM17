@@ -1,0 +1,76 @@
+{# GestionASM17/templates/GestionASM17/AjouterDepense.html/twig #}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-AjouterDepense{% endblock %}
+{% block body %}
+{% form_theme formAjouterDepense   'bootstrap_4_layout.html.twig' %}
+<div style="background-color : #f2fdff">
+    {{ form_start(formAjouterDepense  ) }}
+    <div class="container-fluid">
+      <div class="row">
+        <table class="table table-borderless ccol-lg-12">
+          <tbody>
+            <tr>
+              <td style="padding-top:16px;text-align:center">
+                <h3>Ajouter une Dépense</h3>
+                {% set dateCreation = 'now'|date("d/m/Y") %}
+                {# <h6><i>{{ form_row(formAjouterDepense.adherent.dateCreation|date("d/m/Y"), {'label':"Date de Création :"}, { 'attr': { 'value':dateCreation } }) }}</i></h6>               #}
+              </td>
+              <td>
+                <button type="submit" class="btn-dark" >ENREGISTRER</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+    </div>
+     
+    <div id="donneesMembre" class="container-fluid" >   
+      <div class="form-row">
+          <div class="form-group col-md-1">
+            <h5> {{ form_row(formAjouterDepense.anneeDepense , {'label':"Exercice :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-1">
+            <h5> {{ form_row(formAjouterDepense.dateDepense, {'label':"Date :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-1 ">
+            <h5> {{ form_row(formAjouterDepense.montantDepense, {'label':"Montant :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-1">
+            <h5> {{ form_row(formAjouterDepense.numFacture, {'label':"Facture :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-2 "> 
+            <h5> {{ form_row(formAjouterDepense.debiteur, {'label':"Débiteur :"}) }}</h5>
+          </div>  
+      </div>
+      <div class="form-row">
+          <div class="form-group col-md-6">
+            <h5> {{ form_row(formAjouterDepense.description, {'label':"Description :"}) }}</h5>
+          </div>
+      </div> 
+      <div class="form-row">
+          <div class="form-group col-md-2">
+            <h5> {{ form_row(formAjouterDepense.modePaiementDepense, {'label':"Payée par :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-2">
+            <h5> {{ form_row(formAjouterDepense.posteAnalytique, {'label':"Poste Analytique :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-2">
+            <h5> {{ form_row(formAjouterDepense.compteDebite, {'label':"Tirée sur :"}) }}</h5>
+          </div> 
+      </div>
+      <div class="form-row">
+          <div class="form-group col-md-3">
+            <h5> {{ form_row(formAjouterDepense.numTitrePaiementDepense, {'label':"Numéro Titre de Paiement :"}) }}</h5>
+          </div>
+          <div class="form-group col-md-3">
+            <h5> {{ form_row(formAjouterDepense.numReleveBancaireDepense, {'label':"Numéro de Relevé de Compte :"}) }}</h5>
+          </div>
+      </div>
+    </div>       
+    {{form_end(formAjouterDepense)}}
+  </div>
+
+{% endblock %}
+

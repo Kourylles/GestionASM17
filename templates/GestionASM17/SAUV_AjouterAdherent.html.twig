@@ -1,18 +1,23 @@
-{# GestionASM17/templates/GestionASM17/AjouterMembre.html/twig #}
+{# GestionASM17/templates/GestionASM17/AjouterAdherent.html/twig #}
 
 {% extends 'base.html.twig' %}
-{% block title %}{{parent()}}-AjouterMembre{% endblock %}
+{% block title %}{{parent()}}-Ajouteradherent{% endblock %}
 {% block body %}
-{% form_theme formAjouterMembre 'bootstrap_4_layout.html.twig' %}
+{% form_theme formAjouterRecette   'bootstrap_4_layout.html.twig' %}
 <div>
+    {{ form_start(formAjouterRecette  ) }}
     <div class="container-fluid">
       <div class="row">
         <table class="table table-borderless col-md-12">
           <tbody>
             <tr>
               <td style="padding-top:16px;">
-                <h3>Ajouter un Membre</h3>
-                <h6><i>Date de Création : {{"now"|date("d/m/Y")}}</i></h6>              
+                <h3>Ajouter un Adhérent</h3>
+                {% set dateCreation = 'now'|date("d/m/Y") %}
+                {# <h6><i>{{ form_row(formAjouterRecette.adherent.dateCreation|date("d/m/Y"), {'label':"Date de Création :"}, { 'attr': { 'value':dateCreation } }) }}</i></h6>               #}
+              </td>
+              <td>
+                <button type="submit" class="btn-dark" >ENREGISTRER</button>
               </td>
             </tr>
           </tbody>
@@ -40,84 +45,90 @@
   <div class="tab-content">
     {# Contenu de l'onglet Membre #}
     <div id="donneesMembre" class="container tab-pane active"><br>      
-      {{ form_start(formAjouterMembre) }}
+      <!-- {{ form_start(formAjouterRecette  ) }} -->
 
     <div class="form-row">
-        <div class="form-group col-md-4">
-          <h5> {{ form_row(formAjouterMembre.lienParente, {'label':"Parenté avec un Smith :"}) }}</h5>
+        <div class="form-group col-md-1">
+          <h5> {{ form_row(formAjouterRecette.adherent.isSmith, {'label':"Smith :"}) }}</h5>
         </div>
-        {# <div class="form-group col-md-4 offset-md-2">
-          <h5> {{ form_row(formAjouterMembre.fonctionCa, {'label':"Fonction au CA :"}) }}</h5>
-        </div>           #}
+        <div class="form-group col-md-2 offset-md-1">
+          <h5> {{ form_row(formAjouterRecette.adherent.lienParente, {'label':"Parenté Smith :"}) }}</h5>
+        </div>
+        <div class="form-group col-md-2 offset-md-1">
+          <h5> {{ form_row(formAjouterRecette.adherent.typeAdherent, {'label':"Type d'Adhérent :"}) }}</h5>
+        </div>    
+        <div class="form-group col-md-2 offset-md-1">
+          <h5> {{ form_row(formAjouterRecette.adherent.fonctionAuCa, {'label':"Fonction au CA :"}) }}</h5>
+        </div>      
       </div> 
     <div class="form-row">
         <div class="form-group col-md-4">
-          <h5> {{ form_row(formAjouterMembre.nomMembre, {'label':"Nom :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.nom, {'label':"Nom :"}) }}</h5>
         </div>
         <div class="form-group col-md-4 offset-md-2">
-          <h5> {{ form_row(formAjouterMembre.prenomMembre, {'label':"Prénom :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.prenom, {'label':"Prénom :"}) }}</h5>
         </div>     
       </div>       
       <div class="form-row">
         <div class="form-group col-md-4">
-          <h5> {{ form_row(formAjouterMembre.lienParente, {'label':"Parenté avec un Smith :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.lienParente, {'label':"Parenté avec un Smith :"}) }}</h5>
         </div>
       </div> 
       <div class="form-row">
         <div class="form-group col-md-10">
-          <h5> {{ form_row(formAjouterMembre.observationsMembre, {'label':"Observation(s) :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.observation , {'label':"Observation(s) :"}) }}</h5>
         </div>      
       </div>
       <div class="form-row">
         <div class="form-group col-md-10">
-          <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr1, {'label':"Première Ligne d'Adresse :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.ligneAdr1, {'label':"Première Ligne d'Adresse :"}) }}</h5>
         </div>      
       </div>
       <div class="form-row">
         <div class="form-group col-md-10">
-          <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr2, {'label':"Deuxième Ligne d'Adresse :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.ligneAdr2, {'label':"Deuxième Ligne d'Adresse :"}) }}</h5>
         </div>      
       </div>
       <div class="form-row">
         <div class="form-group col-md-10">
-          <h5> {{ form_row(formAjouterMembre.coordonnees.ligneAdr3, {'label':"Troisième Ligne d'Adresse :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.ligneAdr3, {'label':"Troisième Ligne d'Adresse :"}) }}</h5>
         </div>      
       </div>
       <div class="form-row">
         <div class="form-group col-md-1">
-          <h5> {{ form_row(formAjouterMembre.coordonnees.codePostal, {'label':"C.P. :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.codePostal, {'label':"C.P. :"}) }}</h5>
         </div>
         <div class="form-group col-md-4 offset-md-1">
-          <h5> {{ form_row(formAjouterMembre.coordonnees.ville, {'label':"Ville :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.ville, {'label':"Ville :"}) }}</h5>
         </div>   
         <div class="form-group col-md-3 offset-md-1">
-          <h5> {{ form_row(formAjouterMembre.coordonnees.pays, {'label':"Pays :"}) }}</h5>
+          <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.pays, {'label':"Pays :"}) }}</h5>
         </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-4">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.telephone1, {'label':"Téléphone :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.telephone1, {'label':"Téléphone :"}) }}</h5>
           </div>
           <div class="form-group col-md-4 offset-md-2">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.telephone2, {'label':"Téléphone :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.telephone2, {'label':"Téléphone :"}) }}</h5>
           </div>     
         </div>    
         <div class="form-row">
           <div class="form-group col-md-4">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.email1, {'label':"Email :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.email1, {'label':"Email :"}) }}</h5>
           </div>
           <div class="form-group col-md-4 offset-md-2">
-            <h5> {{ form_row(formAjouterMembre.coordonnees.email2, {'label':"Email :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.adherent.coordonnees.email2, {'label':"Email :"}) }}</h5>
           </div>     
         </div>           
-        {{form_end(formAjouterMembre)}}
+      
       </div>      
 
 
   {# Contenu de l'onglet Recette  #}
 
   <div id="recette" class="container tab-pane"><br>    
-    {{ form_start(formAjouterRecette) }}  
+    
     <div class="form-row">
         <div class="form-group col-md-3">
             <h5> {{ form_row(formAjouterRecette.datePaiementRecette, {'label':"Date de Paiement :"}) }}</h5>
@@ -145,7 +156,7 @@
             <h5> {{ form_row(formAjouterRecette.numRemiseDeChequeRecette, {'label':"Remise de Chèque :"}) }}</h5>
          </div>
     </div>
-    {{form_end(formAjouterRecette)}}
+    
     </div>             
    
  
@@ -153,24 +164,25 @@
   {# Contenu de l'onglet Smith associé #}           
   
        <div id="smith" class="container tab-pane"><br>
-        {{ form_start(formAjouterSmith) }}
+        
         <div class="form-row">
           <div class="form-group col-md-4">
-            <h5> {{ form_row(formAjouterSmith.prenomSmith, {'label':"Prénom :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.adherent.smithLie.prenomSmith, {'label':"Prénom :"}) }}</h5>
           </div>
         </div>
           <div class="form-row">
-              <h5> {{ form_row(formAjouterSmith.dateNaissanceSmith, {'label':"Date de Naissance :"}) }}</h5>
+              <h5> {{ form_row(formAjouterRecette.adherent.smithLie.dateNaissanceSmith, {'label':"Date de Naissance :"}) }}</h5>
           </div>
           <div class="form-group col-md-4 offset-md-2">
-            <h5> {{ form_row(formAjouterSmith.dateNaissanceSmith, {'label':"Date de Naissance :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.adherent.smithLie.dateNaissanceSmith, {'label':"Date de Naissance :"}) }}</h5>
           </div>
         <div class="form-row">
           <div class="form-group col-md-9">
-            <h5> {{ form_row(formAjouterSmith.observationsSmith, {'label':"Observation(s) :"}) }}</h5>
+            <h5> {{ form_row(formAjouterRecette.adherent.smithLie.observationsSmith, {'label':"Observation(s) :"}) }}</h5>
           </div>
         </div>
-        {{form_end(formAjouterSmith)}}
+        {{form_end(formAjouterRecette)}}
+        
   </div>
   </div>
 

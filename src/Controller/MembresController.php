@@ -2,27 +2,25 @@
 
 // GestionASM17/src/Controller/MembresController.php
 
-namespace App\Controller;
+namespace App\Controller;  
 
-
-//Composant Symfony
+//Composants Symfony
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-//Composant Doctrine
+//Composants Doctrine
 Use Doctrine\Common\Persistence\ObjectManager;
 
-//Entitées utilisées
+//Use Entity
 use App\Entity\Adherent;
-//use App\Entity\ExerciceComptableEnCours;
 use App\Entity\Coordonnees;
 use App\Entity\LienParente;
 use App\Entity\FonctionCa;
 use App\Entity\Recette;
 use App\Entity\Smith;
 
-//Repositories utilisés
+//Use Repository
 use App\Repository\AdherentRepository;
 use App\Repository\CoordonneesRepository;
 use App\Repository\LienParenteRepository;
@@ -32,7 +30,7 @@ use App\Repository\SmithRepository;
 use App\Repository\MontantCotisationRepository;
 use App\Repository\TypeRecetteRepository;
 
-//Formulaire utilisé
+//Use Form
 use App\Form\MembreType;
 use App\Form\RecetteNewMembreType;
 use App\Form\SmithType;
@@ -48,9 +46,10 @@ class MembresController extends Controller
 
         //Le controleur retourne une vue en lui passant la liste des membres en paramètre
         return $this->render(
-            'GestionASM17/membres.html.twig', array(
-            'listeMembreEtAdresse'=>$listeMembreEtAdresse
-                )
+            'GestionASM17/membres.html.twig', 
+                [
+                'listeMembreEtAdresse'=>$listeMembreEtAdresse
+                ]
         );
     }
 
@@ -62,7 +61,7 @@ class MembresController extends Controller
         FonctionCaRepository $repoFonctionCa,
         RecetteRepository $repoRecette
     ) {
-        //Récupère les données du membre dans une instance de membre
+        //Récupère les données du membre dans une instance de Membre
         $membre = $repoAdherent->find($id);  
         // Récupère les coordonnées du membres passé en paramètre
         $coordonnees = $repoCoordonnees->find($membre->getCoordonnees());
@@ -74,14 +73,15 @@ class MembresController extends Controller
         $recettes = $repoRecette->findByAdherent($membre->getId(), $_SESSION['exComptableEnCours']);
         //Le controleur retourne une vue en lui passant des paramètres 
         return $this->render(
-            'GestionASM17/detailMembre.html.twig', array(
-            'exComptableEnCours'=>$_SESSION['exComptableEnCours'],
-            'membre'=>$membre ,
-            'coordonnees'=>$coordonnees ,
-            'recettes'=>$recettes ,
-            'lienDeParente'=>$lienDeParente ,
-            'fonctionCa'=>$fonctionCa 
-                )
+            'GestionASM17/detailMembre.html.twig', 
+                [
+                'exComptableEnCours'=>$_SESSION['exComptableEnCours'],
+                'membre'=>$membre ,
+                'coordonnees'=>$coordonnees ,
+                'recettes'=>$recettes ,
+                'lienDeParente'=>$lienDeParente ,
+                'fonctionCa'=>$fonctionCa 
+                ]
         );
     }
 
@@ -131,10 +131,11 @@ class MembresController extends Controller
 
         //Retourne une vue avec les paramètres : form et exo comptable en cours
         return $this->render(
-            'GestionASM17/AjouterMembre.html.twig', array(
-            'formAjouterRecette'=> $formAjouterRecette->createView(),          
-            'exComptableEnCours' =>$_SESSION['exComptableEnCours']
-                )
+            'GestionASM17/AjouterMembre.html.twig', 
+                [
+                'formAjouterRecette'=> $formAjouterRecette->createView(),          
+                'exComptableEnCours' =>$_SESSION['exComptableEnCours']
+                ]
         );
      
     }
