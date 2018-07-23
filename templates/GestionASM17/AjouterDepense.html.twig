@@ -14,10 +14,6 @@
               <td style="padding-top:16px;text-align:center">
                 <h3>Ajouter une Dépense</h3>
                 {% set dateCreation = 'now'|date("d/m/Y") %}
-                {# <h6><i>{{ form_row(formAjouterDepense.adherent.dateCreation|date("d/m/Y"), {'label':"Date de Création :"}, { 'attr': { 'value':dateCreation } }) }}</i></h6>               #}
-              </td>
-              <td>
-                <button type="submit" class="btn-dark" >ENREGISTRER</button>
               </td>
             </tr>
           </tbody>
@@ -31,16 +27,20 @@
           <div class="form-group col-md-1">
             <h5> {{ form_row(formAjouterDepense.anneeDepense , {'label':"Exercice :"}) }}</h5>
           </div>
-          <div class="form-group col-md-1">
+      </div>
+      <div class="form-row"> 
+          <div class="form-group col-md-2">
             <h5> {{ form_row(formAjouterDepense.dateDepense, {'label':"Date :"}) }}</h5>
           </div>
-          <div class="form-group col-md-1 ">
+          <div class="form-group col-md-2 ">
             <h5> {{ form_row(formAjouterDepense.montantDepense, {'label':"Montant :"}) }}</h5>
           </div>
-          <div class="form-group col-md-1">
+      </div>
+      <div class="form-row">    
+          <div class="form-group col-md-2">
             <h5> {{ form_row(formAjouterDepense.numFacture, {'label':"Facture :"}) }}</h5>
           </div>
-          <div class="form-group col-md-2 "> 
+          <div class="form-group col-md-4 "> 
             <h5> {{ form_row(formAjouterDepense.debiteur, {'label':"Débiteur :"}) }}</h5>
           </div>  
       </div>
@@ -68,8 +68,10 @@
             <h5> {{ form_row(formAjouterDepense.numReleveBancaireDepense, {'label':"Numéro de Relevé de Compte :"}) }}</h5>
           </div>
       </div>
+      <button type="submit" class="btn-success" >ENREGISTRER</button>
     </div>       
     {{form_end(formAjouterDepense)}}
+    
   </div>
 
 {% endblock %}

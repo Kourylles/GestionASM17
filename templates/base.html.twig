@@ -13,7 +13,7 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     {% endblock %}
   </head>
-  <body style="margin-top:80px">
+  <body style="margin-top:80px;background-color : #f2fdff">
     <div class="container-fluid" style="background-color : #f2fdff">
 {# En tête de la page #}
 {# Barre de Menu #} 
@@ -45,6 +45,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TRESORIER</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                   <a class="dropdown-item" href="{{path('changer_ExerciceComptable')}}">Changer Exercice Comptable</a>
+                  <a class="dropdown-item" href="{{path('ajouter_banque')}}">Ajouter une Banque</a>
                   <a class="dropdown-item" href="{{path('ajouter_adherent')}}">Ajouter Membre/Donateur</a>
                   <a class="dropdown-item" href="#">Ajouter Professionnel</a>
                   <a class="dropdown-item" href="{{path('ajouter_depense')}}">Enregistrer Une Dépense</a>
@@ -55,12 +56,22 @@
             </li>
           </ul>
         </div>
+          {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          {% endfor %}
         <!-- <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Rechercher" aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chercher</button>
             </form> -->
       </nav>
-    {% block body %}{% endblock %} 
+
+    {% block body %}
+    {% endblock %} 
+
 {# Pied de page #}
       <footer class="footer">
 {# Ligne de séparation #}

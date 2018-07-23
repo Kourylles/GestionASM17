@@ -24,7 +24,6 @@
               <button type="button" class="btn-lg btn-basic btn-block">
                 Total :
                   <span class="badge badge-light">{{totalAdherent.total}}</span>
-                {# <span class="badge badge-light">{{nbreMembre}}</span> #}
               </button>
               {% endfor %}
             </td>
@@ -291,58 +290,6 @@
       </div> {# Fin DIV9 #}
     </div> {# Div dernieresDepenses#}
   </div> {#div tb-content#}
-
-
-
-
-
-
-
-{# Partie contenant les anniverssaires à venir #}
-{# DIV6 qui contient le tableau des anniverssaires à venir #}
-{# <div clas="table-responsive">
-  <h3>Anniversaires à venir :</h3>
-  {{form_start(AnnivEnvoyeForm)}} 
-     <table class="table table-bordered table-striped table-hover">
-      <tbody>
-        <thead class="thead-dark">
-          <tr>
-            <th style="text-align:center;">COTISATION</th>
-            <th style="text-align:center;">DATE DE NAISSANCE</th>
-            <th style="text-align:center;">AGE</th>
-            <th style="text-align:center;">PRENOM ET NOM</th>
-            <th style="text-align:center;">ADRESSE</th>
-            <th style="text-align:center;">CP</th>
-            <th style="text-align:center;">VILLE</th>
-            <th style="text-align:center;">ENVOYE</th>
-          </tr>
-        </thead>
-         {% for smith in listeMembreTableauAnnivSmith %}                
-            <tr>
-          {% if smith.coti_ok %}
-              <td align="center">
-                <button type="button" class="btn-lg btn-success"></button>
-              </td>
-              {% else %}
-              <td align="center">
-                <button type="button" class="btn-lg btn-danger"></button>
-              </td>
-          {% endif %}
-              <td style="text-align:center;vertical-align:middle;">{{smith.date_naissance_smith|date('d/m/Y')}}</td>
-              <td style="text-align:center;vertical-align:middle;">	{{ ('now'|date('Y') - smith.date_naissance_smith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.date_naissance_smith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
-              <td style="text-align:center;vertical-align:middle;">{{smith.prenom_smith}} {{smith.nom_membre|upper}}</td>
-              <td style="text-align:center;vertical-align:middle;">{{smith.ligne_adr2}}<br>{{smith.ligne_adr3}}</td>
-              <td style="text-align:center;vertical-align:middle;">{{smith.code_postal}}</td>
-              <td style="text-align:center;vertical-align:middle;">{{smith.ville}}</td> 
-              <td style="text-align:center;vertical-align:middle;">{{form_widget(AnnivEnvoyeForm)}}</td> 
-            </tr> 
-        {% endfor %}
-      </tbody>        
-    </table>
-    {{form_end(AnnivEnvoyeForm)}}
-  <br>
-  </div> Fin DIV6 #}
-</div> {# Fin DIV1 #}
-             
+</div> {# Fin DIV1 #}          
 {% endblock %}
           

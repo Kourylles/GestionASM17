@@ -13,12 +13,14 @@ Use Doctrine\Common\Persistence\ObjectManager;
 
 //Classes utilisées
 use App\Entity\ExerciceComptableEnCours;
+use App\Entity\ExoComptPrecedent;
 
 //Repository utilisés
 use App\Repository\ExerciceComptableEnCoursRepository;
 use App\Repository\AdherentRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\DepenseRepository;
+use App\Repository\ExoComptPrecedentRepository;
 
 
 //Formulaire utilisé
@@ -34,11 +36,11 @@ class ExerciceComptableEnCoursController extends Controller
         ExerciceComptableEnCoursRepository $repoExComptableEnCours, 
         AdherentRepository $repoAdherent,
         RecetteRepository $repoRecette,
-        DepenseRepository $repoDepense
-        // MembreRepository $repoMembre,
-        // DonateurRepository $repoDonateur    
+        DepenseRepository $repoDepense,
+        ExoComptPrecedentRepository $repoExComptPrecedent 
         )
     {
+
 //Récupération de l'exercice comptable la table contient une seule ligne avec id=1
         $exComptableEnCours = $repoExComptableEnCours->findExComptableEnCours(); 
 
@@ -48,13 +50,17 @@ class ExerciceComptableEnCoursController extends Controller
 // Analyse de la requete de soumission du formulaire
         $formChangeExCompt->handleRequest($request);
 
+/****************************************************************************************************
+ *                  Actions réalisées si le formulaire est valide                                   *
+/****************************************************************************************************/  
 //Gestion des données enregistrées dans le form: validation, affectation du nouvel exercice comptable, modifcation des membres et donateurs
         if ($formChangeExCompt->isSubmitted() && $formChangeExCompt->isValid()) {
             $exComptableEnCours ->setDateDeModif(new \DateTime());
 
-/****************************************************************************************************
- *    Modification de l'état de cotisation des adhérents : passage du champ Actif de True à False   *
-/****************************************************************************************************/
+
+        /************************************************************************************************
+         *Modification de l'état de cotisation des adhérents : passage du champ Actif de True à False   *
+        /************************************************************************************************/
 //Récupération des adhérents actifs 
         $listeAdherentsActif = $repoAdherent->findBy(array('actif' => '1'));
 //Le champ Actif de chaque Adhérent retourné est passé à false
@@ -65,9 +71,9 @@ class ExerciceComptableEnCoursController extends Controller
                 $entityManager->flush($adherent);
                 }
 
-/*******************************************************************************************
- *    Modification de l'état des recettes : passage du champ recette_active True à False   *
-/*******************************************************************************************/
+        /***************************************************************************************
+         *Modification de l'état des recettes : passage du champ recette_active True à False   *
+        /***************************************************************************************/
 //Récupération des recettes actives 
         $listeRecettesActives = $repoRecette->findBy(array('recetteActive' => '1'));
 //Le champ Actif de chaque recette retournée est passé à false
@@ -78,9 +84,9 @@ class ExerciceComptableEnCoursController extends Controller
                 $entityManager->flush($recette);
                 }
 
-/**********************************************************************************************
- *    Modification de l'état des dépenses : passage du champ depense_active de True à False   *
-/**********************************************************************************************/
+        /******************************************************************************************
+         *Modification de l'état des dépenses : passage du champ depense_active de True à False   *
+        /******************************************************************************************/
 //Récupération des dépenses actives 
         $listeDepenseActives = $repoDepense->findBy(array('depenseActive' => '1'));
 //Le champ Actif de chaque dépense retournée est passé à false
@@ -90,7 +96,17 @@ class ExerciceComptableEnCoursController extends Controller
                 $entityManager->persist($depense);
                 $entityManager->flush($depense);
                 }
-
+        /***************************************************************************
+         *Mise à jour de la table contenant les exercices comptables précédents    *
+        /***************************************************************************/
+//Initialisation de la variable qui va permettre de remplir la table
+           for ($i=1; $i <=10 ; $i++) { 
+                $exComptPrecedent = $repoExComptPrecedent->find($i);
+                $exComptPrecedent->setExComptPrecedent($exComptPrecedent->getExComptPrecedent() + 1);
+                dump($exComptPrecedent);
+                $entityManager->persist($exComptPrecedent);
+                $entityManager->flush($exComptPrecedent);
+           }
 //Stockage dans la base de données
                $entityManager->persist($exComptableEnCours);
                $entityManager->flush($exComptableEnCours);

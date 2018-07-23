@@ -50,3 +50,7 @@ changer_ExerciceComptable:
     path: /exerciceComptable
     controller : App\Controller\ExerciceComptableEnCoursController::changerExerciceComptable
 
+ajouter_banque:
+    path: /ajouterBanque
+    controller : App\Controller\BanqueController::ajouterBanque
+

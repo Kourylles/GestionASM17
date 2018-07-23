@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+//use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 //Composant Doctrine
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -24,6 +25,7 @@ use App\Entity\PosteAnalytique;
 use App\Entity\TypeCompteBancaire;
 use App\Entity\Depense;
 use App\Entity\Tresorerie;
+use App\Entity\ExoComptPrecedent;
 
 
 class DepenseType extends AbstractType
@@ -42,29 +44,30 @@ class DepenseType extends AbstractType
             ->add('numTitrePaiementDepense', TextType::class)
             ->add('numReleveBancaireDepense', TextType::class)
             // ->add('rapprochee')
-            ->add('anneeDepense', TextType::class)
+            ->add('anneeDepense', EntityType::class,
+                    [
+                    'class' => ExoComptPrecedent::class,
+                    'choice_label' => 'exComptPrecedent'
+                    ]
+                )
             ->add('numFacture', TextType::class)
             // ->add('depenseActive')
             //Imbrication du mode de Paiement
-            ->add(
-                'modePaiementDepense', EntityType::class,
+            ->add('modePaiementDepense', EntityType::class,
                 [
                 'class' => ModePaiement::class,
-                'choice_label' => 'modeDePaiement',
+                'choice_label' => 'modeDePaiement'
                 ]
             )
             //Imbrication du poste Analytique
-            ->add(
-                'posteAnalytique',
-                EntityType::class,
+            ->add('posteAnalytique',EntityType::class,
                 [
                 'class' => PosteAnalytique::class,
                 'choice_label' => 'posteAnalytique'
                 ]
             )
             //Imbrication du type de compte Bancaire
-            ->add(
-                'compteDebite', EntityType::class,
+            ->add('compteDebite', EntityType::class,
                 [
                 'class' => Tresorerie::class,
                 'choice_label' => 'compteDebite'

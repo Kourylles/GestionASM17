@@ -81,6 +81,12 @@ class Recette
      */
     private $recetteActive;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Banque")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $banque;
+
     public function __construct()
     {
         $this->recetteActive = True;
@@ -232,6 +238,18 @@ class Recette
     public function setRecetteActive(bool $recetteActive): self
     {
         $this->recetteActive = $recetteActive;
+
+        return $this;
+    }
+
+    public function getBanque(): ?Banque
+    {
+        return $this->banque;
+    }
+
+    public function setBanque(?Banque $banque): self
+    {
+        $this->banque = $banque;
 
         return $this;
     }

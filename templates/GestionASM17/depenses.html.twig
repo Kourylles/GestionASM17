@@ -32,6 +32,7 @@
                         <th style="text-align:center;">DEBITEUR</th>
                         <th style="text-align:center;">DESCRIPTION</th>
                         <th style="text-align:center;">MONTANT</th>
+                        <th style="text-align:center;">RAPPROCHEE</th>
                       </tr>
                     </thead>
                     {% for depense in listeDepenses %}
@@ -41,6 +42,17 @@
                           <td style="text-align:left;vertical-align:middle;">{{depense.debiteur}}</td>
                           <td style="text-align:left;vertical-align:middle;">{{depense.description}}</td>
                           <td style="text-align:left;vertical-align:middle;">{{depense.montant_depense}} Euro(s)</td>
+                          <td style="text-align:center;vertical-align:middle;">
+                              {% if depense.rapprochee %}
+                              <button type="button" class="btn-lg btn-success ">
+                                  <span class="badge badge-success">{{depense.num_releve_bancaire_depense}}</span>
+                              </button>
+                            {% else %}
+                              <button type="button" class="btn-lg btn-danger">
+                                  <span class="badge badge-danger"></span>
+                              </button>
+                            {% endif %}
+                          </td>
                         </tr>
                       {% endif %}
                     {% endfor %}
@@ -63,6 +75,7 @@
                         <th style="text-align:center;">DEBITEUR</th>
                         <th style="text-align:center;">DESCRIPTION</th>
                         <th style="text-align:center;">MONTANT</th>
+                        <th style="text-align:center;">RAPPROCHEE</th>
                       </tr>
                     </thead>
                     {% for depense in listeDepenses %}
@@ -72,6 +85,17 @@
                           <td style="text-align:left;vertical-align:middle;">{{depense.debiteur}}</td>
                           <td style="text-align:left;vertical-align:middle;">{{depense.description}}</td>
                           <td style="text-align:center;vertical-align:middle;">{{depense.montant_depense}} Euro(s)</td>
+                          <td style="text-align:center;vertical-align:middle;">
+                              {% if depense.rapprochee %}
+                              <button type="button" class="btn-lg btn-success ">
+                                  <span class="badge badge-success">{{depense.num_releve_bancaire_depense}}</span>
+                              </button>
+                            {% else %}
+                              <button type="button" class="btn-lg btn-danger">
+                                  <span class="badge badge-danger"></span>
+                              </button>
+                            {% endif %}
+                          </td>
                         </tr>
                       {% endif %}
                     {% endfor %}

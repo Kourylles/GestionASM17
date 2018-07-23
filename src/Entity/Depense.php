@@ -22,7 +22,7 @@ class Depense
     private $description;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateDepense;
 

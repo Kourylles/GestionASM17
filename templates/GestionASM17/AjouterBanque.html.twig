@@ -1,0 +1,33 @@
+{# GestionASM17/templates/GestionASM17/ajouterBanque.html.twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Ajouter Banque{% endblock %}
+{% block body %}
+
+{% form_theme formAjouterBanque 'bootstrap_4_layout.html.twig' %}
+
+<div class="container-fluid">
+  <h3>Ajouter une Banque :</h3>
+  <br>
+    <div class="form-row">
+      <div class="col-md-6 offset-md-2">
+        {{ form_start(formAjouterBanque) }}
+        <h5>{{ form_row(formAjouterBanque.nomBanque, {
+            'label':"Nouvelle Banque :"})
+          }}
+        </h5>
+        </div>
+      </div>
+      <div class="form-row">
+            <div class="form-group col-md-1 offset-md-1">
+              <button type="submit" class="btn-success" >ENREGISTRER</button>
+            </div>
+      <div>
+         {{ form_end(formAjouterBanque) }}
+      </div>
+</div>
+  
+  
+            
+{% endblock %}
+

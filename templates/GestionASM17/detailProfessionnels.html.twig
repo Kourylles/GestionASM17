@@ -4,10 +4,13 @@
 {% block title %}{{parent()}}-Détail Professionnels{% endblock %}
 {% block body %}
 <div>
-  <div class="btn-group">
-    <button type="button" class="btn btn-dark">Modifier</button>
-    <button type="button" class="btn btn-dark">Envoyer Mail</button>
-  </div>
+    <div class="form-row">  
+        <div class="btn-group " >
+            <a class="btn btn-dark" href="{{path('professionnels')}}" role="button">Liste des Professionnels</a>
+            <button type="button" class="btn btn-danger" disabled>Modifier</button>
+            <button type="button" class="btn btn-secondary" disabled>Envoyer Mail</button>
+        </div>
+    </div>
   <div class="container-fluid">
       <br>
       <div class="row">
@@ -21,8 +24,8 @@
                 </td>
               </tr>
            </tbody>
-          </table>
-  </div>
+        </table>
+      </div>
   <hr>
 </div>
 

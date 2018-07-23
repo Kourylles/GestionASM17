@@ -14,13 +14,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
+//Composant Doctrine
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 //Entité utilisée
 use App\Entity\Recette;
 use App\Entity\ModePaiement;
 use App\Entity\Adherent;
-
+use App\Entity\Banque;
 
 class RecetteType extends AbstractType
 {
@@ -43,7 +45,16 @@ class RecetteType extends AbstractType
                 'class'=>ModePaiement::class,
                 'choice_label'=>'modeDePaiement',
                 ]
-            );
+            )
+            //Imbrication du nom de la Banque
+            ->add('banque', EntityType::class, 
+                [
+                'class'=>Banque::class,
+                'choice_label'=>'nomBanque',
+                ]
+            )
+            
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

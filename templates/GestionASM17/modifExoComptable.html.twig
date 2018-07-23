@@ -9,7 +9,7 @@
 <h3>Changement de l'Exercice Comptable :</h3>
 <br>
   <div class="form-group row">
-    <div class="col-sm-6 offset-sm-2">
+    <div class="col-md-2 offset-md-2">
       <h5>Exercice Comptable Actuel :</h5>
       <input type="text" class="form-control" id="AncienExComptable" placeholder="{{exComptableEnCours.exerciceEnCours}}" disabled>
      <br>
@@ -17,13 +17,11 @@
       {{ form_start(formChangeExCompt) }}
       <h5> 
       {{ form_row(formChangeExCompt.exerciceEnCours, {
-          'label':"Nouvel Exercice Comptable"
-        }) }}
+          'label':"Nouvel Exercice Comptable :"
+        }) 
+      }}
       </h5>
       {{ form_end(formChangeExCompt) }}
-      {% for message in app.session.flashbag.get('note') %}
-      <h5>{{message}}</h5> 
-      {% endfor %}
     </div>
   </div>
             
