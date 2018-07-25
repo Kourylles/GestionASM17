@@ -26,11 +26,17 @@ class RecetteRepository extends ServiceEntityRepository
     public function getSommeTypeRecetteByExComptable()
         {
             $conn = $this->getEntityManager()->getConnection();
+            // $sql ='
+            //     SELECT `montant_recette`as resultat
+            //     FROM `recette` 
+            //     WHERE `recette_active`= true
+            //     GROUP BY `type_recette_id`
+            // ';
             $sql ='
-                SELECT `montant_recette`as resultat
-                FROM `recette` 
-                WHERE `recette_active`= true
-                GROUP BY `type_recette_id`
+                SELECT SUM(montant_recette) as resultat
+                FROM recette
+                WHERE recette.recette_active = 1
+                GROUP BY recette.type_recette_id
             ';
             $stmt=$conn->prepare($sql);
             $stmt->execute();
@@ -76,8 +82,8 @@ class RecetteRepository extends ServiceEntityRepository
                 FROM `recette` 
                 INNER JOIN type_recette
                 ON recette.type_recette_id=type_recette.id
-                WHERE `adherent_id`=
-            '.$IdMembre;
+                WHERE `adherent_id`='.$IdMembre.'
+                ORDER BY `exercice_comptable_recette`DESC';
             
             $stmt=$conn->prepare($sql);
             $stmt->execute();
@@ -93,8 +99,8 @@ class RecetteRepository extends ServiceEntityRepository
                 FROM `recette` 
                 INNER JOIN type_recette
                 ON recette.type_recette_id=type_recette.id
-                WHERE `adherent_id`=
-            '.$IdDonateur;
+                WHERE `adherent_id`='.$IdDonateur.'
+                ORDER BY `exercice_comptable_recette`DESC';
             
             $stmt=$conn->prepare($sql);
             $stmt->execute();

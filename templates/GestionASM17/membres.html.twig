@@ -3,14 +3,13 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{parent()}}-Membres{% endblock %}
 {% block body %}
-            <div>
-              <h3>Liste des Membres :</h3>
-              <br>
-            <div>
         {# Affichage du tableau des Membres #}
             <div class="container-fluid">
+              <h3>Liste des Membres :</h3>
+              <br>
               <div class="row">
-                  <div class="col-sm-12 col-lg-12 ">
+                  {# <div class="col-sm-12 col-lg-12"> #}
+                  <div class="table-responsive col-lg-12 col-sm-12 ">
                     <table class="table table-bordered table-hover table-responsive">
                       <tbody>
                         <thead class="thead-dark">

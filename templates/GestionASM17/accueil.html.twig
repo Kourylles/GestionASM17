@@ -126,7 +126,7 @@
   <!-- Création des 4 onglets -->
   <ul class="nav nav-tabs">
     <li class="nav-item ">
-      <a class="nav-link active" data-toggle="tab" href="#AnnivAVenir"><h5>Anniverssaires futures</h5></a>
+      <a class="nav-link active" data-toggle="tab" href="#AnnivAVenir"><h5>Anniversaires Proches</h5></a>
     </li>
     <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#derniersMembres"><h5>Derniers Membres Enregistrés</h5></a>
@@ -142,10 +142,10 @@
 <!-- Création du contenu des onglets -->
   <div class="tab-content">
 {# Onglet Anniverssaires à venir #}
-    <div id="AnnivAVenir" class="container tab-pane active"><br>
+    <div id="AnnivAVenir" class="container-fluid tab-pane active"><br>
       {# DIV6 qui contient le tableau des anniverssaires à venir #}
-      <div clas="table-responsive">
-        <h3>Anniversaires à venir :</h3>
+      <div class="table-responsive">
+        {# <h3>Anniversaires à venir :</h3> #}
         {# {{form_start(AnnivEnvoyeForm)}}  #}
           <table class="table table-bordered table-striped table-hover">
             <tbody>
@@ -189,7 +189,7 @@
       </div> {# Fin DIV6 #}
 
 {# Onglet Derniers Membres #}
-    <div id="derniersMembres" class="container tab-pane fade"><br>
+    <div id="derniersMembres" class="container-fluid tab-pane fade"><br>
       {# DIV10 qui contient les dernières recettes #}
       <div class="container_fluid"> 
       <div class="row">
@@ -235,9 +235,9 @@
     </div> {# Div dernieresRecettes #}
 
 {# Onglet Dernières Recettes #}
-    <div id="dernieresRecettes" class="container tab-pane fade"><br>
+    <div id="dernieresRecettes" class="container-fluid tab-pane fade"><br>
       {# DIV8 qui contient les dernières recettes #}
-      <div clas="table-responsive">
+      <div class="table-responsive">
           <table class="table table-bordered table-striped table-hover">
             <tbody>
               <thead class="thead-dark">
@@ -263,9 +263,9 @@
     </div> {# Div dernieresRecettes #}
 
       {# Onglet Dernières Dépenses #}
-    <div id="dernieresDepenses" class="container tab-pane fade"><br>
+    <div id="dernieresDepenses" class="container-fluid tab-pane fade"><br>
       {# DIV9 qui contient les dernières dépenses #}
-      <div clas="table-responsive">
+      <div class="table-responsive">
           <table class="table table-bordered table-striped table-hover">
             <tbody>
               <thead class="thead-dark">
