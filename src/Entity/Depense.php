@@ -55,7 +55,7 @@ class Depense
      * @ORM\Column(type="string", length=10)
      */
     private $anneeDepense;
-
+ 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ModePaiement", inversedBy="depenses")
      * @ORM\JoinColumn(nullable=false)

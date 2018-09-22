@@ -22,9 +22,11 @@ use App\Entity\Tresorerie;
 use App\Repository\DepenseRepository;
 use App\Repository\ModePaiementRepository;
 use App\Repository\TresorerieRepository;
+use App\Repository\ExoComptPrecedentRepository;
 
 //Use Form
 use App\Form\DepenseType;
+
 
 
 
@@ -75,7 +77,7 @@ class DepenseController extends Controller
         ObjectManager $entityManager,
         DepenseRepository $repoDepense
         ) {
-        //Instanciation des objest utilisé
+        //Instanciation des objets utilisés
         $depense = new Depense();
 
         //Récupération du formulaire
@@ -86,7 +88,7 @@ class DepenseController extends Controller
 
         //Persitance du formulaire
         if ($formAjouterDepense->isSubmitted() && $formAjouterDepense->isValid()) 
-        {
+        {dump($depense);
             //Enregistrement des objets dans la base de données
             $entityManager->persist($depense);
             $entityManager->flush();
@@ -100,7 +102,7 @@ class DepenseController extends Controller
         }
 
         return $this->render(
-            'GestionASM17/AjouterDepense.html.twig', 
+            'GestionASM17/ajouterDepense.html.twig', 
                 [
                 'formAjouterDepense' => $formAjouterDepense->createView(),
                 'exComptableEnCours' =>$_SESSION['exComptableEnCours']
