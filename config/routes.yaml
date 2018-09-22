@@ -54,3 +54,6 @@ ajouter_banque:
     path: /ajouterBanque
     controller : App\Controller\BanqueController::ajouterBanque
 
+rapprocher_depense:
+    path : /rapprocherDepense
+    controller : App\Controller\DepenseController::rapprocherDepense

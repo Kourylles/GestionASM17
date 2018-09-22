@@ -49,6 +49,7 @@
                   <a class="dropdown-item" href="{{path('ajouter_adherent')}}">Ajouter Membre/Donateur</a>
                   <a class="dropdown-item" href="#">Ajouter Professionnel</a>
                   <a class="dropdown-item" href="{{path('ajouter_depense')}}">Enregistrer Une Dépense</a>
+                  <a class="dropdown-item" href="{{path('rapprocher_depense')}}">Rapprocher Une Dépense</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -56,20 +57,27 @@
             </li>
           </ul>
         </div>
-          {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="flash-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-          {% endfor %}
+        
+         
         <!-- <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Rechercher" aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chercher</button>
             </form> -->
       </nav>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+               {# <div class="alert alert-success"> #}
+                <div class="flash-{{ label }}">
+                    <h4 style="text-align:center">
+                    <span class="badge badge-success">{{ message }}</span>
+                    </h4>
+                </div>
+              {# </div> #}
+            {% endfor %}
+          {% endfor %}
+        
 
-    {% block body %}
+    {% block body %} 
     {% endblock %} 
 
 {# Pied de page #}
