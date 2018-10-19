@@ -66,6 +66,14 @@ class DepenseRepository extends ServiceEntityRepository
             return  $stmt->fetchAll();
         }
     
+    public function getDepensesNonRapprochees($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql ='
+        
+        ';
+    }
+    
     
 //    /**
 //     * @return Depense[] Returns an array of Depense objects

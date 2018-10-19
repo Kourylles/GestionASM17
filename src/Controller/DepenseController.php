@@ -101,7 +101,6 @@ class DepenseController extends Controller
         );
         }
 
-
         return $this->render(
             'GestionASM17/ajouterDepense.html.twig', 
                 [
@@ -110,4 +109,30 @@ class DepenseController extends Controller
                 ]
         );
         }
+
+        public function rapprocherDepense(
+            Request $request,
+            ObjectManager $entityManager,
+            DepenseRepository $repoDepense
+            ) {
+                //Instanciation des objest utilisé
+                $depense = new Depense();
+    
+                //Récupération du formulaire
+                $formRapprocherDepense = $this->createForm(RapprocherDepenseType::class, $depense);
+    
+                //Analyse de la requete de soumission du formulaire
+                $formRapprocherDepense->handleRequest($request);
+    
+                //Persitance du formulaire
+                if ($formRapprocherDepense->isSubmitted() && $formRapprocherDepense->isValid()) 
+                {
+                    //Enregistrement des objets dans la base de données
+                    $entityManager->persist($depense);
+                    $entityManager->flush();
+    
+                //Redirige vers la page de la dépense ajoutée
+                return $this->redirectToRoute('rapprocher_depense');
+                }
+              }
 }
