@@ -126,6 +126,17 @@ class AdherentRepository extends ServiceEntityRepository
     public function getTableauAnnivSmith(): array
     {
         $conn = $this->getEntityManager()->getConnection();
+        /*$sql = '
+           SELECT * 
+            FROM adherent 
+            INNER JOIN `smith`
+            ON `adherent`.`smith_lie_id` = `smith`.`id`
+            INNER JOIN `coordonnees`
+            ON `adherent`.`coordonnees_id` = `coordonnees`.`id`
+            WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) < 30
+            OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) < 30
+            ORDER BY adherent.actif DESC, smith.date_naissance_smith  DESC
+            ';*/
         $sql = '
             SELECT * 
             FROM adherent 
@@ -133,10 +144,12 @@ class AdherentRepository extends ServiceEntityRepository
             ON `adherent`.`smith_lie_id` = `smith`.`id`
             INNER JOIN `coordonnees`
             ON `adherent`.`coordonnees_id` = `coordonnees`.`id`
-            WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) <15
-            OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) <15
+            WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) <= 30
+            AND dayofyear(date_naissance_smith) - dayofyear(NOW()) >0
+            OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) <= 30
+            AND dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) >0
             ORDER BY adherent.actif DESC, smith.date_naissance_smith  DESC
-            ';
+        ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
