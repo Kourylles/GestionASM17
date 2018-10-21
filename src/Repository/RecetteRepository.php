@@ -22,16 +22,10 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    //Récupérer les recettes actives classées par type de recettes 
+    //Récupérer la somme des recettes actives classées par type de recettes 
     public function getSommeTypeRecetteByExComptable()
         {
             $conn = $this->getEntityManager()->getConnection();
-            // $sql ='
-            //     SELECT `montant_recette`as resultat
-            //     FROM `recette` 
-            //     WHERE `recette_active`= true
-            //     GROUP BY `type_recette_id`
-            // ';
             $sql ='
                 SELECT SUM(montant_recette) as resultat
                 FROM recette
@@ -55,6 +49,23 @@ class RecetteRepository extends ServiceEntityRepository
             $stmt->execute();
             return  $stmt->fetchAll();
         }
+    //Récupère toutes les recettes de l'exercice comptable en cours (ie les recettes actives)
+    public function getToutesLesRecettes()
+        {
+            $conn = $this->getEntityManager()->getConnection();
+            $sql = '
+                SELECT * 
+                FROM `recette`, `type_recette`
+                WHERE recette.type_recette_id = type_recette.id
+                AND recette_active = true
+                AND recette.type_recette_id BETWEEN 2 AND 5
+                ORDER BY recette.date_paiement_recette DESC, recette.type_recette_id ASC
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
+
     //Récupérer les 20 dernières recettes enregistrées
     public function getXDernieresRecettesParType($ExComptable, $TypeRecette1, $TypeRecette2)
         {

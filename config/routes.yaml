@@ -58,6 +58,14 @@ rapprocher_depense:
     path : /rapprocherDepense
     controller : App\Controller\DepenseController::rapprocherDepense
 
+recettes:
+    path : /recettes
+    controller : App\Controller\RecetteController::afficherRecettes
+
+detail_recettes:
+    path: /recette/{id}
+    controller : App\Controller\RecetteController::detailRecettes
+
 ajouter_recette:
     path : /ajouterrecette
     controller : App\Controller\RecetteController::ajouterRecette

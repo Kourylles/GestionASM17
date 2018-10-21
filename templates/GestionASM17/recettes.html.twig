@@ -1,0 +1,120 @@
+{# GestionASM17/templates/GestionASM17/membres.html/twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Recettes{% endblock %}
+{% block body %}
+<div>
+  <h3>Liste des Recettes :</h3>
+  <br>
+</div>
+
+<!-- Création des 2 onglets -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item ">
+      <a class="nav-link active" data-toggle="tab" href="#ExoEnCours"><h5>{{exComptableEnCours}}</h5></a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" data-toggle="tab" href="#ExoAnterieurs"><h5>Exercices Antèrieures</h5></a>
+    </li>
+  </ul>
+    
+{# Affichage du tableau des Recettes #}
+  <div class="tab-content">
+    <div id="ExoEnCours" class="container tab-pane active"><br>      
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col-sm-12 col-lg-12 ">
+                <table class="table table-bordered table-hover {# table-responsive #}">
+                  <tbody>
+                    <thead class="thead-dark">
+                      <tr >
+                        <th style="text-align:center;">DATE</th>
+                        <th style="text-align:center;">TYPE</th>
+                        <th style="text-align:center;">DESCRIPTION</th>
+                        <th style="text-align:center;">MONTANT</th>
+                        <th style="text-align:center;">RAPPROCHEE</th>
+                      </tr>
+                    </thead>
+                    {% for recette in listeRecettes %}
+                      {% if recette.recette_active %}                      
+                        <tr>
+                          <td style="text-align:center;vertical-align:middle;"><a href={{url('detail_recettes',{'id':recette.id})}}>{{recette.date_paiement_recette|date("d/m/Y")}}</a></td>
+                          <td style="text-align:left;vertical-align:middle;">{{recette.type_de_recette}}</td>
+                          <td style="text-align:left;vertical-align:middle;">{{recette.description_recette}}</td>
+                          <td style="text-align:left;vertical-align:middle;">{{recette.montant_recette}} Euro(s)</td>
+                          <td style="text-align:center;vertical-align:middle;">
+                              {% if recette.etat_rapprochement_recette %}
+                              <button type="button" class="btn-lg btn-success ">
+                                  <span class="badge badge-success">{{recette.num_releve_compte_recette}}</span>
+                              </button>
+                            {% else %}
+                              <button type="button" class="btn-lg btn-danger">
+                                  <span class="badge badge-danger"></span>
+                              </button>
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  </tbody>      
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+          <div id="ExoAnterieurs" class="container tab-pane "><br>      
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col-sm-12 col-lg-12 ">
+                <table class="table table-bordered table-hover {# table-responsive #}"> 
+                
+                  <tbody>
+                    <thead class="thead-dark">
+                      <tr >
+                        <th style="text-align:center;">DATE</th>
+                        <th style="text-align:center;">TYPE</th>
+                        <th style="text-align:center;">DESCRIPTION</th>
+                        <th style="text-align:center;">MONTANT</th>
+                        <th style="text-align:center;">RAPPROCHEE</th>
+                      </tr>
+                    </thead>
+                    {% for recette in listeRecettes %}
+                      {% if recette.recette_active == false %}                      
+                        <tr>
+                          <td style="text-align:center;vertical-align:middle;"><a href={{url('detail_recettes',{'id':recette.id})}}>{{recette.date_paiement_recette|date("d/m/Y")}}</a></td>
+                          <td style="text-align:left;vertical-align:middle;">{{recette.type_de_recette}}</td>
+                          <td style="text-align:left;vertical-align:middle;">{{recette.description_recette}}</td>
+                          <td style="text-align:center;vertical-align:middle;">{{recette.montant_recette}} Euro(s)</td>
+                          <td style="text-align:center;vertical-align:middle;">
+                              {% if recette.etat_rapprochement_recette %}
+                              <button type="button" class="btn-lg btn-success ">
+                                  <span class="badge badge-success">{{recette.num_releve_compte_recette}}</span>
+                              </button>
+                            {% else %}
+                              <button type="button" class="btn-lg btn-danger">
+                                  <span class="badge badge-danger"></span>
+                              </button>
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  </tbody>      
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+
+
+
+
+
+  </div>
+              
+            
+              
+{% endblock %}
+
