@@ -34,6 +34,10 @@ detail_professionnels:
     path : /professionnels/{id}
     controller : App\Controller\ProfessionnelsController::detailProfessionnels
 
+ajouter_professionnels:
+    path : /ajouterProfessionnel
+    controller : App\Controller\ProfessionnelControler::ajouterProfessionnels
+
 depenses:
     path : /depenses
     controller : App\Controller\DepenseController::afficherDepenses
@@ -54,8 +58,12 @@ ajouter_banque:
     path: /ajouterBanque
     controller : App\Controller\BanqueController::ajouterBanque
 
-rapprocher_depense:
-    path : /rapprocherDepense
+liste_depenses_a_rapprocher:
+    path : /depenseARapprocher
+    controller : App\Controller\DepenseController::listeDepensesNonRapprochées
+
+rapprocher_depenses:
+    path : /depenseARapprocher/{id}
     controller : App\Controller\DepenseController::rapprocherDepense
 
 recettes:
@@ -69,3 +77,11 @@ detail_recettes:
 ajouter_recette:
     path : /ajouterrecette
     controller : App\Controller\RecetteController::ajouterRecette
+
+liste_recettes_a_rapprocher:
+    path : /recetteARapprocher
+    controller : App\Controller\RecetteController::listeRecettesNonRapprochees
+
+rapprocher_recettes:
+    path : /recettesARapprocher/{id}
+    controller : App\Controller\RecetteController::rapprocherRecettes

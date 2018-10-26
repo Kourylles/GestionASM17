@@ -126,17 +126,6 @@ class AdherentRepository extends ServiceEntityRepository
     public function getTableauAnnivSmith(): array
     {
         $conn = $this->getEntityManager()->getConnection();
-        /*$sql = '
-           SELECT * 
-            FROM adherent 
-            INNER JOIN `smith`
-            ON `adherent`.`smith_lie_id` = `smith`.`id`
-            INNER JOIN `coordonnees`
-            ON `adherent`.`coordonnees_id` = `coordonnees`.`id`
-            WHERE dayofyear(date_naissance_smith) - dayofyear(NOW()) < 30
-            OR dayofyear(date_naissance_smith) + 365 - dayofyear(NOW()) < 30
-            ORDER BY adherent.actif DESC, smith.date_naissance_smith  DESC
-            ';*/
         $sql = '
             SELECT * 
             FROM adherent 
@@ -220,7 +209,7 @@ class AdherentRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-        //Récupération de la liste des donateurs et de leurs adresses
+        //Récupération de la liste des professionnels et de leurs adresses
      /**
      * @param 
      * @return ListeProfessionnelsEtAdresse(array)

@@ -1,0 +1,118 @@
+{# GestionASM17/templates/GestionASM17/rapprocherRecettes.html.twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Rapprocher une Recette{% endblock %}
+{% block body %}
+{% form_theme formRapprocherRecette   'bootstrap_4_layout.html.twig' %}
+<div>
+{{ form_start(formRapprocherRecette) }}
+  <div class="container-fluid">
+    <!-- <br> -->
+    <div class="form-row">  
+        <div class="btn-group">
+           <a class="btn btn-dark" href="{{path('recettes')}}" role="button">Liste des Recettes</a>
+        </div>
+    </div>
+    <div class="row">
+      <table class="table table-borderless col-md-6">
+        <tbody>
+          <tr>
+            <td style="padding-top:16px;text-align:center;">
+              <h3>Rapprocher une Recette</h3>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+  </div>
+</div>
+  <div class="container-fluid">   
+      <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {% if recette.etatRapprochementRecette %}
+                    <button type="button" class="btn-lg btn-success btn-block">
+                        Rapprochée
+                        <span class="badge badge-light">Relevé {{recette.numReleveBancaireRecette}}</span>
+                    </button>
+                  {% else %}
+                    <button type="button" class="btn-lg btn-warning btn-block">
+                        Non Rapprochée
+                    </button>
+                  {% endif %}
+            </div>    
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-1">
+              <label for="ExerciceComptable"><h5>Exercice :</h5></label>
+              <input type="text" class="form-control" id="ExerciceComptable" placeholder="{{recette.exerciceComptableRecette}}" disabled>
+            </div>
+            <div class="form-group col-md-1 ">
+              <label for="DateDepense"><h5>Date :</h5></label>
+              <input type="text" class="form-control" id="DateDepense" placeholder="{{recette.datePaiementRecette|date("d.m.y")}}" disabled>
+            </div>
+            <div class="form-group col-md-1 ">
+              <label for="MontantDepense"><h5>Montant :</h5></label>
+              <input type="text" class="form-control" id="MontantDepense" placeholder="{{recette.montantRecette}} Euro(s)" disabled>
+            </div>
+            <div class="form-group col-md-3 ">
+                <label for="Facture"><h5>Facture :</h5></label>
+                <input type="text" class="form-control" id="Facture" placeholder="{#{{recette.numFacture}}#}" disabled>
+            </div>
+        </div>
+
+        <div class="form-row">   
+            <div class="form-group col-md-6 ">
+                <label for="Debiteur"><h5>Débiteur :</h5></label>
+                <input type="text" class="form-control" id="Debiteur" placeholder="{#{{recette.debiteur}}#}" disabled>
+            </div>
+        </div>           
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="DescriptionDepense"><h5>Description :</h5></label>
+                <input type="text" class="form-control" id="DescriptionDepense" placeholder="{{recette.descriptionRecette}}" disabled >
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-2">
+              <label for="ModePaiementDepense"><h5>Payée par :</h5></label>
+              <input type="text" class="form-control" id="ModePaiementDepense" placeholder="{{recette.modePaiement.modeDePaiement}}" disabled >
+            </div>
+            <div class="form-group col-md-2 ">
+              <label for="PosteAnalytiqueDepense"><h5>Poste Analytique :</h5></label>
+              <input type="text" class="form-control" id="PosteAnalytiqueDepense" placeholder="{#{{derecette.posteAnalytique.posteAnalytique}}#}" disabled>
+            </div>
+            <div class="form-group col-md-2 ">
+              <label for="DepenseTireeSur"><h5>Tirée sur :</h5></label>
+              <input type="text" class="form-control" id="DepenseTireeSur" placeholder="{#{{recette.CompteDebite.CompteDebite}}#}" disabled>
+            </div>
+        </div>
+
+        <div class="form-row">  
+           <div class="form-group col-md-3">
+            <label for="NumTitrePaiement"><h5>Numéro Titre de Paiement :</h5></label>
+            <input type="text" class="form-control" id="NumTitrePaiement" placeholder="{#{{recette.numTitrePaiementRecette}}#}" disabled>
+          </div>  
+        </div>
+        <div class="form-row">           
+          <div class="form-group col-md-3">
+            {#<label for="NumReleveBancaireDepense"><h5>Numéro de Relevé de Compte :</h5></label>#}
+            <h5> {{ form_row(formRapprocherRecette.numReleveCompteRecette, {'label':"Numéro de Relevé de Compte :"}) }}</h5>
+          </div>
+        </div>
+        <div>
+
+        <div class="form-row">  
+            <div class="btn-group">
+              <button type="submit" class="btn-success" >ENREGISTRER</button>
+            </div>
+        </div>
+        {{form_end(formRapprocherRecette)}}
+      </form>
+    </div>              
+{% endblock %}
+

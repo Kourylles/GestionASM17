@@ -8,7 +8,7 @@
     <!-- <br> -->
     <div class="form-row">  
         <div class="btn-group">
-           <a class="btn btn-dark" href="{{path('depenses')}}" role="button">Liste des Recettes</a>
+           <a class="btn btn-dark" href="{{path('recettes')}}" role="button">Liste des Recettes</a>
         </div>
     </div>
     <div class="row">
@@ -29,10 +29,10 @@
       <form>
         <div class="form-row">
             <div class="form-group col-md-6">
-                {% if recette.etat_rapprochement_recette %}
+                {% if recette.etatRapprochementRecette %}
                     <button type="button" class="btn-lg btn-success btn-block">
                         Rapprochée
-                        <span class="badge badge-light">Relevé {{recette.num_releve_compte_recette}}</span>
+                        <span class="badge badge-light">Relevé {{recette.numReleveCompteRecette}}</span>
                     </button>
                   {% else %}
                     <button type="button" class="btn-lg btn-warning btn-block">
@@ -44,59 +44,63 @@
         <div class="form-row">
             <div class="form-group col-md-1">
               <label for="ExerciceComptable"><h5>Exercice :</h5></label>
-              <input type="text" class="form-control" id="ExerciceComptable" placeholder="{{recette.anneeDepense}}" disabled>
+              <input type="text" class="form-control" id="ExerciceComptable" placeholder="{{recette.exerciceComptableRecette}}" disabled>
             </div>
             <div class="form-group col-md-1 ">
               <label for="DateRecette"><h5>Date :</h5></label>
-              <input type="text" class="form-control" id="DateRecette" placeholder="{{recette.date_paiement_recette|date("d.m.y")}}" disabled>
+              <input type="text" class="form-control" id="DateRecette" placeholder="{{recette.datePaiementRecette|date("d.m.y")}}" disabled>
             </div>
             <div class="form-group col-md-1 ">
               <label for="MontantRecette"><h5>Montant :</h5></label>
-              <input type="text" class="form-control" id="MontantRecette" placeholder="{{recette.montant_recette}} Euro(s)" disabled>
+              <input type="text" class="form-control" id="MontantRecette" placeholder="{{recette.montantRecette}} Euro(s)" disabled>
             </div>
             <div class="form-group col-md-3 ">
                 <label for="Facture"><h5>Facture :</h5></label>
-                <input type="text" class="form-control" id="Facture" placeholder="{{recette_num_titre_paiement_recette}}" disabled>
+                <input type="text" class="form-control" id="Facture" placeholder="{{recette.numTitrePaiementRecette}}" disabled>
             </div>
         </div>
 
         <div class="form-row">   
             <div class="form-group col-md-6 ">
                 <label for="Debiteur"><h5>Type de Recette :</h5></label>
-                <input type="text" class="form-control" id="Debiteur" placeholder="{{recette.type_recette}}" disabled>
+                <input type="text" class="form-control" id="Debiteur" placeholder="{#{{recette.typeRecette.typeDeRecette}}#}" disabled>
             </div>
         </div>           
         
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="DescriptionRecette"><h5>Description :</h5></label>
-                <input type="text" class="form-control" id="DescriptionRecette" placeholder="{{recette.description_recette}}" disabled >
+                <input type="text" class="form-control" id="DescriptionRecette" placeholder="{{recette.descriptionRecette}}" disabled >
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-2">
               <label for="ModePaiementRecette"><h5>Payée par :</h5></label>
-              <input type="text" class="form-control" id="ModePaiementRecette" placeholder="{{recette.mode_paiement.modeDePaiement}}" disabled >
+              <input type="text" class="form-control" id="ModePaiementRecette" placeholder="{{recette.modePaiement.modeDePaiement}}" disabled >
             </div>
             <div class="form-group col-md-2 ">
               <label for="PosteAnalytiqueRecette"><h5>Poste Analytique :</h5></label>
-              <input type="text" class="form-control" id="PosteAnalytiqueRecette" placeholder="{{recette.posteAnalytique.posteAnalytique}}" disabled>
+              <input type="text" class="form-control" id="PosteAnalytiqueRecette" placeholder="{#{{recette.posteAnalytique.posteAnalytique}}#}" disabled>
             </div>
             <div class="form-group col-md-2 ">
               <label for="RecetteTireeSur"><h5>Tirée sur :</h5></label>
-              <input type="text" class="form-control" id="RecetteTireeSur" placeholder="{{recette.CompteDebite.CompteDebite}}" disabled>
+              <input type="text" class="form-control" id="RecetteTireeSur" placeholder="{#{{recette.CompteDebite.CompteDebite}}#}" disabled>
             </div>
         </div>
 
         <div class="form-row">  
-           <div class="form-group col-md-3">
-            <label for="NumTitrePaiement"><h5>Numéro Titre de Paiement :</h5></label>
-            <input type="text" class="form-control" id="NumTitrePaiement" placeholder="{{recette.num_titre_paiement_recette}}" disabled>
+           <div class="form-group col-md-2">
+            <label for="NumTitrePaiement"><h5>Banque :</h5></label>
+            <input type="text" class="form-control" id="Banque" placeholder="{{recette.banque.nomBanque}}" disabled>
           </div>            
-          <div class="form-group col-md-3">
+           <div class="form-group col-md-2">
+            <label for="NumTitrePaiement"><h5>Numéro Titre de Paiement :</h5></label>
+            <input type="text" class="form-control" id="NumTitrePaiement" placeholder="{{recette.numTitrePaiementRecette}}" disabled>
+          </div>            
+          <div class="form-group col-md-2">
             <label for="NumReleveBancaireRecette"><h5>Numéro de Relevé de Compte :</h5></label>
-            <input type="text" class="form-control" id="NumReleveBancaireRecette" placeholder="{{recette.num_releve_compte_recette}}" disabled>
+            <input type="text" class="form-control" id="NumReleveBancaireRecette" placeholder="{{recette.numReleveCompteRecette}}" disabled>
           </div>
         </div>
         <div>

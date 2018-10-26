@@ -1,6 +1,6 @@
 <?php
 
-// src/Form/RapprocherDepenseType.php
+// src/Form/RapprocherRecetteType.php
 
 namespace App\Form;
 
@@ -13,22 +13,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 //Entité(s) utilisée(s)
-use App\Entity\Depense;
+use App\Entity\Recette;
 
 
-class RapprocherDepenseType extends AbstractType
+class RapprocherRecetteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numReleveBancaireDepense', TextType::class)
+            ->add('numReleveCompteRecette', TextType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Depense::class,
+            'data_class' => Recette::class,
         ]);
     }
 }

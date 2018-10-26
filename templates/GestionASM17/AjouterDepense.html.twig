@@ -46,7 +46,7 @@
       </div>
       <div class="form-row">
           <div class="form-group col-md-6">
-            <h5> {{ form_row(formAjouterDepense.description, {'label':"Description :"}) }}</h5>
+            <h5> {{ form_row(formAjouterDepense.description, {'label':"Description :", 'required':false}) }}</h5>
           </div>
       </div> 
       <div class="form-row">
@@ -65,7 +65,7 @@
             <h5> {{ form_row(formAjouterDepense.numTitrePaiementDepense, {'label':"Numéro Titre de Paiement :"}) }}</h5>
           </div>
           <div class="form-group col-md-3">
-            <h5> {{ form_row(formAjouterDepense.numReleveBancaireDepense, {'label':"Numéro de Relevé de Compte :"}) }}</h5>
+            <h5> {{ form_row(formAjouterDepense.numReleveBancaireDepense, {'label':"Numéro de Relevé de Compte :", 'required':false}) }}</h5>
           </div>
       </div>
       <div class="form-row">

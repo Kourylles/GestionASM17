@@ -59,48 +59,25 @@ class DepenseRepository extends ServiceEntityRepository
                 SELECT * 
                 FROM `depense` 
                 ORDER BY depense.date_depense DESC 
-                LIMIT 20          
             ';
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             return  $stmt->fetchAll();
         }
     
-    public function getDepensesNonRapprochees($id)
-    {
+    //Récupérer les Dépenses de l'exercice comptable en cours non rapprochées
+    public function getDepensesNonRapprochees()
+    {      
         $conn = $this->getEntityManager()->getConnection();
-        $sql ='
-        
-        ';
-    }
-    
-    
-//    /**
-//     * @return Depense[] Returns an array of Depense objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Depense
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+            $sql='
+                SELECT * 
+                FROM `depense`
+                WHERE `rapprochee`= FALSE
+                AND (`depense_active`= TRUE OR `depense_active` = FALSE)
+                ORDER BY depense.date_depense ASC           
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
 }

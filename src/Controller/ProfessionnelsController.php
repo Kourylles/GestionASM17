@@ -19,7 +19,7 @@ use App\Repository\CoordonneesRepository;
 class ProfessionnelsController extends Controller
 {
        
-public function afficherProfessionnels(ProfessionnelRepository $repoAdherent)
+public function afficherProfessionnels(AdherentRepository $repoAdherent)
     {
 
 //Récupère sous forme de tableau les Professionnels et leurs adresses

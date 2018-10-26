@@ -55,12 +55,12 @@ class RecetteRepository extends ServiceEntityRepository
             $conn = $this->getEntityManager()->getConnection();
             $sql = '
                 SELECT * 
-                FROM `recette`, `type_recette`
-                WHERE recette.type_recette_id = type_recette.id
-                AND recette_active = true
-                AND recette.type_recette_id BETWEEN 2 AND 5
-                ORDER BY recette.date_paiement_recette DESC, recette.type_recette_id ASC
+                FROM `recette`
+                
+                ORDER BY recette.date_paiement_recette DESC
+                
             ';
+//ORDER BY recette.date_paiement_recette DESC, recette.type_recette_id ASC   , `type_recette` WHERE type_recette.id = recette.type_recette_id
             $stmt=$conn->prepare($sql);
             $stmt->execute();
             return  $stmt->fetchAll();
@@ -117,5 +117,20 @@ class RecetteRepository extends ServiceEntityRepository
             $stmt->execute();
             return  $stmt->fetchAll();
     }
+
+    //Récupérer les Recettes de l'exercice comptable en cours non rapprochées
+    public function getRecettesNonRapprochees()
+    {      
+        $conn = $this->getEntityManager()->getConnection();
+            $sql='
+                SELECT * 
+                FROM `recette`
+                WHERE `etat_rapprochement_recette`= FALSE
+                ORDER BY `recette`.`date_paiement_recette` ASC
+            ';
+            $stmt=$conn->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll();
+        }
 
 }

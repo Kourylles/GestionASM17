@@ -23,9 +23,15 @@ use App\Repository\RecetteRepository;
 use App\Repository\ModePaiementRepository;
 use App\Repository\TresorerieRepository;
 use App\Repository\ExoComptPrecedentRepository;
+use App\Repository\BanqueRepository;
+use App\Repository\TypeRecetteRepository;
+use App\Repository\AdherentRepository;
 
 //Use Form
 use App\Form\RecetteType;
+use App\Form\RapprocherRecetteType;
+
+
 
 
 
@@ -33,17 +39,25 @@ use App\Form\RecetteType;
 
 class RecetteController extends Controller
 {
-    public function afficherRecettes(RecetteRepository $repoRecette) 
+    public function afficherRecettes(
+        RecetteRepository $repoRecette,
+        TypeRecetteRepository $repoTypeRecette,
+        AdherentRepository $repoAdherent
+        ) 
         {
             //Récupère sous forme de tableau toutes les dépenses
             $listeRecettes = $repoRecette->getToutesLesRecettes();
+            //Récupère le libellé des type de recettes 
+            $typeRecette = $repoTypeRecette->findAll();
+            
 
             //Le controleur retourne une vue en lui passant la liste des dépenses en paramètre
             return $this->render(
-                'GestionASM17/Recettes.html.twig', 
+                'GestionASM17/recettes.html.twig', 
                     [
                     'listeRecettes'=>$listeRecettes,
-                    'exComptableEnCours'=>$_SESSION['exComptableEnCours']
+                    'exComptableEnCours'=>$_SESSION['exComptableEnCours'],
+                    'typeRecette'=>$typeRecette
                     ]
             );
         }
@@ -52,22 +66,27 @@ class RecetteController extends Controller
         $id, 
         RecetteRepository $repoRecette,
         ModePaiementRepository $repoModePaiement,
-        TresorerieRepository $repoTresorerie
+        TresorerieRepository $repoTresorerie,
+        BanqueRepository $repoBanque
         ) {
-           //Récupère les données de la dépenses dans une instance de Recette
+           //Récupère les données de la recette dans une instance de Recette
+           dump($id);
             $recette = $repoRecette->find($id);  
-            //Récupère le libellé du mode de paiement de la dépense
-            $modePaiement =$repoModePaiement->find($recette->getModePaiementRecette());
-            //Récupère le libellé du compte sur lequel la dépense a été tirée 
-            $tresorerie =$repoTresorerie->find($recette->getCompteDebite());
+            dump ($recette);
+            //Récupère le libellé du mode de paiement de la recette
+            $modePaiement = $repoModePaiement->find($recette->getModePaiement());
+            //Récupère le libellé du compte sur lequel la recette a été tirée 
+           // $tresorerie = $repoTresorerie->find($recette->getCompteDebite());
+            //Récupère le libellé de la recette 
+            $banque = $repoBanque->find($recette->getBanque());
             //Le controleur retourne une vue en lui passant des paramètres 
             return $this->render(
                 'GestionASM17/detailRecette.html.twig', 
                     [
                     'exComptableEnCours'=>$_SESSION['exComptableEnCours'],
-                    'Recette'=>$recette ,
+                    'recette'=>$recette ,
                     'modePaiement'=>$modePaiement ,
-                    'tresorerie'=>$tresorerie ,
+                    //'tresorerie'=>$tresorerie ,
                     ]
             );
         }
@@ -110,29 +129,74 @@ class RecetteController extends Controller
         );
         }
 
-        public function rapprocherRecette(
+        public function listeRecettesNonRapprochees(
             Request $request,
             ObjectManager $entityManager,
             RecetteRepository $repoRecette
             ) {
-                //Instanciation des objest utilisé
-                $recette = new Recette();
-    
-                //Récupération du formulaire
-                $formRapprocherRecette = $this->createForm(RapprocherRecetteType::class, $recette);
-    
-                //Analyse de la requete de soumission du formulaire
-                $formRapprocherRecette->handleRequest($request);
-    
-                //Persitance du formulaire
-                if ($formRapprocherRecette->isSubmitted() && $formRapprocherRecette->isValid()) 
-                {
-                    //Enregistrement des objets dans la base de données
-                    $entityManager->persist($recette);
-                    $entityManager->flush();
-    
-                //Redirige vers la page de la dépense ajoutée
-                return $this->redirectToRoute('rapprocher_Recette');
-                }
+                //Récupérer la liste des dépenses non rapprochées
+                $listeRecettesNonRapprochees = $repoRecette->getRecettesNonRapprochees(); 
+
+                return $this->render(
+                    'GestionASM17/listeRecettesNonRapprochees.html.twig', 
+                        [
+                        'listeRecettesNonRapprochees'=>$listeRecettesNonRapprochees,
+                        'exComptableEnCours' =>$_SESSION['exComptableEnCours']
+                        ]
+                );
               }
+
+              public function rapprocherRecettes(
+                $id, 
+                Request $request,
+                ObjectManager $entityManager,
+                RecetteRepository $repoRecette,
+                ModePaiementRepository $repoModePaiement,
+                TresorerieRepository $repoTresorerie
+                ) {
+                   //Récupère les données de la dépenses dans une instance de Depense
+                    $recette = $repoRecette->find($id);  
+                    dump($recette);
+
+                    //Récupère le libellé du mode de paiement de la dépense
+                    $modePaiement =$repoModePaiement->find($recette->getModePaiement());
+
+                    //Récupère le libellé du compte sur lequel la dépense a été tirée 
+                   // $tresorerie =$repoTresorerie->find($recette->getCompteDebite());
+    
+                    //Récupération du formulaire
+                    $formRapprocherRecette = $this->createForm(RapprocherRecetteType::class, $recette);
+    
+                    //Analyse de la requete de soumission du formulaire
+                    $formRapprocherRecette->handleRequest($request);
+    
+                    //Persitance du formulaire
+                     if ($formRapprocherRecette->isSubmitted() && $formRapprocherRecette->isValid()) 
+                      {
+                        //Passage à l'état rapprochée de la dépense
+                        $recette->setEtatRapprochementRecette(true);
+                        //Enregistrement des objets dans la base de données
+                        $entityManager->persist($recette);
+                        $entityManager->flush();
+    
+                        //Redirige vers la page de la dépense rapprochée
+                        return $this->redirectToRoute('detail_recettes', 
+                            [
+                            'id'=>$recette->getId()
+                            ]
+                            );
+                      }   
+
+                    //Le controleur retourne une vue en lui passant des paramètres 
+                    return $this->render(
+                        'GestionASM17/rapprocherRecettes.html.twig', 
+                            [
+                            'exComptableEnCours'=>$_SESSION['exComptableEnCours'],
+                            'recette'=>$recette ,
+                            'modePaiement'=>$modePaiement ,
+                            //'tresorerie'=>$tresorerie ,
+                            'formRapprocherRecette'=>$formRapprocherRecette->createView()
+                            ]
+                    );
+                }
 }

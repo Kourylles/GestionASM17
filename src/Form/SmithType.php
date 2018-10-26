@@ -20,9 +20,12 @@ class SmithType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prenomSmith', TextType::class)
+            ->add('prenomSmith', TextType::class, array(
+                'required' => false
+            ))
             ->add('dateNaissanceSmith', DateType::class, array(
                 'widget'=>'single_text',
+                'required' =>false
             ))
             ->add('observationsSmith', TextareaType::class)
         ;

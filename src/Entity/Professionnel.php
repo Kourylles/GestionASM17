@@ -58,6 +58,11 @@ class Professionnel
      */
     private $dateModif;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Titre;
+
     public function getId()
     {
         return $this->id;
@@ -155,6 +160,18 @@ class Professionnel
     public function setDateModif(\DateTimeInterface $dateModif): self
     {
         $this->dateModif = $dateModif;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->Titre;
+    }
+
+    public function setTitre(?string $Titre): self
+    {
+        $this->Titre = $Titre;
 
         return $this;
     }
