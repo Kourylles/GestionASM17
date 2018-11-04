@@ -24,6 +24,7 @@ use App\Entity\ModePaiement;
 use App\Entity\Adherent;
 use App\Entity\Banque;
 
+
 class RecetteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -39,6 +40,7 @@ class RecetteType extends AbstractType
             ->add('montantRecette', NumberType::class)
             ->add('numTitrePaiementRecette', TextType::class)
             ->add('numRemiseDeChequeRecette', TextType::class)
+
             //Imbrication du Mode de paiement
             ->add('modePaiement', EntityType::class, 
                 [
@@ -46,6 +48,7 @@ class RecetteType extends AbstractType
                 'choice_label'=>'modeDePaiement',
                 ]
             )
+
             //Imbrication du nom de la Banque
             ->add('banque', EntityType::class, 
                 [

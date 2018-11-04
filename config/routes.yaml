@@ -14,9 +14,9 @@ detail_membres:
     # requirements:
     #     id: 'd\+'
 
-ajouter_adherent:
-    path: /ajouterAdherent
-    controller: App\Controller\AdherentController::ajouterAdherent
+ajouter_nouveauMembre:
+    path: /ajouterNouveauMembre
+    controller: App\Controller\MembresController::ajouterNouveauMembre
     
 donateurs:
     path: /donateurs

@@ -39,22 +39,19 @@ use App\Form\SmithType;
 
 class AdherentController extends Controller
 {
-    public function ajouterAdherent(
+    public function ajouterNouveauMembre(
         Request $request,
         ObjectManager $entityManager,
         ExerciceComptableEnCoursRepository $repoExComptableEnCours,
         MontantCotisationRepository $repoMontantCoti,
         TypeRecetteRepository $repoTypeRecette
     ) {
-        //Récupération dc l'exercice comptable en cours
-        $exComptableEnCours = $repoExComptableEnCours->findExComptableEnCours();
 
         //Récupération des types de recette
         $typeRecette = $repoTypeRecette->findAll();
 
         //Récupération du montant de la cotisation
         $montantCotisation = $repoMontantCoti->find(1);
-        
 
         //Instanciation des objets utilisés
         $recette = new Recette();
@@ -69,27 +66,38 @@ class AdherentController extends Controller
         //Si le formulaire est soumis
         if ($formAjouterRecette ->isSubmitted() ){
             //l'exercice comptable de la recette est initialisé à l'exercice comptable en cours
-            $recette->setexerciceComptableRecette($_SESSION['exComptableEnCours']);//$exComptableEnCours->getExerciceEnCours());
-                //Séparation des données => Création d'une cotisation et d'un don si montant>25€
+            $recette->setexerciceComptableRecette($_SESSION['exComptableEnCours']);
+            //Type de recette initialisé à 1-Adhésion
+                //Séparation des données => Création d'une recette cotisation et d'une recette don si montant>25€
                 if ($recette->getMontantRecette()>$montantCotisation->getMontantCotisation()){
                         $recette->setTypeRecette($typeRecette[1]);
                         $recette->setMontantRecette($recette->getMontantRecette()-$montantCotisation->getMontantCotisation());
                         $recetteCoti = clone $recette;
                         $recette->setTypeRecette($typeRecette[0]);
                         $recetteCoti->setMontantRecette($montantCotisation->getMontantCotisation());
-                        
-                
 
+        //Initialisation des proriété de l'adhérent
+        $adherent->setTypeAdherent(1); //type d'adhérent = Membre 
+        $adherent->setActif(1);
+        $adherent->setDateCreation(date());
         //Enregistrement des objets dans la base de données
-           $entityManager->persist($recette);
-           $entityManager->persist($recetteCoti);
-           $entityManager->flush();
+        $entityManager->persist($recette);
+        $entityManager->persist($recetteCoti);
+        $entityManager->flush();
            
         
         //Redirige vers la page de l'adhérent ajouté
-        return $this->render('GestionASM17/detailMembre.html.twig', array('id' =>$recette->getAdherent())) ;}
+        return $this->redirectToRoute('detail_membres', 
+                            [
+                            'id'=>$recette->getAdherent()
+                            ]
+                            );
+                }
+        //return $this->render('GestionASM17/detailMembre.html.twig', array('id' =>$recette->getAdherent())) ;}
         else {
-                    //Enregistrement des objets dans la base de données
+           //il n'y a pas de don => c'est une adhésion
+           $recette->setTypeRecette($typeRecette[0]);
+           //Enregistrement des objets dans la base de données
            $entityManager->persist($recette);
            $entityManager->flush();
            
@@ -102,7 +110,7 @@ class AdherentController extends Controller
 
         //Retourne une vue avec les paramètres : form et exo comptable en cours
         return $this->render(
-            'GestionASM17/AjouterAdherent.html.twig', 
+            'GestionASM17/AjouterNouveauMembre.html.twig', 
             [
             'formAjouterRecette'=> $formAjouterRecette->createView(),          
             'exComptableEnCours' =>$_SESSION['exComptableEnCours']//$exComptableEnCours

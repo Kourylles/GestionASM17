@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 //Composant Doctrine
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
+use Doctrine\ORM\EntityRepository;
 
 //Use Entity
 use App\Entity\Adherent;
@@ -25,6 +25,7 @@ use App\Entity\TypeAdherent;
 use App\Entity\LienParente;
 use App\Entity\FonctionCa;
 use App\Entity\Coordonnees;
+use App\Repository\TypeAdherentRepository;
 
 class AdherentType extends AbstractType
 {
@@ -42,16 +43,18 @@ class AdherentType extends AbstractType
                     ],
                 ]
                 )
-        //Imbrication du formulaire pour saisir les coordonnées
-        ->add('coordonnees', CoordonneesType::class)
+        //Imbrication du formulaire pour saisir les coordonnées 
+            ->add('coordonnees', CoordonneesType::class)
         //Imbrication du formulaire pour saisir le Smith lié
             ->add('smithLie', SmithType::class)
-        // Imbrication du type d'adhérent
+
+        //Imbrication du type d'adhérent
             ->add('typeAdherent', EntityType::class, [
                 'class' => TypeAdherent::class,
                 'choice_label' => 'typeAdherent',
                 ]
             )
+            
         //Imbrication du lien de parenté
             ->add('lienParente', EntityType::class, [
                 'class' => LienParente::class,

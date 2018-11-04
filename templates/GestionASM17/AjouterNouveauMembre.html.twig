@@ -1,7 +1,7 @@
-{# GestionASM17/templates/GestionASM17/AjouterAdherent.html/twig #}
+{# GestionASM17/templates/GestionASM17/AjouterNouveauMembre.html/twig #}
 
 {% extends 'base.html.twig' %}
-{% block title %}{{parent()}}-Ajouteradherent{% endblock %}
+{% block title %}{{parent()}}-AjouterNouveauMembre{% endblock %}
 {% block body %}
 {% form_theme formAjouterRecette   'bootstrap_4_layout.html.twig' %}
 <div style="background-color : #f2fdff">
@@ -12,7 +12,7 @@
           <tbody>
             <tr>
               <td style="padding-top:16px;text-align:center">
-                <h3>Ajouter un Adhérent</h3>
+                <h3>Ajouter un Nouveau Membre</h3>
                 {% set dateCreation = 'now'|date("d/m/Y") %}
                 {# <h6><i>{{ form_row(formAjouterRecette.adherent.dateCreation|date("d/m/Y"), {'label':"Date de Création :"}, { 'attr': { 'value':dateCreation } }) }}</i></h6>               #}
               </td>
@@ -29,7 +29,9 @@
     <div id="donneesMembre" class="container-fluid" >   
       <div class="form-row">
           <div class="form-group col-md-1 offset-md-1">
-            <h5> {{ form_row(formAjouterRecette.adherent.typeAdherent, {'label':"Type :"}) }}</h5>
+            <h5 disabled> {{ form_row(formAjouterRecette.adherent.typeAdherent, {'label':"Type :"}) }}</h5>
+            {#<label for="typeAdherentMembre"><h5>Type :</h5></label>
+            <input type="text" class="form-control" id="typeAdherentMembre" placeholder="Membre" disabled>#}
           </div>    
           <div class="form-group col-md-1">
             <h5> {{ form_row(formAjouterRecette.adherent.fonctionAuCa, {'label':"CA :"}) }}</h5>

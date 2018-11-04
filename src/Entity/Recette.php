@@ -90,6 +90,7 @@ class Recette
     public function __construct()
     {
         $this->recetteActive = True;
+        $this->etatRapprochementRecette = False;
     }
 
     public function getId()
