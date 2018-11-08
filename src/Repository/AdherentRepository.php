@@ -99,6 +99,30 @@ class AdherentRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
+        //Récupération du nombre de membres qui a fait un don pedant l'exercice comptable en cours
+    /**
+     * @param 
+     * @return NombreMembreDonateur
+     */
+    public function getMembresDonateurExoEnCours()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='
+            SELECT COUNT(*) AS nombreMembresDonateurs
+            FROM adherent
+            INNER JOIN recette
+            WHERE adherent.id = recette.adherent_id
+            AND adherent.type_adherent_id=1
+            AND `actif`=true
+            AND recette.type_recette_id=2
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+
+
     //Récupération de la liste membres à jour de leur cotisation
      /**
      * @param 
@@ -152,17 +176,17 @@ class AdherentRepository extends ServiceEntityRepository
     public function getMembresEtAdresses(): array
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql = '
-            SELECT * 
-            FROM adherent 
-            INNER JOIN `coordonnees`
-            ON `adherent`.`coordonnees_id`= `coordonnees`.`id`
-            WHERE  `type_adherent_id`=1
-            ORDER BY adherent.actif DESC, adherent.nom ASC
+            $sql = '
+                SELECT adherent.*, coordonnees.ligne_adr1, coordonnees.ligne_adr2, coordonnees.ligne_adr3, coordonnees.code_postal, coordonnees.ville, coordonnees.pays, coordonnees.telephone1, coordonnees.telephone2, coordonnees.email1, coordonnees.email2
+                FROM adherent 
+                INNER JOIN `coordonnees`
+                ON `adherent`.`coordonnees_id`= `coordonnees`.`id`
+                WHERE  `type_adherent_id`=1
+                ORDER BY adherent.actif DESC, adherent.nom ASC
             ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
     }
 
         //Récupération des données relatives aux 20 derniers Adhérents enregistrés

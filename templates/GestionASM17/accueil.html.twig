@@ -132,7 +132,7 @@
       <a class="nav-link" data-toggle="tab" href="#derniersMembres"><h5>Derniers Membres Enregistrés</h5></a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link" data-toggle="tab" href="#dernieresRecettes"><h5>Dernières Recettes {#{{ExComptableEnCours.exerciceEnCours}}#}</h5></a>
+      <a class="nav-link" data-toggle="tab" href="#dernieresRecettes"><h5>Dernières Recettes (Hors Adhésions) {#{{ExComptableEnCours.exerciceEnCours}}#}</h5></a>
     </li>
     <li class="nav-item ">
       <a class="nav-link" data-toggle="tab" href="#dernieresDepenses"><h5>Dernières Dépenses</h5></a>
@@ -175,7 +175,7 @@
                     <td style="text-align:center;vertical-align:middle;">{{smith.date_naissance_smith|date('d/m/Y')}}</td>
                     <td style="text-align:center;vertical-align:middle;">	{{ ('now'|date('Y') - smith.date_naissance_smith|date('Y') - 1) + ('now'|date('2010-m-d')|date('U') - smith.date_naissance_smith|date('2010-m-d')|date('U') >= 0 ? 1 : 0) }} ANS</td>
                     <td style="text-align:center;vertical-align:middle;">{{smith.prenom_smith}} {{smith.nom|upper}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{smith.ligne_adr2}}<br>{{smith.ligne_adr3}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{smith.ligne_adr1}}<br>{{smith.ligne_adr2}}<br>{{smith.ligne_adr3}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{smith.code_postal}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{smith.ville}}</td> 
                     {# <td style="text-align:center;vertical-align:middle;">{{form_widget(AnnivEnvoyeForm)}}</td>  #}
@@ -217,7 +217,7 @@
                   <tr>
                     <td style="vertical-align:middle;">{{membre.nom}}</td>
                     <td style="vertical-align:middle;">{{membre.prenom}}</td>
-                    <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr2}}<br>{{membre.ligne_adr3}}</td>
+                    <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr1}}<br>{{membre.ligne_adr2}}<br>{{membre.ligne_adr3}}</td>
                     <td style="text-align:center;vertical-align:middle;">{{membre.code_postal}}</td>
                     <td style="vertical-align:middle;">{{membre.ville}}</td>
                     <td style="vertical-align:middle;">{{membre.email1}}</td>
