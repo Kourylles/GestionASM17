@@ -1,0 +1,123 @@
+{# GestionASM17/templates/GestionASM17/membres.html/twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}{{parent()}}-Membres{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-3">Les Membres de l'ASM17</h1>
+    <div class="row">
+    {% for membre in listeMembreEtAdresse %}
+        {% set twig_url = path('detail_membres', { 'id':membre.id }) %} 
+            <div class="col-md-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                        <strong>{{ membre.nom | upper}} </strong> {{ membre.prenom }}
+                        <br>
+                        {% if membre.actif %}
+                              <td align="center">
+                                <button type="button" class="btn-lg btn-success">
+                                  {% if membre.is_smith %}
+                                    Smith
+                                  {% endif %}
+                                </button>
+                              </td>
+                              {% else %}
+                              <td align="center">
+                                <button type="button" class="btn-lg btn-danger">
+                                  {% if membre.is_smith %}
+                                    Smith
+                                  {% endif %}
+                                </button>
+                              </td>
+                            {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"> 
+                          {% if membre.ligne_adr3 is not empty %}
+                            {{ membre.ligne_adr3 }} <br>
+                          {% endif %}
+                            {{ membre.code_postal }} {{membre.ville}}
+                        </h5>
+                        
+                        <p class="card-text"> 
+                          {% if membre.email1 is not empty %}
+                           <p> {{ membre.email1 }}</p>
+                          {% else %}
+                           <p> Aucune adresse mail renseignée</p>
+                          {% endif %}
+                        </p>
+
+                        <a href="{{ twig_url }}" class="btn btn-primary">Détails</a>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+
+
+
+
+        {# Affichage du tableau des Membres #}
+           <div class="container-fluid">
+              <h3>Liste des Membres :</h3>
+              <br>
+              <div class="row">
+                  {# <div class="col-sm-12 col-lg-12"> #}
+                  <div class="table-responsive col-lg-12 col-sm-12 ">
+                    <table class="table table-bordered table-hover table-responsive">
+                      <tbody>
+                        <thead class="thead-dark">
+                          <tr >
+                            <th style="text-align:center;">COTISATION</th>
+                            <th style="text-align:center;">NOM</th>
+                            <th style="text-align:center;">PRENOM</th>
+                            <th style="text-align:center;">ADRESSE</th>
+                            <th style="text-align:center;">CP</th>
+                            <th style="text-align:center;">VILLE</th>
+                            <th style="text-align:center;">MAIL</th>  
+                            <th style="text-align:center;">CREE LE</th>
+                            <th style="text-align:center;">MODIFIE LE</th>
+                          </tr>
+                        </thead>
+                        {% for membre in listeMembreEtAdresse %}
+                          <tr>
+                            {% if membre.actif %}
+                              <td align="center">
+                                <button type="button" class="btn-lg btn-success">
+                                  {% if membre.is_smith %}
+                                    Smith
+                                  {% endif %}
+                                </button>
+                              </td>
+                              {% else %}
+                              <td align="center">
+                                <button type="button" class="btn-lg btn-danger">
+                                  {% if membre.is_smith %}
+                                    Smith
+                                  {% endif %}
+                                </button>
+                              </td>
+                            {% endif %}
+                            <td style="vertical-align:middle;"><a href={{url('detail_membres',{'id':membre.id})}}>{{membre.nom|upper}}</a></td>
+                            <td style="vertical-align:middle;">{{membre.prenom}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{membre.ligne_adr1}}<br>{{membre.ligne_adr2}}<br> {{membre.ligne_adr3}}</td>
+                            <td style="text-align:center;vertical-align:middle;">{{membre.code_postal}}</td>
+                            <td style="vertical-align:middle;">{{membre.ville}}</td>
+                            <td style="vertical-align:middle;">{{membre.email1}}</td>
+                            <td style="vertical-align:middle;">{{membre.date_creation|date("d/m/Y")}}</td>
+                            <td style="vertical-align:middle;">{{membre.date_modification|date("d/m/Y")}}</td>
+                            
+                            {# <td style="text-align:center;">{{CotiEnCours}}</td> #}
+                          </tr>
+                        {% endfor %}
+                      </tbody>      
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+            
+              
+{% endblock %}
+

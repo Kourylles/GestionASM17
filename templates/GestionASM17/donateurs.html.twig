@@ -2,54 +2,59 @@
 
 {% extends 'base.html.twig' %}
 {% block title %}{{parent()}}-Donateurs{% endblock %}
+
 {% block body %}
-            <div>
-              <h3>Liste des Donateurs :</h3>
-              <br>
-            </div>
-        {# Affichage du tableau des Donateurs #}
-            
-              <div class="row">
-                  <div class="col-sm-12 col-lg-12 col-xl-12">
-                    <table class="table table-bordered table-hover table-responsive">
-                      <tbody>
-                        <thead class="thead-dark">
-                          <tr >
-                            <th style="text-align:center;vertical-align:middle;">DON</th>
-                            <th style="text-align:center;vertical-align:middle;">NOM</th>
-                            <th style="text-align:center;vertical-align:middle;">PRENOM</th>
-                            <th style="text-align:center;vertical-align:middle;">ADRESSE</th>
-                            <th style="text-align:center;vertical-align:middle;">CP</th>
-                            <th style="text-align:center;vertical-align:middle;">VILLE</th>
-                            <th style="text-align:center;vertical-align:middle;">MAIL</th>
-                            <th style="text-align:center;vertical-align:middle;">CREE LE</th>
-                            <th style="text-align:center;vertical-align:middle;">MODIFIE LE</th>
-                          </tr>
-                        </thead>
-                        {% for donateur in listeDonateurEtAdresse %}     
-                          <tr>
-                            {% if donateur.actif %}
-                              <td align="center" style="vertical-align:middle;">
-                                <button type="button" class="btn-lg btn-success"></button>
+<div class="container">
+    <h1 class="my-3">Les Membres de l'ASM17</h1>
+    <div class="row">
+    {% for donateur in listeDonateurEtAdresse %}
+        {% set twig_url = path('detail_donateurs',{'id':donateur.id}) %} 
+            <div class="col-md-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                        {{ donateur.prenom }} <strong>{{ donateur.nom | upper }}</strong>
+                        <br>
+                        {% if donateur.actif %}
+                              <td align="center">
+                                <button type="button" class="btn-lg btn-success">
+                                  {#{% if donateur.is_smith %}
+                                    Smith
+                                  {% endif %}#}
+                                </button>
                               </td>
                               {% else %}
-                              <td align="center" style="vertical-align:middle;">
-                                <button type="button" class="btn-lg btn-danger"></button>
+                              <td align="center">
+                                <button type="button" class="btn-lg btn-danger">
+                                  {% if donateur.is_smith %}
+                                    Smith
+                                  {% endif %}
+                                </button>
                               </td>
                             {% endif %}
-                            <td style="vertical-align:middle;"><a href="{{url('detail_donateurs',{'id':donateur.id})}}">{{donateur.nom|upper}}</a></td>
-                            <td style="vertical-align:middle;">{{donateur.prenom}}</td>
-                            <td style="text-align:center;vertical-align:middle;">{{donateur.ligne_adr2}}<br>{{donateur.ligne_adr3}}</td>
-                            <td style="vertical-align:middle;">{{donateur.code_postal}}</td>
-                            <td style="vertical-align:middle;">{{donateur.ville}}</td>
-                            <td style="vertical-align:middle;">{{donateur.email1}}</td>
-                            <td style="vertical-align:middle;">{{donateur.date_creation|date("d/m/Y")}}</td>
-                            <td style="vertical-align:middle;">{{donateur.date_modification|date("d/m/Y")}}</td>
-                          </tr>
-                        {% endfor %}
-                      </tbody>      
-                    </table>
-                  </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"> 
+                          {% if donateur.ligne_adr3 is not empty %}
+                            {{ donateur.ligne_adr3 }} <br>
+                          {% endif %}
+                            {{ donateur.code_postal }} {{donateur.ville}}
+                        </h5>
+                        
+                        <p class="card-text"> 
+                          {% if donateur.email1 is not empty %}
+                           <p> {{ donateur.email1 }}</p>
+                          {% else %}
+                           <p> Aucune adresse mail renseignée</p>
+                          {% endif %}
+                        </p>
+
+                        <a href="{{ twig_url }}" class="btn btn-primary">Détails</a>
+                    </div>
                 </div>
+            </div>
+    {% endfor %}
+    </div>
+  </div>
+
 {% endblock %}
 
