@@ -3,11 +3,11 @@
 namespace App\Repository;
 
 //Composants Doctrine
+use App\Entity\Adherent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 //Use Entity
-use App\Entity\Adherent;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Adherent|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,9 +22,9 @@ class AdherentRepository extends ServiceEntityRepository
         parent::__construct($registry, Adherent::class);
     }
 
- //Récupération du nombre total d'adhérent (Membres et Donateurs à jour ou non)
-     /**
-     * @param 
+    //Récupération du nombre total d'adhérent (Membres et Donateurs à jour ou non)
+    /**
+     * @param
      * @return NombreAdherent
      */
     public function CountByMembre()
@@ -32,7 +32,7 @@ class AdherentRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
             SELECT COUNT(*) as total
-            FROM `adherent` 
+            FROM `adherent`
             WHERE `type_adherent_id`=1
             ';
         $stmt = $conn->prepare($sql);
@@ -40,9 +40,9 @@ class AdherentRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-    //Récupération du nombre de membres dont la cotisation est à jour 
-     /**
-     * @param 
+    //Récupération du nombre de membres dont la cotisation est à jour
+    /**
+     * @param
      * @return NombreAdherentAJourDeCotisation
      */
     public function getMembreAjourCoti()
@@ -50,18 +50,18 @@ class AdherentRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
             SELECT COUNT(*) as ajour
-            FROM adherent 
+            FROM adherent
             WHERE `type_adherent_id`=1
             AND `actif`=true
             ';
         $stmt = $conn->prepare($sql);
-        $stmt->execute();    
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 
     //Récupération du nombre de membres non à jour de leur cotisation
-     /**
-     * @param 
+    /**
+     * @param
      * @return NombreMembreNonAJourDeCotisation
      */
     public function getMembreNonAjourCoti()
@@ -69,26 +69,26 @@ class AdherentRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
             SELECT COUNT(*) as nonAjour
-            FROM adherent 
+            FROM adherent
             WHERE `type_adherent_id`=1
             AND `actif`=false
             ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-    
+
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchAll();
     }
 
     //Récupération du nombre de donateurs de l'exercice comptable en cours
     /**
-     * @param 
+     * @param
      * @return NombreDeDonateur
      */
     public function getDonateurExoEnCours()
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql='
+        $sql = '
             SELECT COUNT(*) as ajour
             FROM `adherent`
             WHERE `type_adherent_id`=2
@@ -99,40 +99,35 @@ class AdherentRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-        //Récupération du nombre de membres qui a fait un don pedant l'exercice comptable en cours
+    //Récupération du nombre de membres qui a fait un don pedant l'exercice comptable en cours
     /**
-     * @param 
+     * @param
      * @return NombreMembreDonateur
      */
     public function getMembresDonateurExoEnCours()
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql='
-            SELECT COUNT(*) AS nombreMembresDonateurs
-            FROM adherent
-            INNER JOIN recette
-            WHERE adherent.id = recette.adherent_id
-            AND adherent.type_adherent_id=1
-            AND `actif`=true
-            AND recette.type_recette_id=2
+        $sql = '
+            SELECT COUNT(*) as membreEtDonateur
+            FROM `adherent`
+            WHERE `actif`=true
+            AND `est_aussi_donateur`=true
             ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-
-
     //Récupération de la liste membres à jour de leur cotisation
-     /**
-     * @param 
+    /**
+     * @param
      * @return ListeDesMembreAJourDeCotisation
      */
     public function getListeMembreAjourCoti()
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
-            SELECT * FROM `adherent` 
+            SELECT * FROM `adherent`
             WHERE `type_adherent_id`= 1
             AND `actif`=true
             ';
@@ -141,18 +136,17 @@ class AdherentRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-
     //Récupération de la liste des Smith dont l'anniverssaire est dans le mois en cours
-     /**
-     * @param 
+    /**
+     * @param
      * @return TableauDeSmith(array)
      */
     public function getTableauAnnivSmith(): array
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
-            SELECT * 
-            FROM adherent 
+            SELECT *
+            FROM adherent
             INNER JOIN `smith`
             ON `adherent`.`smith_lie_id` = `smith`.`id`
             INNER JOIN `coordonnees`
@@ -169,36 +163,36 @@ class AdherentRepository extends ServiceEntityRepository
     }
 
     //Récupération de la liste des membres et de leurs adresses
-     /**
-     * @param 
+    /**
+     * @param
      * @return ListeAdherentEtAdresse(array)
      */
     public function getMembresEtAdresses(): array
     {
         $conn = $this->getEntityManager()->getConnection();
-            $sql = '
+        $sql = '
                 SELECT adherent.*, coordonnees.ligne_adr1, coordonnees.ligne_adr2, coordonnees.ligne_adr3, coordonnees.code_postal, coordonnees.ville, coordonnees.pays, coordonnees.telephone1, coordonnees.telephone2, coordonnees.email1, coordonnees.email2
-                FROM adherent 
+                FROM adherent
                 INNER JOIN `coordonnees`
                 ON `adherent`.`coordonnees_id`= `coordonnees`.`id`
                 WHERE  `type_adherent_id`=1
                 ORDER BY adherent.actif DESC, adherent.nom ASC
             ';
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetchAll();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
-        //Récupération des données relatives aux 20 derniers Adhérents enregistrés
-        /**
-         * @param 
-         * @return ListeAdherentEtAdresse(array)
-         */
-        public function getXDerniersMembres()
-        {
-            $conn = $this->getEntityManager()->getConnection();
-            $sql = '
-                SELECT * 
+    //Récupération des données relatives aux 20 derniers Adhérents enregistrés
+    /**
+     * @param
+     * @return ListeAdherentEtAdresse(array)
+     */
+    public function getXDerniersMembres()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+                SELECT *
                 FROM `adherent`,`coordonnees`, `type_adherent`,`recette`, `type_recette`
                 WHERE `adherent`.`coordonnees_id` = `coordonnees`.`id`
                 AND `adherent`.`type_adherent_id`=`type_adherent`.`id`
@@ -209,14 +203,14 @@ class AdherentRepository extends ServiceEntityRepository
                 ORDER BY adherent.date_modification DESC, adherent.type_adherent_id ASC
                 LIMIT 20
                 ';
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            return $stmt->fetchAll();
-        }
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
     //Récupération de la liste des donateurs et de leurs adresses
-     /**
-     * @param 
+    /**
+     * @param
      * @return ListeAdherentEtAdresse(array)
      */
     public function getDonateursEtAdresses(): array
@@ -233,9 +227,9 @@ class AdherentRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-        //Récupération de la liste des professionnels et de leurs adresses
-     /**
-     * @param 
+    //Récupération de la liste des professionnels et de leurs adresses
+    /**
+     * @param
      * @return ListeProfessionnelsEtAdresse(array)
      */
     public function getProEtAdresses(): array
@@ -251,8 +245,5 @@ class AdherentRepository extends ServiceEntityRepository
         $stmt->execute();
         return $stmt->fetchAll();
     }
-
-
-
 
 }

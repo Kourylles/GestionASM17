@@ -87,12 +87,18 @@ class Adherent
      */
     private $recette;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $estAussiDonateur;
+
     public function __construct()
     {
         $this->recette = new ArrayCollection();
         $this->dateCreation=new \Datetime();
         $this->dateModification = new \DateTime();  
         $this->actif = True;
+        $this->estAussiDonateur = False;
     }
 
     public function getId()
@@ -278,5 +284,17 @@ class Adherent
     public function getIdentifiant(): ?int
     {
         return $this->identifiant;
+    }
+
+    public function getEstAussiDonateur(): ?bool
+    {
+        return $this->estAussiDonateur;
+    }
+
+    public function setEstAussiDonateur(bool $estAussiDonateur): self
+    {
+        $this->estAussiDonateur = $estAussiDonateur;
+
+        return $this;
     }
 }
