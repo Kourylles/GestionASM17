@@ -11,11 +11,12 @@ use Faker\Factory;
 class AppFixtures extends Fixture
 {
     public function load(
-        ObjectManager $entityManager,
-        Repository $repoTypeAdherent) {
+        ObjectManager $entityManager
+        //Repository $repoTypeAdherent
+        ) {
 
         //Récupération des types d'adhérents
-        $typeAdh = $repoTypeAdherent->findAll();
+        //$typeAdh = $repoTypeAdherent->findAll();
 
         //Utilisation de la librairie Faker pour créer des données réalistes
         $faker = Factory::create('fr-FR');

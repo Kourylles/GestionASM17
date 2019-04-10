@@ -52,16 +52,16 @@ class Adherent
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeAdherent")
      * @ORM\JoinColumn(nullable=false)
      */
+    private $coordonnees;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", cascade={"persist"})
+     */
     private $typeAdherent;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-     */
-    private $coordonnees;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", cascade={"persist"})
      */
     private $smithLie;
 
