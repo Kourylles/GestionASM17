@@ -55,7 +55,8 @@ class Adherent
     private $coordonnees;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Smith", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Coordonnees", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $typeAdherent;
 
@@ -83,7 +84,7 @@ class Adherent
     private $fonctionAuCa;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="adherent")
+     * @ORM\OneToMany(targetEntity="App\Entity\Recette", mappedBy="idMembre", cascade={"persist","remove"})
      */
     private $recette;
 

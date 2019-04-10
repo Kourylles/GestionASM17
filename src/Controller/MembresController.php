@@ -50,11 +50,10 @@ class MembresController extends Controller
 
         //Récupère sous forme de tableau les Membres et leurs adresses
         $listeMembreEtAdresse = $repoAdherent->getMembresEtAdresses();
-dump($listeMembreEtAdresse);    
 
         //Le controleur retourne une vue en lui passant la liste des membres en paramètre
         return $this->render(
-            'GestionASM17/membres.html.twig', 
+            'GestionASM17/listeDesmembres.html.twig', 
                 [
                 'listeMembreEtAdresse'=>$listeMembreEtAdresse
                 ]
@@ -71,10 +70,8 @@ dump($listeMembreEtAdresse);
     ) {
         //Récupère les données du membre dans une instance de Membre
         $membre = $repoAdherent->find($id);  
-dump($membre);
         // Récupère les coordonnées du membres passé en paramètre
         $coordonnees = $repoCoordonnees->find($membre->getCoordonnees());
-dump($coordonnees);
         //Récupère le libellé du lien de parenté 
         $lienDeParente =$repoLienParente->find($membre->getLienParente());
         //Récupère le libellé de la fonction CA 
